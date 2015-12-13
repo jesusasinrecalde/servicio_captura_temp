@@ -1,5 +1,5 @@
 {
-  "name": "hejmo-movil",
+  "name": "servicio_control_temp",
   "description": "Ejemplo movil hejmo",
   "main": "index.js",
   "scripts": {
