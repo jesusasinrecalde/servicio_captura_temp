@@ -1,0 +1,74 @@
+@import url(http://fonts.googleapis.com/css?family=BenchNine);
+#html, #body {
+height: 100%; / * hacer que la página llene toda la altura * /
+}
+
+#contenidoprincipal  {
+height: 100%;  / * empuja el pie hacia abajo * /
+}			}
+#piedepagina {
+height: 50px;  / * establece la altura del pie de página * /
+margin-top: -50px;  / * estas cifras tienen que ser opostas * /
+font-family: 'BenchNine', sans-serif;
+ background: -webkit-linear-gradient(left, red , blue); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, red, blue); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, red, blue); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, red , blue); /* Standard syntax */
+}
+#temp1 { 
+  display: table-cell;
+  font-size:150px;
+  font-family: 'BenchNine', sans-serif;
+ }
+ 
+#column1
+{
+  display: table-cell;
+}
+
+
+#col1{
+	display: table-row;
+}
+
+#col2{
+	display: table-row;
+}
+
+#col3{
+  
+    font-family: 'BenchNine', sans-serif;
+	font-size:50px;
+	display: table-row;
+}
+
+.contenedor-tabla{
+display: table;
+list-style:none; 
+ border:1px solid black;
+}
+
+.contenedor-fila{
+display: table-row;
+}
+
+    .data-table {
+        border-collapse: collapse;
+    }
+    .border-top {
+        border-top: 5px solid ;
+    }
+    .border-bottom {
+        border-bottom: 5px solid ;
+    }
+    .border-left {
+        border-left: 5px solid ;
+		
+    }
+	.border-left1 {
+        border-left: 1px solid ;
+	}
+	.border-right{
+		    border-right: 5px solid ;
+	}
+

@@ -1,0 +1,75 @@
+@import url(http://fonts.googleapis.com/css?family=BenchNine);
+/** tg estilo tabla general */
+.tg  {border-collapse:collapse;
+	border-spacing:0;
+	border:4px solid white;
+	
+	}
+	
+.tg td{
+	font-family: 'BenchNine', sans-serif;
+	font-size:20px;
+	padding:10px 5px;
+	border-style:solid;
+	border-width:0px;
+	overflow:hidden;
+	word-break:normal;
+
+
+	
+	}
+
+.tg th{
+	font-family:Arial, sans-serif;
+	font-size:14px;font-weight:normal;
+	padding:10px 5px;
+	border-style:solid;
+	border-width:0px;
+	overflow:hidden;
+	word-break:normal;
+
+	
+
+	}
+	
+.tg .tg-0ord{text-align:right}
+.tg .tg-s6z2{
+	text-align:center;
+	border-radius:5px;
+}
+.tg .tg-228w{
+	text-align:left;
+	font-size:20px;
+	color:#ffffff /* blanco */
+}
+
+
+.temp_grande{
+	font-size:100px;
+}
+.SelectModo{
+	width:30px;
+	height:30px;
+}
+
+.Formulario_conf{
+	font-family: 'BenchNine', sans-serif;
+	font-size:30px;
+	color:#547FAE;
+}
+
+#marco_superior
+{
+	background-color:#656565; /* gris */
+}
+
+#marco_inf
+{
+	background-color:#e8edff; /* azul claro */
+	color:#547FAE;
+}
+
+
+@media screen and (max-width: 767px) {.tg {width: auto !important;}.tg col {width: auto !important;}.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}}
+
+
