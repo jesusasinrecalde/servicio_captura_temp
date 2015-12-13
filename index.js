@@ -6,6 +6,7 @@ var http = require("http"),
 
 http.createServer(function(request, response) {
 
+ console.log("uri : "+uri+"\n");
   var uri = url.parse(request.url).pathname
     , filename = path.join(process.cwd(), uri);
 
@@ -20,6 +21,7 @@ http.createServer(function(request, response) {
       response.writeHead(404, {"Content-Type": "text/plain"});
       response.write("404 Not Found\n");
       response.end();
+
       return;
     }
 
