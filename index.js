@@ -6,10 +6,11 @@ var http = require("http"),
 
 http.createServer(function(request, response) {
 
- console.log("uri : "+uri+"\n");
   var uri = url.parse(request.url).pathname
     , filename = path.join(process.cwd(), uri);
 
+
+ console.log("uri : "+uri+"\n");
   var contentTypesByExtension = {
     '.html': "text/html",
     '.css':  "text/css",
