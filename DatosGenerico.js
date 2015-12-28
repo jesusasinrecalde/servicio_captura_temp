@@ -148,5 +148,5 @@ DatosGenerico.prototype.ProcesaDatos=function(Parametros)
 */
 DatosGenerico.prototype.MostrarGraph=function()
 {
-		alert ("hola hola");
+	window.open ('graph.html?type=1&id='+this.Id,'_self',false);
 }
