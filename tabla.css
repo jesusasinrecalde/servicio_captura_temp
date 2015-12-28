@@ -21,7 +21,8 @@
 
 .tg th{
 	font-family:Arial, sans-serif;
-	font-size:14px;font-weight:normal;
+	font-size:14px;
+	font-weight:normal;
 	padding:10px 5px;
 	border-style:solid;
 	border-width:0px;
@@ -30,6 +31,13 @@
 
 	
 
+	}
+	
+.tg .tablaparam{
+		border-style:solid;
+	    border-width:2px;
+		border-color:#ffffff;
+		
 	}
 	
 .tg .tg-0ord{text-align:right}
@@ -70,6 +78,10 @@
 }
 
 
-@media screen and (max-width: 767px) {.tg {width: auto !important;}.tg col {width: auto !important;}.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}}
+@media screen and (max-width: 767px) {
+	.tg {width: auto !important;}
+	.tg col {width: auto !important;}
+	.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}
+	}
 
 

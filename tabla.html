@@ -3,6 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 	
 	<script type="text/javascript"  src="js/jquery-1.11.3.js"></script>
 	<script type="text/javascript"  src="/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
@@ -205,24 +206,59 @@
 	<!-- td id="marco_inf" -->
     <div class="div_marco_inf" >
 		<td  colspan = "6" >
-		<table align="center"  >
-		
-		<tr  class="tg-s6z2" id="zona_iconos" colspan="6"  >
+			<table align="center"  >
+				<tr  class="tg-s6z2" id="zona_iconos" colspan="6"  >
 				
-		</tr>
-		<tr id="marco_principal" class="tg-s6z2" colspan="3" >
-			
-		</tr>
-		<tr>
-			<td id="on_off" colspan ="6" align="center">
-				<a href="#"  id="btn_onoff" onclick="EvntBtnOn_off(this)">
-					<img class ="image_cab" id="icono_OnOffInf"  src=".\graph\on.png" border="0" width="60" height="60" />
-				</a>
-
-			</td>
-		</tr>
-		
-		</table>
+				</tr>
+				<tr id="marco_principal" class="tg-s6z2" colspan="3" >
+					<tr class="tablaparam" colspan="2" >
+						<td class="tablaparam" align="right">Tension fase : </td>
+						<td class="tablaparam" id="dat1">---</td>
+					</tr>
+					<tr class="tablaparam" colspan="2" >		
+						<td class="tablaparam" align="right" >Corriente fase : </td>
+						<td class="tablaparam" id="dat2">---</td>				
+					</tr>
+					<tr class="tablaparam" colspan="2" >		
+						<td class="tablaparam" align="right">Cos. fase : </td>
+						<td class="tablaparam" id="dat3">---</td>				
+					</tr>
+					<tr class="tablaparam" colspan="2" >		
+						<td class="tablaparam" align="right">Potencia activa fase : </td>
+						<td class="tablaparam" id="dat4">---</td>				
+					</tr>
+					<tr class="tablaparam" colspan="2" >		
+						<td class="tablaparam" align="right">Potencia activa total : </td>
+						<td class="tablaparam" id="dat5">---</td>				
+					</tr>
+					<tr class="tablaparam" colspan="2" >		
+						<td class="tablaparam" align="right">Potencia reactiva fase : </td>
+						<td class="tablaparam" id="dat6">---</td>				
+					</tr>
+					<tr class="tablaparam" colspan="2" >		
+						<td class="tablaparam" align="right">Potencia reativa total : </td>
+						<td class="tablaparam" id="dat7">---</td>				
+					</tr>
+					<tr class="tablaparam" colspan="2" >		
+						<td class="tablaparam" align="right">Potencia activa aparente : </td>
+						<td class="tablaparam" id="dat8">----</td>				
+					</tr>
+				</tr>
+				
+				
+				<tr>
+					<td id="on_off" colspan ="6" align="center">
+						<a href="#"  id="btn_onoff" onclick="EvntBtnOn_off(this)">
+							<img class ="image_cab" id="icono_OnOffInf"  src=".\graph\on.png" border="0" width="60" height="60" />
+						</a>
+					</td>
+				</tr>
+				<tr>
+				   <td class="tg-228w" id="obj_onoff" align="left" >
+						<img class ="image_cab" id="icono_graph"  src=".\graph\graph.png"  onclick="EvntBtngraph(this)" border="0" width="40" height="40" />
+					</td>
+				</tr>
+			</table>
 		</td>
 	</div>
 	<!-- /td marco_inf -->

@@ -240,6 +240,13 @@ ObjectoGenerico.prototype.ProcesaDatos=function(Parametros)
 {
 	return;
 }
+
+/** Funcion generica para mostrar el grafico , sin sobrecargar no muestra el formulario
+*/
+ObjetoGenerico.prototype.MostrarGraph=function()
+{
+	return;
+}
 /** Funcion de accion grafica en el caso de cambio de datos  del objeto, para el objeto generico solo caption 
 	
 */

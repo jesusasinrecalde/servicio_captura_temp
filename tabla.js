@@ -589,6 +589,14 @@ function EvnBajarTemp(obj)
 		obj.BajarTemp();
 }
 
+function EvntBtngraph(obj)
+{
+	var id_term=parseInt(obj.getAttribute('IdTerm'));
+	var obj=DarObjeto(id_term);
+	if(obj)
+		obj.MostrarGraph();
+}
+
 function ActivarTemporizadorCambio()
 {
 	
@@ -640,6 +648,8 @@ function func_inteval_modo()
 	
 	
 }
+
+
 
 
 function llamarServicioCarriots()
@@ -714,3 +724,4 @@ function ActualizarParametrosRecibidor(Parametros)
 		
 	}
 }
+
