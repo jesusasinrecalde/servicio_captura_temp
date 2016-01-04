@@ -6,6 +6,7 @@
 	*@param flgBTNONOFF Flag para indicar si se visualiza el boton de encendio-apagaod
 	*@param SUP_ColorFondoActivo 
 	*@param SUP_ColorActivo
+
 	*@param SUP_ColorFondoInactivo
 	*@param SUP_ColorInactivo
 	

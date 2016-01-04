@@ -17,7 +17,7 @@
 	<!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-	<link rel="stylesheet" type="text/css" href="tabla.css">
+	<link rel="stylesheet" type="text/css" href="graph.css">
 	<script type="text/javascript" src="graph.js"></script>
 		
 </head>
@@ -26,7 +26,71 @@
 <a href="tabla.html"  id="btn_onoff" >
 			<img class ="image_cab" id="icono_OnOffInf"  src=".\graph\on.png" border="0" width="60" height="60" />
 </a>
-	<a id="dat6"></a>
+	
+	
+	<div class="row">
+	<div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Panel title</h3>
+            </div>
+            <div class="panel-body">Panel content
+            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default panel_izd ">
+           
+            <div class="panel-body ">
+				 <div class="panel-heading  ">
+					DATOS PUNTUALES
+					<div class="btn-group boton_izd pull-right" role="group"  >
+					<button type="button" id="btn_izdup" class="btn btn-default boton_izd  "  onclick="EvntBtnizdup(this)">
+				
+						 <span class="glyphicon glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+					</button>
+					
+					<button type="button" id="btn_izddown" class="btn btn-default boton_izd" onclick="EvntBtnizddown(this)">
+				
+					 <span class="glyphicon glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+					</button>
+					
+					</div>
+					<div class="clearfix"></div>
+					
+				</div>
+				 <div id="cuerpo_izd" >
+					<li class="list-group-item panel_izd">
+						<div>
+							<a class="titulo_izd text-left">Consumo Medio :</a>
+							<a id="ConsumoMedio" class="dato_izd text-right"> 12 W</a>
+						</div>
+						<div  id="fecha_consumomedio"> 04/01/2016 13:00 </div>
+					</li>
+					<li class="list-group-item panel_izd">
+						<a class="titulo_izd">Consumo Maximo :</a>
+						<a id="ConsumoMaximo" class="dato_izd"> 12 W</a>
+						<div  id="fecha_consumomaximo"> 04/01/2016 13:00 </div>
+					</li>
+					<li class="list-group-item panel_izd">
+						<a class="titulo_izd">Consumo Minimo :</a>
+						<a id="ConsumoMinimo" class="dato_izd"> 12 W</a>
+						<div  id="fecha_consumominimo"> 04/01/2016 13:00 </div>
+					</li>
+				</div>
+			</div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Panel title</h3>
+            </div>
+            <div class="panel-body">Panel content
+            </div>
+        </div>
+        
+    </div>
+</div>
+	
 
 </body>
 
