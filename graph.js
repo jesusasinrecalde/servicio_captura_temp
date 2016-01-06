@@ -1,4 +1,24 @@
+var barChartData = {
+		labels : ["January","February","March","April","May","June","July"],
+		datasets : [
+			{
+				//fillColor : "rgba(220,220,220,0.5)",
+				fillColor : "rgba(115,216,61,0.75)",
+				strokeColor : "rgba(220,220,220,0.8)",
+				highlightFill: "rgba(220,220,220,0.75)",
+				highlightStroke: "rgba(220,220,220,1)",
+				data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+			},
+			{
+				fillColor : "rgba(151,187,205,0.5)",
+				strokeColor : "rgba(151,187,205,0.8)",
+				highlightFill : "rgba(151,187,205,0.75)",
+				highlightStroke : "rgba(151,187,205,1)",
+				data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+			}
+		]
 
+	};
 
 window.onload = function() {
 
@@ -10,6 +30,14 @@ debugger;
 //	var elem1=document.getElementById("dat6");
 //    elem1.innerHTML="tipo" + tipo + " --> id "+ObjId;
 	$("#btn_izddown").hide();
+	$("#btn_dchdown").hide();
+		
+	var ctx = document.getElementById("canvas").getContext("2d");
+		window.myBar = new Chart(ctx).Bar(barChartData, {
+			responsive : true
+		});
+
+	
 }
 
 
@@ -42,3 +70,19 @@ function EvntBtnizddown(obj)
 	$("#btn_izddown").hide();
 	$("#btn_izdup").show();
 }
+
+function EvntBtndchup(obj)
+{
+	$("#cuerpo_dch").hide();
+	$("#btn_dchdown").show();
+	$("#btn_dchup").hide();
+}
+
+function EvntBtndchdown(obj)
+{
+	$("#cuerpo_dch").show();
+	$("#btn_dchdown").hide();
+	$("#btn_dchup").show();
+}
+
+function randomScalingFactor(){ return Math.round(Math.random()*100)}

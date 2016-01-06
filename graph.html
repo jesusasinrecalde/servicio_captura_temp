@@ -7,7 +7,8 @@
 	
 	<script type="text/javascript"  src="js/jquery-1.11.3.js"></script>
 	<script type="text/javascript"  src="/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
-	
+	<script src="js/Chart.js"></script>
+  
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -36,22 +37,20 @@
             <div class="panel-body">Panel content
             </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="panel panel-default panel_izd ">
            
             <div class="panel-body ">
 				 <div class="panel-heading  ">
 					DATOS PUNTUALES
 					<div class="btn-group boton_izd pull-right" role="group"  >
-					<button type="button" id="btn_izdup" class="btn btn-default boton_izd  "  onclick="EvntBtnizdup(this)">
-				
-						 <span class="glyphicon glyphicon glyphicon-menu-up" aria-hidden="true"></span>
-					</button>
+						<button type="button" id="btn_izdup" class="btn btn-default boton_izd  "  onclick="EvntBtnizdup(this)">
+							 <span class="glyphicon glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+						</button>
 					
-					<button type="button" id="btn_izddown" class="btn btn-default boton_izd" onclick="EvntBtnizddown(this)">
-				
-					 <span class="glyphicon glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-					</button>
+						<button type="button" id="btn_izddown" class="btn btn-default boton_izd" onclick="EvntBtnizddown(this)">
+							<span class="glyphicon glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+						</button>
 					
 					</div>
 					<div class="clearfix"></div>
@@ -79,12 +78,27 @@
 			</div>
         </div>
     </div>
-    <div class="col-md-8">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Panel title</h3>
+    <div class="col-md-7">
+        <div class="panel panel-default" >
+            <div class="panel-heading" >
+                <h3 class="panel-title" >
+					<div class="btn-group boton_dch pull-right" role="group"  >
+						<button type="button" id="btn_dchup" class="btn btn-default boton_dch  " onclick="EvntBtndchup(this)" >
+							 <span class="glyphicon glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+						</button>
+					
+						<button type="button" id="btn_dchdown" class="btn btn-default boton_dch" onclick="EvntBtndchdown(this)">
+							<span class="glyphicon glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+						</button>
+					
+					</div>
+					<div class="clearfix"></div>
+				</h3>
             </div>
-            <div class="panel-body">Panel content
+            <div class="panel-body" id="cuerpo_dch">
+				 <div id="cuerpo_dch" class="panel_dch" >
+					<canvas id="canvas" height="450" width="600" align="center"></canvas>
+				</div>
             </div>
         </div>
         

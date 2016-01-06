@@ -10,13 +10,13 @@
 .titulo_izd
 {
 	color:#ffffff;
-	font-size:26px;
+	font-size:20px;
 }
 
 .dato_izd
 {
 	color:#E2ECF1;
-	font-size:26px;
+	font-size:20px;
 	text-align:right;
 }
 
@@ -27,12 +27,45 @@
 }
 
 
+.boton_dch
+{
+	
+}
+.panel_dch
+{
+	width: 100%;
+
+
+}
+
+.cuerpo_dch
+{
+	background:#ECEBEB; /* gris */
+	color:#FFFFFF;
+}
+
+.titulo_dch
+{
+	color:#ECEBEB;
+	font-size:20px;
+}
+
+
 @media screen and (min-width: 767px)
 	{
 	.boton_izd 
 		{
 			visibility: hidden;
 		}
+	.panel_dch
+		{
+			width: 60%;
+		}
+	.boton_dch
+	{
+		visibility: hidden;
+
+	}
 	}
 	
 
