@@ -17,17 +17,18 @@ function DatosGenerico(idTerm)
 	var clone = ObjectoGenerico.prototype.ClonaGenerico.call(this,'#DatosGenerico');
 	
 	// Elementos graficos propios del objeto
+	clone.getElementById("CarbonEmitidos").id   ="CarbonEmitidos"+this.Id;
 	clone.getElementById("marco_principal").id  ="marco_principal"+this.Id;
 	
 	//Elementos que van los datos de consumo
 	clone.getElementById("dat1").id ="dat1"+this.Id;
 	clone.getElementById("dat2").id ="dat2"+this.Id;
-	clone.getElementById("dat3").id ="dat3"+this.Id;
-	clone.getElementById("dat4").id ="dat4"+this.Id;
+	//clone.getElementById("dat3").id ="dat3"+this.Id;
+	//clone.getElementById("dat4").id ="dat4"+this.Id;
 	clone.getElementById("dat5").id ="dat5"+this.Id;
-	clone.getElementById("dat6").id ="dat6"+this.Id;
-	clone.getElementById("dat7").id ="dat7"+this.Id;
-	clone.getElementById("dat8").id ="dat8"+this.Id;
+	//clone.getElementById("dat6").id ="dat6"+this.Id;
+	//clone.getElementById("dat7").id ="dat7"+this.Id;
+	//clone.getElementById("dat8").id ="dat8"+this.Id;
 	
 	clone.getElementById("icono_graph").id ="icono_graph"+this.Id;
 	
@@ -57,23 +58,28 @@ DatosGenerico.prototype.Actualizar=function()
 	elem1=document.getElementById('dat2'+this.Id);
     elem1.innerHTML=this.parametros.dat2+" A";
 	
-	elem1=document.getElementById('dat3'+this.Id);
-    elem1.innerHTML=this.parametros.dat3;
+	//elem1=document.getElementById('dat3'+this.Id);
+    //elem1.innerHTML=this.parametros.dat3;
 	
-	elem1=document.getElementById('dat4'+this.Id);
-    elem1.innerHTML=this.parametros.dat4+ " W";
+	//elem1=document.getElementById('dat4'+this.Id);
+    //elem1.innerHTML=this.parametros.dat4+ " W";
 	
 	elem1=document.getElementById('dat5'+this.Id);
     elem1.innerHTML=this.parametros.dat5 + " W";
 	
-	elem1=document.getElementById('dat6'+this.Id);
-    elem1.innerHTML=this.parametros.dat6 +" var";
+	var Consumo=this.parametros.dat5 / 0.399;
 	
-	elem1=document.getElementById('dat7'+this.Id);
-    elem1.innerHTML=this.parametros.dat7+ " VA";
+	elem1=document.getElementById('CarbonEmitidos'+this.Id);
+    elem1.innerHTML=Consumo.toFixed(2) + " KgCO2";
 	
-	elem1=document.getElementById('dat8'+this.Id);
-    elem1.innerHTML=this.parametros.dat8 +" VA";
+	//elem1=document.getElementById('dat6'+this.Id);
+    //elem1.innerHTML=this.parametros.dat6 +" var";
+	
+	//elem1=document.getElementById('dat7'+this.Id);
+    //elem1.innerHTML=this.parametros.dat7+ " VA";
+	
+	//elem1=document.getElementById('dat8'+this.Id);
+    //elem1.innerHTML=this.parametros.dat8 +" VA";
 	
 	
 	
@@ -101,31 +107,34 @@ DatosGenerico.prototype.ProcesaDatos=function(Parametros)
 	{
 		this.parametros.dat2=parseFloat(dato);
 	}
+
 	
-	dato=Parametros.data[this.Id+'_dat3'];
+/*	dato=Parametros.data[this.Id+'_dat3'];
 	if(dato!=null)
 	{
 		this.parametros.dat3=parseFloat(dato);
 	}
-	
+*/	
+/*
 	dato=Parametros.data[this.Id+'_dat4'];
 	if(dato!=null)
 	{
 		this.parametros.dat4=parseFloat(dato);
 	}
-	
+*/	
 	dato=Parametros.data[this.Id+'_dat5'];
 	if(dato!=null)
 	{
 		this.parametros.dat5=parseFloat(dato);
 	}
-	
+/*	
 	dato=Parametros.data[this.Id+'_dat6'];
 	if(dato!=null)
 	{
 		this.parametros.dat6=parseFloat(dato);
 	}
-	
+*/
+/*	
 	dato=Parametros.data[this.Id+'_dat7'];
 	if(dato!=null)
 	{
@@ -137,7 +146,7 @@ DatosGenerico.prototype.ProcesaDatos=function(Parametros)
 	{
 		this.parametros.dat8=parseFloat(dato);
 	}
-	
+*/	
 	this.Actualizar();
 	
 	return;

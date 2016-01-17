@@ -18,7 +18,7 @@ var barChartData = {
 			}
 		]
 
-	};
+	}; 
 
 window.onload = function() {
 
@@ -37,7 +37,7 @@ debugger;
 			responsive : true
 		});
 
-	
+	$("#btn_24Horas").addClass('active');
 }
 
 
@@ -85,4 +85,88 @@ function EvntBtndchdown(obj)
 	$("#btn_dchup").show();
 }
 
+function EvntBtn24Horas(obj)
+{
+	$("#btn_24Horas").removeClass('active');
+	$("#btn_7Dias").removeClass('active');
+	$("#btn_30Dias").removeClass('active');
+	$("#btn_90Dias").removeClass('active');
+	$("#btn_180Dias").removeClass('active');
+	$("#btn_365Dias").removeClass('active');
+	
+	$("#btn_24Horas").addClass('active');
+	
+}
+function EvntBtn7Dias(obj)
+{
+	$("#btn_24Horas").removeClass('active');
+	$("#btn_7Dias").removeClass('active');
+	$("#btn_30Dias").removeClass('active');
+	$("#btn_90Dias").removeClass('active');
+	$("#btn_180Dias").removeClass('active');
+	$("#btn_365Dias").removeClass('active');
+	
+	$("#btn_7Dias").addClass('active');
+	
+	
+}
+
+function EvntBtn30Dias(obj)
+{
+	$("#btn_24Horas").removeClass('active');
+	$("#btn_7Dias").removeClass('active');
+	$("#btn_30Dias").removeClass('active');
+	$("#btn_90Dias").removeClass('active');
+	$("#btn_180Dias").removeClass('active');
+	$("#btn_365Dias").removeClass('active');
+	
+	$("#btn_30Dias").addClass('active');
+	
+}
+
+function EvntBtn90Dias(obj)
+{
+	$("#btn_24Horas").removeClass('active');
+	$("#btn_7Dias").removeClass('active');
+	$("#btn_30Dias").removeClass('active');
+	$("#btn_90Dias").removeClass('active');
+	$("#btn_180Dias").removeClass('active');
+	$("#btn_365Dias").removeClass('active');
+	
+	$("#btn_90Dias").addClass('active');
+	
+	
+}
+
+function EvntBtn180Dias(obj)
+{
+	$("#btn_24Horas").removeClass('active');
+	$("#btn_7Dias").removeClass('active');
+	$("#btn_30Dias").removeClass('active');
+	$("#btn_90Dias").removeClass('active');
+	$("#btn_180Dias").removeClass('active');
+	$("#btn_365Dias").removeClass('active');
+	
+	$("#btn_180Dias").addClass('active');
+	
+	
+}
+
+function EvntBtn365Dias(obj)
+{
+	$("#btn_24Horas").removeClass('active');
+	$("#btn_7Dias").removeClass('active');
+	$("#btn_30Dias").removeClass('active');
+	$("#btn_90Dias").removeClass('active');
+	$("#btn_180Dias").removeClass('active');
+	$("#btn_365Dias").removeClass('active');
+	
+	$("#btn_365Dias").addClass('active');
+	
+	
+}
+
+
+
 function randomScalingFactor(){ return Math.round(Math.random()*100)}
+

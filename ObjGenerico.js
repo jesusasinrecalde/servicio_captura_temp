@@ -244,7 +244,7 @@ ObjectoGenerico.prototype.ProcesaDatos=function(Parametros)
 
 /** Funcion generica para mostrar el grafico , sin sobrecargar no muestra el formulario
 */
-ObjetoGenerico.prototype.MostrarGraph=function()
+ObjectoGenerico.prototype.MostrarGraph=function()
 {
 	return;
 }

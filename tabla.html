@@ -6,13 +6,13 @@
 	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 	
 	<script type="text/javascript"  src="js/jquery-1.11.3.js"></script>
-	<script type="text/javascript"  src="/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+	<script type="text/javascript"  src="jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 	
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
-	<link rel="stylesheet" href="/jquery-ui-1.11.4.custom/jquery-ui.css">
+	<link rel="stylesheet" href="jquery-ui-1.11.4.custom/jquery-ui.min.css">
 
 	<!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -195,10 +195,11 @@
 		<img class ="image_cab" id="icono_despliegue"  src=".\graph\arrow_down.png" onclick="EvntBtwDespliegue(this)"  border="0" width="15" height="20" />
 	</td>
     <td class="tg-228w"  width ="400"> <div class="tg-228w" id="caption">Datos</div></td>
-    <td></td>
 	<td></td>
-	<td></td>
-    <td class="tg-228w" id="obj_onoff" >
+	<td class="tg-228w">
+		<div  id="CarbonEmitidos" >----</div>
+    </td>
+	<td class="tg-228w" id="obj_onoff" >
 		<img class ="image_cab" id="icono_OnOffSup"  src=".\graph\on.png" onclick="EvntBtnOn_off(this)"  border="0" width="20" height="20" />
 	</td>	
   </tr >
@@ -212,37 +213,19 @@
 				</tr>
 				<tr id="marco_principal" class="tg-s6z2" colspan="3" >
 					<tr class="tablaparam" colspan="2" >
-						<td class="tablaparam" align="right">Tension fase : </td>
+						<td class="tablaparam" align="right">Tension fase 1 : </td>
 						<td class="tablaparam" id="dat1">---</td>
 					</tr>
 					<tr class="tablaparam" colspan="2" >		
-						<td class="tablaparam" align="right" >Corriente fase : </td>
+						<td class="tablaparam" align="right" >Corriente fase 1 : </td>
 						<td class="tablaparam" id="dat2">---</td>				
 					</tr>
+					
 					<tr class="tablaparam" colspan="2" >		
-						<td class="tablaparam" align="right">Cos. fase : </td>
-						<td class="tablaparam" id="dat3">---</td>				
-					</tr>
-					<tr class="tablaparam" colspan="2" >		
-						<td class="tablaparam" align="right">Potencia activa fase : </td>
-						<td class="tablaparam" id="dat4">---</td>				
-					</tr>
-					<tr class="tablaparam" colspan="2" >		
-						<td class="tablaparam" align="right">Potencia activa total : </td>
+						<td class="tablaparam" align="right">Potencia  total : </td>
 						<td class="tablaparam" id="dat5">---</td>				
 					</tr>
-					<tr class="tablaparam" colspan="2" >		
-						<td class="tablaparam" align="right">Potencia reactiva fase : </td>
-						<td class="tablaparam" id="dat6">---</td>				
-					</tr>
-					<tr class="tablaparam" colspan="2" >		
-						<td class="tablaparam" align="right">Potencia reativa total : </td>
-						<td class="tablaparam" id="dat7">---</td>				
-					</tr>
-					<tr class="tablaparam" colspan="2" >		
-						<td class="tablaparam" align="right">Potencia activa aparente : </td>
-						<td class="tablaparam" id="dat8">----</td>				
-					</tr>
+					
 				</tr>
 				
 				
