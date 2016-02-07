@@ -654,25 +654,33 @@ function func_inteval_modo()
 
 function llamarServicioCarriots()
 {
-//	var carriotsURL = 'http://api.carriots.com/devices/defaultDevice@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
+//	**** var carriotsURL = 'http://api.carriots.com/devices/defaultDevice@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
+//	var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
 	var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
+
 	
 	$.ajax({
 	beforeSend: function(xhrObj){
         xhrObj.setRequestHeader("Content-Type","application/json");
         xhrObj.setRequestHeader("Accept","application/json");
         xhrObj.setRequestHeader("carriots.apikey","ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
-	},
+        //xhrObj.setRequestHeader("carriots.apikey","1ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
+
+		},
     type : "GET",
     url: carriotsURL,
     success: recepcionServicioREST,
-    error : function(jqXHR, status) { alert(status +' fallo ');}
+    error : function(jqXHR, status) { 
+		debugger;
+		//alert(jqXHR.getAllResponseHeaders());
+	alert("ERROR :"+jqXHR.responseText+" "+jqXHR.statusText);}
+		//alert(status +' fallo ');}
 });
 }
 
 function recepcionServicioREST (datosREST)
 {
-	
+	debugger;
 	var totalDocuments = datosREST.total_documents;
 	var numdatos = datosREST.length;
     var numdatos = datosREST.result.length;

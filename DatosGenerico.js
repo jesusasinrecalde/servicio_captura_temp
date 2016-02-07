@@ -10,7 +10,7 @@ function DatosGenerico(idTerm)
 	ObjectoGenerico.call(this,idTerm,1,"Consumo","Consumo"+idTerm,false,"#91FF83","#D6FFD1","#63AD5A","#669");
 	
 	this.Id=idTerm;
-	this.parametros={dat1:35.5, dat2:0,dat3:30.5,dat4:0,dat5:0,dat6:0,dat7:0,dat8:0}; // datos que se recibe del servicio pass
+	this.parametros={dat1:35.5, dat2:0,dat3:30.5,dat4:0,dat5:0,dat6:0,dat7:0,dat8:0,dat9:0}; // datos que se recibe del servicio pass
 	//this.configuracion={temperatura:35.5, modo:0, Caption:""}; // datos que se envia al servicio pass , son los que se modifican graficamente
 	
 		
@@ -29,7 +29,7 @@ function DatosGenerico(idTerm)
 	//clone.getElementById("dat6").id ="dat6"+this.Id;
 	//clone.getElementById("dat7").id ="dat7"+this.Id;
 	//clone.getElementById("dat8").id ="dat8"+this.Id;
-	
+	clone.getElementById("dat9").id ="dat9"+this.Id;
 	clone.getElementById("icono_graph").id ="icono_graph"+this.Id;
 	
 	
@@ -72,8 +72,14 @@ DatosGenerico.prototype.Actualizar=function()
 	elem1=document.getElementById('CarbonEmitidos'+this.Id);
     elem1.innerHTML=Consumo.toFixed(2) + " KgCO2";
 	
+	elem1=document.getElementById('dat9'+this.Id);
+    elem1.innerHTML=this.parametros.dat9 + " KwH";
+	
+	
 	//elem1=document.getElementById('dat6'+this.Id);
     //elem1.innerHTML=this.parametros.dat6 +" var";
+	
+	
 	
 	//elem1=document.getElementById('dat7'+this.Id);
     //elem1.innerHTML=this.parametros.dat7+ " VA";
@@ -126,6 +132,12 @@ DatosGenerico.prototype.ProcesaDatos=function(Parametros)
 	if(dato!=null)
 	{
 		this.parametros.dat5=parseFloat(dato);
+	}
+	
+	dato=Parametros.data[this.Id+'_dat9'];
+	if(dato!=null)
+	{
+		this.parametros.dat9=parseFloat(dato);
 	}
 /*	
 	dato=Parametros.data[this.Id+'_dat6'];
