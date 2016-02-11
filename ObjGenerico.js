@@ -275,3 +275,4 @@ ObjectoGenerico.prototype.DesactivaTemporizadorCambio=function()
 	
 	this.iluminaModo=false;
 }	
+

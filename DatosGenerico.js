@@ -1,4 +1,5 @@
 var TextoMeteo ;
+
 function DatosGenerico(idTerm)
 {
 	"use strict";
@@ -12,7 +13,7 @@ function DatosGenerico(idTerm)
 	this.Id=idTerm;
 	this.parametros={dat1:35.5, dat2:0,dat3:30.5,dat4:0,dat5:0,dat6:0,dat7:0,dat8:0,dat9:0}; // datos que se recibe del servicio pass
 	//this.configuracion={temperatura:35.5, modo:0, Caption:""}; // datos que se envia al servicio pass , son los que se modifican graficamente
-	
+	this.ConsumoHora=new Array(6);
 		
 	var clone = ObjectoGenerico.prototype.ClonaGenerico.call(this,'#DatosGenerico');
 	
@@ -40,6 +41,7 @@ function DatosGenerico(idTerm)
 	
 	ObjectoGenerico.prototype.ClonaGenerico_2.call(this);// ... una vez definido el objeto grafico al completo lo incluimos en la pagina 
 	
+	llamarServicioCarriotsNummObjt(this.Id,6);
 	
 	this.Actualizar();// Situamos la visualizacion al mismo nivel que el estado del objeto
 	
@@ -67,13 +69,15 @@ DatosGenerico.prototype.Actualizar=function()
 	elem1=document.getElementById('dat5'+this.Id);
     elem1.innerHTML=this.parametros.dat5 + " W";
 	
-	var Consumo=this.parametros.dat5 / 0.399;
+
+	
+	elem1=document.getElementById('dat9'+this.Id);
+    elem1.innerHTML=this.parametros.dat9.toFixed(2) + " KwH";
+
+	var Consumo=this.parametros.dat9 / 0.399;
 	
 	elem1=document.getElementById('CarbonEmitidos'+this.Id);
     elem1.innerHTML=Consumo.toFixed(2) + " KgCO2";
-	
-	elem1=document.getElementById('dat9'+this.Id);
-    elem1.innerHTML=this.parametros.dat9 + " KwH";
 	
 	
 	//elem1=document.getElementById('dat6'+this.Id);
@@ -101,6 +105,7 @@ DatosGenerico.prototype.Actualizar=function()
 */
 DatosGenerico.prototype.ProcesaDatos=function(Parametros)
 {
+	console.log("Actualizar datos Obj tipo 1 Id"+this.Id+"\n");
 	
 	var dato=Parametros.data[this.Id+'_dat1'];
 	if(dato!=null)
@@ -137,7 +142,12 @@ DatosGenerico.prototype.ProcesaDatos=function(Parametros)
 	dato=Parametros.data[this.Id+'_dat9'];
 	if(dato!=null)
 	{
-		this.parametros.dat9=parseFloat(dato);
+		//this.parametros.dat9=parseFloat(dato);
+		this.ConsumoHora[5]=this.ConsumoHora[4];
+		this.ConsumoHora[3]=this.ConsumoHora[2];
+		this.ConsumoHora[2]=this.ConsumoHora[1];
+		this.ConsumoHora[0]=parseFloat(dato);
+		this.parametros.dat9=this.ConsumoHora[0]-this.ConsumoHora[5];
 	}
 /*	
 	dato=Parametros.data[this.Id+'_dat6'];
@@ -170,4 +180,29 @@ DatosGenerico.prototype.ProcesaDatos=function(Parametros)
 DatosGenerico.prototype.MostrarGraph=function()
 {
 	window.open ('graph.html?type=1&id='+this.Id,'_self',false);
+}
+
+
+DatosGenerico.prototype.ProcesaDatosPeticion=function(ListaResultado)
+{
+	var indice =0;
+	var numdatos = ListaResultado.result.length;
+	var nodo;
+	var dato;
+	debugger;
+	for(indice=0;indice<numdatos;indice++)
+	{
+		nodo=ListaResultado.result[indice];
+		dato=nodo.data[this.Id+'_dat9'];
+		if(dato!=null)
+		{
+			this.ConsumoHora[indice]=parseFloat(dato);
+		}
+	}
+	
+	this.parametros.dat9=this.ConsumoHora[0]-this.ConsumoHora[5];
+	this.Actualizar();
+	//alert("recibidor :"+ListaResultado.total_documents);
+	debugger;
+	return;
 }

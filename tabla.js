@@ -6,6 +6,8 @@ var timer_actualizar_datos; // temporizador utilizado para realizar el parpadeo 
 var Tem1;
 var tabla_objetos;
 var timer_interval_modo;
+var timer_interval_lectura_datos;
+var IdObjetoGlobal; // variable usada para pasar el IdObjeto atraves de funciones callback
 window.onload = function() {
 
 	tabla_valores = new Array();
@@ -29,7 +31,8 @@ window.onload = function() {
 	//crearTermostatoTipo0( 5);
 	//crearTermostatoTipo0( 6);
 	//crearTermostatoTipo0( 7);
-	
+	// se crea el temporizador parar recargar datos
+	timer_interval_lectura_datos=setInterval(llamarServicioCarriots,100000);// 10 minutos
 	debugger;
 	//visibleTermostato(1,0);
 	//visibleTermostato(1,1);
@@ -650,7 +653,10 @@ function func_inteval_modo()
 }
 
 
-
+function func_inteval_lectura_datos()
+{
+	llamarServicioCarriots();
+}
 
 function llamarServicioCarriots()
 {
@@ -688,35 +694,38 @@ function recepcionServicioREST (datosREST)
 	var nodo=datosREST.result[0];
 	var valor;
 	var Tem1;
-	var NumElementos=nodo.data['numElem'];
-	if(NumElementos==null)// Si no esta creado el campo numero de elementos no se continua con la creacion de objetos
-		return;
-	var iNumElementos=parseInt(NumElementos);
-	for(var indice=0;indice<iNumElementos;indice++)
+	var iNumElementos=parseInt(nodo.data['numElem']);
+	
+	if(iNumElementos>0)// Si no esta creado el campo numero de elementos no se continua con la creacion de objetos
 	{
-		valor = nodo.data['ID_'+indice];
-		if(valor!=null)
+		if(tabla_objetos.length==0) // si no se ha creadoobjetos entonces creamos y los metemos en la tabla 
 		{
-			var TipoElemento=nodo.data['ID_'+indice];
-			switch(TipoElemento)
+			//var iNumElementos=parseInt(NumElementos);
+			for(var indice=0;indice<iNumElementos;indice++)
 			{
-				case "0" : // termostato sistema
-					Tem1= new TermostatoSistena(indice);
-					Tem1.set("Visible",true);
-					tabla_objetos.push(Tem1);
-					break;
-				case "1" : // datos genericos
-					Tem1=new DatosGenerico(indice);
-					tabla_objetos.push(Tem1);
-					break;
-				default :
+				valor = nodo.data['ID_'+indice];
+				if(valor!=null)
+				{
+					var TipoElemento=nodo.data['ID_'+indice];
+					switch(TipoElemento)
+					{
+						case "0" : // termostato sistema
+							Tem1= new TermostatoSistena(indice);
+							Tem1.set("Visible",true);
+							tabla_objetos.push(Tem1);
+							break;
+						case "1" : // datos genericos
+							Tem1=new DatosGenerico(indice);
+							tabla_objetos.push(Tem1);
+							break;
+						default :
+							break;
+					}
+				}
+				else// si no hay mas elementos se para la creacion del bucle independiente del valor de contador que figure
 					break;
 			}
-			
-			
 		}
-		else// si no hay mas elementos se para la creacion del bucle independiente del valor de contador que figure
-			break;
 	}
 	ActualizarParametrosRecibidor(nodo); // actualizamos los datos con los parametros recibidos
 	
@@ -724,6 +733,7 @@ function recepcionServicioREST (datosREST)
 
 function ActualizarParametrosRecibidor(Parametros)
 {
+	console.log("ActualizarParametrosRecibidor\n");
 	var objeto;
 	for (x=0;x<tabla_objetos.length;x++)
 	{
@@ -733,3 +743,43 @@ function ActualizarParametrosRecibidor(Parametros)
 	}
 }
 
+
+function llamarServicioCarriotsNummObjt(idObjeto,NumObjetos)
+{
+
+	var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max='+NumObjetos;
+
+	IdObjetoGlobal=idObjeto;
+	
+	$.ajax({
+	beforeSend: function(xhrObj){
+        xhrObj.setRequestHeader("Content-Type","application/json");
+        xhrObj.setRequestHeader("Accept","application/json");
+        xhrObj.setRequestHeader("carriots.apikey","ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
+
+		},
+    type : "GET",
+    url: carriotsURL,
+    success: recepcionServicioRESTNumObjetos,
+    error : function(jqXHR, status) { 
+		debugger;
+		//alert(jqXHR.getAllResponseHeaders());
+	alert("ERROR :"+jqXHR.responseText+" "+jqXHR.statusText);}
+		//alert(status +' fallo ');}
+});
+}
+
+
+function recepcionServicioRESTNumObjetos (datosREST)
+{
+	debugger;
+	var totalDocuments = datosREST.total_documents;
+	var numdatos = datosREST.length;
+    var numdatos = datosREST.result.length;
+    debugger;
+	var obj=DarObjeto(IdObjetoGlobal);
+	if(obj)
+		obj.ProcesaDatosPeticion(datosREST);
+	
+	
+}
