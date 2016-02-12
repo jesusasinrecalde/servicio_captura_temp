@@ -71,14 +71,14 @@ DatosGenerico.prototype.Actualizar=function()
 	
 
 	
-	elem1=document.getElementById('dat9'+this.Id);
-    elem1.innerHTML=this.parametros.dat9.toFixed(2) + " KwH";
-	//alert ("dato :"+this.parametros.dat9);
+	
 	var Consumo=this.parametros.dat9 / 0.399;
 	
 	elem1=document.getElementById('CarbonEmitidos'+this.Id);
-    elem1.innerHTML=Consumo.toFixed(2) + " KgCO2";
+    elem1.innerHTML=this.parametros.dat9.toFixed(2) + " KwH";
 	
+	elem1=document.getElementById('dat9'+this.Id);
+    elem1.innerHTML=Consumo.toFixed(2) + " KgCO2";
 	
 	//elem1=document.getElementById('dat6'+this.Id);
     //elem1.innerHTML=this.parametros.dat6 +" var";
