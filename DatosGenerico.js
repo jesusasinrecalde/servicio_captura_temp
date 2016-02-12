@@ -41,7 +41,7 @@ function DatosGenerico(idTerm)
 	
 	ObjectoGenerico.prototype.ClonaGenerico_2.call(this);// ... una vez definido el objeto grafico al completo lo incluimos en la pagina 
 	
-	llamarServicioCarriotsNummObjt(this.Id,6);
+	//llamarServicioCarriotsNummObjt(this.Id,6);
 	
 	this.Actualizar();// Situamos la visualizacion al mismo nivel que el estado del objeto
 	
@@ -73,7 +73,7 @@ DatosGenerico.prototype.Actualizar=function()
 	
 	elem1=document.getElementById('dat9'+this.Id);
     elem1.innerHTML=this.parametros.dat9.toFixed(2) + " KwH";
-
+	alert ("dato :"+this.parametros.dat9);
 	var Consumo=this.parametros.dat9 / 0.399;
 	
 	elem1=document.getElementById('CarbonEmitidos'+this.Id);
@@ -140,10 +140,12 @@ DatosGenerico.prototype.ProcesaDatos=function(Parametros)
 	}
 	
 	dato=Parametros.data[this.Id+'_dat9'];
+	alert ("recibido " +dato);
 	if(dato!=null)
 	{
 		
 		this.parametros.dat9=parseFloat(dato);
+		alert ("recibido 1 " +this.parametros.dat9);
 	}
 /*	
 	dato=Parametros.data[this.Id+'_dat6'];
