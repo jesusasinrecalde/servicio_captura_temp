@@ -142,12 +142,8 @@ DatosGenerico.prototype.ProcesaDatos=function(Parametros)
 	dato=Parametros.data[this.Id+'_dat9'];
 	if(dato!=null)
 	{
-		//this.parametros.dat9=parseFloat(dato);
-		this.ConsumoHora[5]=this.ConsumoHora[4];
-		this.ConsumoHora[3]=this.ConsumoHora[2];
-		this.ConsumoHora[2]=this.ConsumoHora[1];
-		this.ConsumoHora[0]=parseFloat(dato);
-		this.parametros.dat9=this.ConsumoHora[0]-this.ConsumoHora[5];
+		
+		this.parametros.dat9=parseFloat(dato);
 	}
 /*	
 	dato=Parametros.data[this.Id+'_dat6'];
