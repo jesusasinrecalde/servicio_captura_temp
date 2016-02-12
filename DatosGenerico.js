@@ -73,7 +73,7 @@ DatosGenerico.prototype.Actualizar=function()
 	
 	elem1=document.getElementById('dat9'+this.Id);
     elem1.innerHTML=this.parametros.dat9.toFixed(2) + " KwH";
-	alert ("dato :"+this.parametros.dat9);
+	//alert ("dato :"+this.parametros.dat9);
 	var Consumo=this.parametros.dat9 / 0.399;
 	
 	elem1=document.getElementById('CarbonEmitidos'+this.Id);
@@ -140,12 +140,12 @@ DatosGenerico.prototype.ProcesaDatos=function(Parametros)
 	}
 	
 	dato=Parametros.data[this.Id+'_dat9'];
-	alert ("recibido " +dato);
+	//alert ("recibido " +dato);
 	if(dato!=null)
 	{
 		
 		this.parametros.dat9=parseFloat(dato);
-		alert ("recibido 1 " +this.parametros.dat9);
+		//alert ("recibido 1 " +this.parametros.dat9);
 	}
 /*	
 	dato=Parametros.data[this.Id+'_dat6'];
