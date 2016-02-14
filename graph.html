@@ -8,7 +8,9 @@
 	<script type="text/javascript"  src="js/jquery-1.11.3.js"></script>
 	<script type="text/javascript"  src="/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
 	<script src="js/Chart.js"></script>
-  
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -90,12 +92,12 @@
 				 <div id="cuerpo_izd" >
 					<li class="list-group-item panel_izd">
 						<div>
-							<a class="titulo_izd text-left">Consumo Medio :</a>
-							<a id="ConsumoMedio" class="dato_izd text-right"> 12 W</a>
+							<a class="titulo_izd text-left">Consumo Total :</a>
+							<a id="ConsumoTotal" class="dato_izd text-right"> 12 W</a>
 							
 						</div>
-						<div  id="CarbonMedio"> 26.12 KgCO2 </div>
-						<div  id="fecha_consumomedio"> 04/01/2016 13:00 </div>
+						<div  id="CarbonTotal"> 26.12 KgCO2 </div>
+						
 					</li>
 					<li class="list-group-item panel_izd">
 						<a class="titulo_izd">Consumo Maximo :</a>
@@ -132,7 +134,8 @@
             </div>
             <div class="panel-body" id="cuerpo_dch">
 				 <div id="cuerpo_dch" class="panel_dch" >
-					<canvas id="canvas" height="450" width="600" align="center"></canvas>
+					
+					<div id="grafico" style=" height: 450;width:1000 ; align: center; margin: 0 auto"></div>
 				</div>
             </div>
         </div>
