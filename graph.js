@@ -44,6 +44,8 @@ var barChartData = {
 
 	}; 
 */
+
+var TextoGrafico;
 window.onload = function() {
 
 
@@ -59,10 +61,26 @@ debugger;
 	
 
 	$("#btn_24Horas").addClass('active');
-    llamarServicioCarriotsNummObjt(144);
+    DarGrafico24horas();
 }
 
+function DarGrafico24horas()
+{
+	TextoGrafico="Consumo ultimas 24 horas"
+	llamarServicioCarriotsNummObjt(144);
+}
 
+function DarGrafico48Horas()
+{
+	TextoGrafico="Consumo ultimas 48 horas"
+	llamarServicioCarriotsNummObjt(288);
+}
+
+function DarGrafico7dias()
+{
+	TextoGrafico="Consumo ultimos 7 dias"
+	llamarServicioCarriotsNummObjt(1008);
+}
 // Leer los datos GET de nuestra pagina y devolver un array asociativo (Nombre de la variable GET => Valor de la variable).
 function getUrlVars()
 {
@@ -117,7 +135,7 @@ function EvntBtn24Horas(obj)
 	$("#btn_365Dias").removeClass('active');
 	
 	$("#btn_24Horas").addClass('active');
-	
+	DarGrafico24horas();
 }
 function EvntBtn7Dias(obj)
 {
@@ -129,8 +147,8 @@ function EvntBtn7Dias(obj)
 	$("#btn_365Dias").removeClass('active');
 	
 	$("#btn_7Dias").addClass('active');
-	
-	
+	DarGrafico48Horas();
+
 }
 
 function EvntBtn30Dias(obj)
@@ -143,7 +161,8 @@ function EvntBtn30Dias(obj)
 	$("#btn_365Dias").removeClass('active');
 	
 	$("#btn_30Dias").addClass('active');
-	
+	DarGrafico7dias();
+
 }
 
 function EvntBtn90Dias(obj)
@@ -258,42 +277,65 @@ function recepcionServicioRESTNumObjetos (datosREST)
 	var ValorMinimo=99999999999;
 	var FechaValorMaximo;
 	var FechaValorMinimo;
-	var valor_inicial=parseFloat(nodo.data['0_dat9']);
-	var valor_inicio=parseFloat(nodo.data['0_dat9']);
-	var valor_final=parseFloat(datosREST.result[0].data['0_dat9']);
-	var consumoTotal=valor_final-valor_inicio;
+	var valor_dato9;
+	valor_dato9=nodo.data['0_dat9'];
+	var valor_inicial=null;
+	var valor_inicio=null;
+	var valor_final=null;
+	var consumoTotal=0;
+	if(valor_dato9!=null)
+	{
+		valor_inicial=parseFloat(nodo.data['0_dat9']);
+		valor_inicio=parseFloat(nodo.data['0_dat9']);
+		valor_final=parseFloat(datosREST.result[0].data['0_dat9']);
+		consumoTotal=valor_final-valor_inicio;
+	}
+	
 	var valor_dato;
 	var lineChartData  = { data: []};
 	var contadoroffset=0;
 	var dato_resta=0;
+	
 	for(indice =numdatos-2;indice>0;indice--)
 	{
 		if(offset==contadoroffset)
 		{
 			nodo=datosREST.result[indice];
-			valor_dato=parseFloat(nodo.data['0_dat9']);
-			//d=new Date(nodo.at*1000);
-			//stringFecha = d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getUTCHours()
-			//  +':'+d.getMinutes();
-		
-			//barChartData.datasets[0].data.push(valor_dato.toFixed(2)-valor_inicial.toFixed(2));
-			//barChartData.labels.push(stringFecha);
-			dato_resta=valor_dato-valor_inicial;
-			lineChartData.data.push({x: nodo.at*1000 , y: valor_dato-valor_inicial });
-			if(ValorMaximo<(valor_dato-valor_inicial))
+			valor_dato9=nodo.data['0_dat9'];
+			if(valor_dato9!=null)
 			{
-				ValorMaximo=valor_dato-valor_inicial;
-				FechaValorMaximo=stringFecha;
-			}
+				if(valor_inicial==null)
+				{
+					valor_inicial=parseFloat(nodo.data['0_dat9']);
+					valor_inicio=parseFloat(nodo.data['0_dat9']);
+					valor_final=parseFloat(datosREST.result[0].data['0_dat9']);
+					consumoTotal=valor_final-valor_inicio;
+				}
+				
+				valor_dato=parseFloat(nodo.data['0_dat9']);
+				//d=new Date(nodo.at*1000);
+				//stringFecha = d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getUTCHours()
+				//  +':'+d.getMinutes();
 		
-			if(ValorMinimo>(valor_dato-valor_inicial))
-			{
-				ValorMinimo=valor_dato-valor_inicial;
-				FechaValorMinimo=stringFecha;
-			}
+				//barChartData.datasets[0].data.push(valor_dato.toFixed(2)-valor_inicial.toFixed(2));
+				//barChartData.labels.push(stringFecha);
+				dato_resta=valor_dato-valor_inicial;
+				lineChartData.data.push({x: nodo.at*1000 , y: valor_dato-valor_inicial });
+				if(ValorMaximo<(valor_dato-valor_inicial))
+				{
+					ValorMaximo=valor_dato-valor_inicial;
+					FechaValorMaximo=stringFecha;
+				}
 		
-			valor_inicial=parseFloat(nodo.data['0_dat9']);
-			contadorffset=0;
+				if(ValorMinimo>(valor_dato-valor_inicial))
+				{
+					ValorMinimo=valor_dato-valor_inicial;
+					FechaValorMinimo=stringFecha;
+				}
+		
+				valor_inicial=parseFloat(nodo.data['0_dat9']);
+				contadoroffset=0;
+			}
 		}
 		else
 		{
@@ -363,7 +405,7 @@ function pintaGrafico( data )
                 zoomType: 'x'
             },
             title: {
-                text: 'Temperatura'
+                text: TextoGrafico
             },
             /*subtitle: {
                 text: document.ontouchstart === undefined ?
@@ -374,7 +416,7 @@ function pintaGrafico( data )
             },
             yAxis: {
                 title: {
-                    text: 'Temperatura'
+                    text: 'KwH'
                 }
             },
             legend: {
