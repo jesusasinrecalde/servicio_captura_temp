@@ -270,7 +270,7 @@ function recepcionServicioRESTNumObjetos (datosREST)
 	mesok[10]="Noviembre";
 	mesok[11]="Diciembre";
     // imprimir fecha y hora 
-	var d = new Date (nodo.at*1000);
+	var d = new Date ((nodo.at*1000)+60000);
 	var stringFecha = d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getUTCHours()
 	      +':'+d.getMinutes();
 	var ValorMaximo=0;
@@ -306,12 +306,13 @@ function recepcionServicioRESTNumObjetos (datosREST)
 			{
 				if(valor_inicial==null)
 				{
+					debugger;
 					valor_inicial=parseFloat(nodo.data['0_dat9']);
 					valor_inicio=parseFloat(nodo.data['0_dat9']);
 					valor_final=parseFloat(datosREST.result[0].data['0_dat9']);
 					consumoTotal=valor_final-valor_inicio;
 				}
-				
+				debugger;
 				valor_dato=parseFloat(nodo.data['0_dat9']);
 				//d=new Date(nodo.at*1000);
 				//stringFecha = d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getUTCHours()
@@ -320,7 +321,7 @@ function recepcionServicioRESTNumObjetos (datosREST)
 				//barChartData.datasets[0].data.push(valor_dato.toFixed(2)-valor_inicial.toFixed(2));
 				//barChartData.labels.push(stringFecha);
 				dato_resta=valor_dato-valor_inicial;
-				lineChartData.data.push({x: nodo.at*1000 , y: valor_dato-valor_inicial });
+				lineChartData.data.push({x: (nodo.at*1000)+60000 , y: valor_dato-valor_inicial });
 				if(ValorMaximo<(valor_dato-valor_inicial))
 				{
 					ValorMaximo=valor_dato-valor_inicial;
@@ -401,7 +402,8 @@ function pintaGrafico( data )
 {
     	debugger;
         $('#grafico').highcharts({
-            chart: {
+			
+			chart: {
                 zoomType: 'x'
             },
             title: {

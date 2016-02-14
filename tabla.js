@@ -695,6 +695,28 @@ function recepcionServicioREST (datosREST)
 	var valor;
 	var Tem1;
 	var iNumElementos=parseInt(nodo.data['numElem']);
+
+	var mesok=new Array(12);
+	mesok[0]="Enero";
+	mesok[1]="Febrero";
+	mesok[2]="Marzo";
+	mesok[3]="Abril";
+	mesok[4]="Mayo";
+	mesok[5]="Junio";
+	mesok[6]="Julio";
+	mesok[7]="Agosto";
+	mesok[8]="Septiembre";
+	mesok[9]="Octubre";
+	mesok[10]="Noviembre";
+	mesok[11]="Diciembre";
+    // imprimir fecha y hora 
+	var d = new Date (nodo.at*1000);
+	var stringFecha = '         Ultimo Dato: '+d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getHours()
+	      +':'+d.getMinutes();
+
+	var elem1=document.getElementById("fecha_actualizacion");
+    elem1.innerHTML=stringFecha;
+
 	
 	if(iNumElementos>0)// Si no esta creado el campo numero de elementos no se continua con la creacion de objetos
 	{
