@@ -84,7 +84,7 @@ DatosGenerico.prototype.Actualizar=function()
 	
 	var coste = this.parametros.dat9 * 0.12;
 	elem1=document.getElementById('datCoste'+this.Id);
-    elem1.innerHTML=Consumo.toFixed(2) + " €";
+    elem1.innerHTML=coste.toFixed(2) + " €";
 	
 	
 	
