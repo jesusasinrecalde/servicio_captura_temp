@@ -54,7 +54,7 @@
 				<button type="button" class="btn btn-default" id="btn_24Horas" onclick="EvntBtn24Horas(this)" >24 H</button>
 				<button type="button" class="btn btn-default" id="btn_7Dias"  onclick="EvntBtn7Dias(this)">48 H</button>
 				<button type="button" class="btn btn-default" id="btn_30Dias" onclick="EvntBtn30Dias(this)">7 dias </button>
-				<button type="button" class="btn btn-default" id="btn_90Dias" onclick="EvntBtn90Dias(this)">-- dias </button>
+				<button type="button" class="btn btn-default" id="btn_90Dias" onclick="EvntBtn90Dias(this)">30 dias </button>
 				<button type="button" class="btn btn-default" id="btn_180Dias" onclick="EvntBtn180Dias(this)">--- dias </button>
 				<button type="button" class="btn btn-default" id="btn_365Dias" onclick="EvntBtn365Dias(this)">--- dias </button>
 			</div>
@@ -75,7 +75,6 @@
            
             <div class="panel-body ">
 				 <div class="panel-heading  ">
-					DATOS GRAFICO
 					<div class="btn-group boton_izd pull-right" role="group"  >
 						<button type="button" id="btn_izdup" class="btn btn-default boton_izd  "  onclick="EvntBtnizdup(this)">
 							 <span class="glyphicon glyphicon glyphicon-menu-up" aria-hidden="true"></span>
@@ -92,11 +91,20 @@
 				 <div id="cuerpo_izd" >
 					<li class="list-group-item panel_izd">
 						<div>
+							<a class="titulo_izd text-left">DATOS :</a>
+							<div id="CabeceraGrafico" ></a>
+							
+						</div>
+												
+					</li>
+					<li class="list-group-item panel_izd">
+						<div>
 							<a class="titulo_izd text-left">Consumo Total :</a>
 							<a id="ConsumoTotal" class="dato_izd text-right"> 12 W</a>
 							
 						</div>
-						<div  id="CarbonTotal"> 26.12 KgCO2 </div>
+						<div  id="CosteTotal"></div>
+						<div  id="CarbonTotal"></div>
 						
 					</li>
 					<li class="list-group-item panel_izd">
@@ -135,7 +143,7 @@
             <div class="panel-body" id="cuerpo_dch">
 				 <div id="cuerpo_dch" class="panel_dch" >
 					
-					<div id="grafico" style=" height: 450;width:1000 ; align: center; margin: 0 auto"></div>
+					<div id="grafico" style=" height: 950;width:2000 ; align: center; margin: 0 auto"></div>
 				</div>
             </div>
         </div>

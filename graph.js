@@ -81,6 +81,17 @@ function DarGrafico7dias()
 	TextoGrafico="Consumo ultimos 7 dias"
 	llamarServicioCarriotsNummObjt(1008);
 }
+
+function DarGrafico1Mes()
+{
+	TextoGrafico="Consumo ultimos 30 Dias"
+	debugger;
+	var division = 2016 / 1000;
+	var parteEntera = parseInt(division);
+	var parteDecima = 2016 % 1000;
+	debugger;
+	llamarServicioCarriotsNummObjt(2016);
+}
 // Leer los datos GET de nuestra pagina y devolver un array asociativo (Nombre de la variable GET => Valor de la variable).
 function getUrlVars()
 {
@@ -175,7 +186,7 @@ function EvntBtn90Dias(obj)
 	$("#btn_365Dias").removeClass('active');
 	
 	$("#btn_90Dias").addClass('active');
-	
+	 DarGrafico1Mes();
 	
 }
 
@@ -214,7 +225,10 @@ function randomScalingFactor(){ return Math.round(Math.random()*100)}
 function llamarServicioCarriotsNummObjt(NumObjetos)
 {
 
-	var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max='+NumObjetos;
+	elem1=document.getElementById('CabeceraGrafico');
+    elem1.innerHTML="";
+	
+	var carriotsURL = 'http://api.carriots.com/devices/prueba1@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max='+NumObjetos;
 
 	//IdObjetoGlobal=idObjeto;
 	
@@ -244,9 +258,9 @@ function recepcionServicioRESTNumObjetos (datosREST)
     var numdatos = datosREST.result.length;
 	
 	var offset=0;
-	if(numdatos>300 && numdatos<1000)
+	if(numdatos>200 && numdatos<500)
 		offset=3;
-	else if( numdatos<1000)
+	else if( numdatos>=500)
 		offset=6;
 	var salida= barChartData;
 	// Se limpia las tablas -------------
@@ -256,6 +270,7 @@ function recepcionServicioRESTNumObjetos (datosREST)
     debugger;
 	var indice = numdatos-1;
 	var nodo=datosREST.result[indice];
+	var nodoInicio=datosREST.result[0];
 	var mesok=new Array(12);
 	mesok[0]="Enero";
 	mesok[1]="Febrero";
@@ -273,19 +288,23 @@ function recepcionServicioRESTNumObjetos (datosREST)
 	var d = new Date ((nodo.at*1000)+60000);
 	var stringFecha = d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getUTCHours()
 	      +':'+d.getMinutes();
+	d = new Date ((nodoInicio.at*1000)+60000);
+	var stringFechaInicio = d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getUTCHours()
+	      +':'+d.getMinutes();
+	var stringFechaFin = stringFecha;
 	var ValorMaximo=0;
 	var ValorMinimo=99999999999;
 	var FechaValorMaximo;
 	var FechaValorMinimo;
 	var valor_dato9;
 	valor_dato9=nodo.data['0_dat9'];
-	var valor_inicial=null;
+	var valor_anterior=null;
 	var valor_inicio=null;
 	var valor_final=null;
 	var consumoTotal=0;
 	if(valor_dato9!=null)
 	{
-		valor_inicial=parseFloat(nodo.data['0_dat9']);
+		valor_anterior=parseFloat(nodo.data['0_dat9']);
 		valor_inicio=parseFloat(nodo.data['0_dat9']);
 		valor_final=parseFloat(datosREST.result[0].data['0_dat9']);
 		consumoTotal=valor_final-valor_inicio;
@@ -304,38 +323,54 @@ function recepcionServicioRESTNumObjetos (datosREST)
 			valor_dato9=nodo.data['0_dat9'];
 			if(valor_dato9!=null)
 			{
-				if(valor_inicial==null)
+				if(valor_inicio==null)
 				{
 					debugger;
-					valor_inicial=parseFloat(nodo.data['0_dat9']);
+					valor_anterior=parseFloat(nodo.data['0_dat9']);
 					valor_inicio=parseFloat(nodo.data['0_dat9']);
 					valor_final=parseFloat(datosREST.result[0].data['0_dat9']);
 					consumoTotal=valor_final-valor_inicio;
 				}
-				debugger;
-				valor_dato=parseFloat(nodo.data['0_dat9']);
+				//debugger;
+				valor_dato=parseFloat(valor_dato9);
 				//d=new Date(nodo.at*1000);
 				//stringFecha = d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getUTCHours()
 				//  +':'+d.getMinutes();
 		
 				//barChartData.datasets[0].data.push(valor_dato.toFixed(2)-valor_inicial.toFixed(2));
 				//barChartData.labels.push(stringFecha);
-				dato_resta=valor_dato-valor_inicial;
-				lineChartData.data.push({x: (nodo.at*1000)+60000 , y: valor_dato-valor_inicial });
-				if(ValorMaximo<(valor_dato-valor_inicial))
+				dato_resta=valor_dato-valor_anterior;
+				if(valor_dato>=valor_inicio && valor_dato<=valor_final)// el dato tiene que estar dentro del rango de datos marcado como inicio y fin 
 				{
-					ValorMaximo=valor_dato-valor_inicial;
-					FechaValorMaximo=stringFecha;
-				}
+					
+					lineChartData.data.push({x: (nodo.at*1000)+60000 , y: dato_resta });
+					if(ValorMaximo<dato_resta)
+					{
+						ValorMaximo=dato_resta;
+						FechaValorMaximo=stringFecha;
+						
+					}
 		
-				if(ValorMinimo>(valor_dato-valor_inicial))
-				{
-					ValorMinimo=valor_dato-valor_inicial;
-					FechaValorMinimo=stringFecha;
-				}
+					if(ValorMinimo>dato_resta)
+					{
+						ValorMinimo=dato_resta;
+						FechaValorMinimo=stringFecha;
+					}
 		
-				valor_inicial=parseFloat(nodo.data['0_dat9']);
-				contadoroffset=0;
+					valor_anterior=valor_dato;
+					contadoroffset=0;
+				}
+				//else
+				//{
+				//	
+				//	var dato0=datosREST.result[indice-1];
+				//	var dato1=datosREST.result[indice-2];
+				//	var dato2=datosREST.result[indice-3]
+				//	var float0=parseFloat(dato0.data['0_dat9']);
+				//	var float1=parseFloat(dato1.data['0_dat9']);
+				//	var float2=parseFloat(dato2.data['0_dat9']);
+				//	debugger;
+				//}
 			}
 		}
 		else
@@ -356,7 +391,7 @@ function recepcionServicioRESTNumObjetos (datosREST)
     elem1.innerHTML=ValorMaximo.toFixed(2) + " KwH";
 	
 	var Consumo;
-	
+	var CosteTotal;
 	
 	elem1=document.getElementById('fecha_consumomaximo');
     elem1.innerHTML=FechaValorMaximo;
@@ -383,6 +418,13 @@ function recepcionServicioRESTNumObjetos (datosREST)
 	Consumo=consumoTotal.toFixed(2) / 0.399
 	elem1=document.getElementById('CarbonTotal');
     elem1.innerHTML=Consumo.toFixed(2) + " KgCO2";
+	
+	CosteTotal=consumoTotal.toFixed(2)*0.12;
+	elem1=document.getElementById('CosteTotal');
+    elem1.innerHTML="Coste : "+CosteTotal.toFixed(2) + " Eur.";
+	
+	elem1=document.getElementById('CabeceraGrafico');
+    elem1.innerHTML=stringFechaFin+"<br/>"+stringFechaInicio;
 	
 	pintaGrafico(lineChartData.data);
 		

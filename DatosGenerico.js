@@ -31,6 +31,8 @@ function DatosGenerico(idTerm)
 	//clone.getElementById("dat7").id ="dat7"+this.Id;
 	//clone.getElementById("dat8").id ="dat8"+this.Id;
 	clone.getElementById("dat9").id ="dat9"+this.Id;
+	clone.getElementById("datCoste").id ="datCoste"+this.Id;
+	
 	clone.getElementById("icono_graph").id ="icono_graph"+this.Id;
 	
 	
@@ -79,6 +81,12 @@ DatosGenerico.prototype.Actualizar=function()
 	
 	elem1=document.getElementById('dat9'+this.Id);
     elem1.innerHTML=Consumo.toFixed(2) + " KgCO2";
+	
+	var coste = this.parametros.dat9 * 0.12;
+	elem1=document.getElementById('datCoste'+this.Id);
+    elem1.innerHTML=Consumo.toFixed(2) + " €";
+	
+	
 	
 	//elem1=document.getElementById('dat6'+this.Id);
     //elem1.innerHTML=this.parametros.dat6 +" var";

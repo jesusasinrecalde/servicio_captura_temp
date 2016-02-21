@@ -662,7 +662,7 @@ function llamarServicioCarriots()
 {
 //	**** var carriotsURL = 'http://api.carriots.com/devices/defaultDevice@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
 //	var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
-	var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
+	var carriotsURL = 'http://api.carriots.com/devices/prueba1@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
 
 	
 	$.ajax({
@@ -769,7 +769,7 @@ function ActualizarParametrosRecibidor(Parametros)
 function llamarServicioCarriotsNummObjt(idObjeto,NumObjetos)
 {
 
-	var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max='+NumObjetos;
+	var carriotsURL = 'http://api.carriots.com/devices/prueba1@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max='+NumObjetos;
 
 	IdObjetoGlobal=idObjeto;
 	
