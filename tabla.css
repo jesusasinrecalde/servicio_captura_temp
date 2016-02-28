@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=BenchNine);
+@import url(https://fonts.googleapis.com/css?family=Candal);
 /** tg estilo tabla general */
 #html, #body {
 height: 100%; / * hacer que la página llene toda la altura * /
@@ -8,6 +9,19 @@ height: 100%; / * hacer que la página llene toda la altura * /
 height: 100%;  / * empuja el pie hacia abajo * /
 }	
 
+.logo
+{
+	font-family: 'Candal', sans-serif;
+	font-size:20px;
+	background-color: #26759F;
+	color:#FFFFFF;
+}
+
+.navbar
+{
+	background-color: #26759F;
+	color:#FFFFFF;
+}
 .tg  {border-collapse:collapse;
 	border-spacing:0;
 	border:4px solid white;
@@ -73,7 +87,7 @@ height: 100%;  / * empuja el pie hacia abajo * /
 }
 
 .Formulario_conf{
-	font-family: 'BenchNine', sans-serif;
+	fot-family: 'BenchNine', sans-serif;
 	font-size:30px;
 	color:#547FAE;
 }
@@ -96,6 +110,7 @@ height: 100%;  / * empuja el pie hacia abajo * /
   height: 60px;
   background-color: #f5f5f5;
 }
+
 
 
 @media screen and (max-width: 767px) {

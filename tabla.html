@@ -24,18 +24,54 @@
 	<script type="text/javascript" src="ObjGenerico.js"></script>
 	<script type="text/javascript" src="Termostato_sistena.js"></script>
 	<script type="text/javascript" src="DatosGenerico.js"></script>
+	<script type="text/javascript" src="Altherma.js"></script>
 		
+	
 </head>
 <body role="document">
  <!-- Begin page content -->
     <div class="container">
-      <div class="page-header">
-      	<div class="container">
-			<div id="logo" align="left"><img id="icono_modo" src="graph\hejmo.png" border="0" width="40" height="40"/></div>
-			<div class="pie_Pagina" align="right" id="fecha_actualizacion">Pie Pagina</div>
-			
-		</div>
-		</div>
+ <!-- Static navbar -->
+ <div class="main-menu">
+      <nav class="navbar navbar-default" id="menuPrincipal">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo "  ><div class="logo">HEJMO</div></a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Contact</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li class="dropdown-header">Nav header</li>
+                  <li><a href="#">Separated link</a></li>
+                  <li><a href="#">One more separated link</a></li>
+                </ul>
+              </li>
+            </ul>
+            
+			<ul class="nav navbar-nav navbar-right">
+              <li class="pie_Pagina" align="right" id="fecha_actualizacion">Pie Pagina</li>
+			  
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>       
+                
+	  
     </div>
 	<div id="contenidoprincipal" class="container theme-showcase " role="main" style="padding-top: 100px;"  >
 	<div class="row" id="contenedor"></div></div>
@@ -272,6 +308,73 @@
 </template>
 
 
+
+
+
+<template id="Altherma">
+	
+<div class="tg-wrap col-xs-12 col-md-6" id="obj_tipo2" align="center">
+<table class="tg">
+  
+  <tr class="header" id="marco_superior" colspan = "6">
+    <td class="tg-228w"  >
+		<img class ="image_cab" id="icono_despliegue"  src=".\graph\arrow_down.png" onclick="EvntBtwDespliegue(this)"  border="0" width="15" height="20" />
+	</td>
+    <td class="tg-228w"  width ="400"> <div class="tg-228w" id="caption">Datos</div></td>
+	<td>
+		<img class ="image_cab" id="icono_warning"  src=".\graph\warning.png"  border="0" width="30" height="30" />
+	</span></td>	
+	<td class="tg-228w">
+		<div  id="TempExterior" >----</div>
+    </td>
+	<td class="tg-228w" id="obj_onoff" >
+		<img class ="image_cab" id="icono_OnOffSup"  src=".\graph\on.png" onclick="EvntBtnOn_off(this)"  border="0" width="20" height="20" />
+	</td>	
+  </tr >
+  <tr  id="marco_inf" style='display:none;'>
+	<!-- td id="marco_inf" -->
+    <div class="div_marco_inf" >
+		<td  colspan = "6" >
+			<table align="center"  >
+				<tr  class="tg-s6z2" id="zona_iconos" colspan="6"  >
+				
+				</tr>
+				<tr id="marco_principal" class="tg-s6z2" colspan="3" >
+					<tr class="tablaparam" colspan="2" >
+						<td class="tablaparam" align="right">Temp Sal. agua : </td>
+						<td class="tablaparam" id="dat14">---</td>
+					</tr>
+					<tr class="tablaparam" colspan="2" >
+						<td class="tablaparam" align="right">Temp Entrada agua : </td>
+						<td class="tablaparam" id="dat16">---</td>
+					</tr>
+					<tr class="tablaparam" colspan="2" >		
+						<td class="tablaparam" align="right" >Compresor  : </td>
+						<td class="tablaparam" id="dat6">---</td>				
+					</tr>
+					
+				</tr>
+				
+				
+				<tr>
+					<td id="on_off" colspan ="6" align="center">
+						<a href="#"  id="btn_onoff" onclick="EvntBtnOn_off(this)">
+							<img class ="image_cab" id="icono_OnOffInf"  src=".\graph\on.png" border="0" width="60" height="60" />
+						</a>
+					</td>
+				</tr>
+				<tr>
+				   <td class="tg-228w" id="obj_onoff" align="left" >
+					</td>
+				</tr>
+			</table>
+		</td>
+	</div>
+	<!-- /td marco_inf -->
+  </tr>
+  </table>
+</div>
+</template>
 
 
 <template id="ejemplo_base">

@@ -740,6 +740,10 @@ function recepcionServicioREST (datosREST)
 							Tem1=new DatosGenerico(indice);
 							tabla_objetos.push(Tem1);
 							break;
+						case "2" : // Altherma
+							Tem1=new Altherma(indice);
+							tabla_objetos.push(Tem1);
+							break;	
 						default :
 							break;
 					}
