@@ -13,20 +13,19 @@ function Altherma(idTerm)
 	this.Id=idTerm;
 	
 	/*
-	[0] I0021 Unit ERROR 0..1 (0:No Error, 1:Error)
-	[1] I0022 Unit ERROR Code RTD ASCII Format*
-	[2] I0023 Unit ERROR Sub Code 0-99
-	[3] I0028 Emergency Operation 0..1 (0:Off, 1:On)
-	[4] I0029 ADD Zone Running 0..1 (0:Off, 1:On)
-	[5] I0030 Circulation pump operation 0..1 (0:Off, 1:On)
-	[6] I0031 Compressor Run 0..1 (0:Off, 1:On)
-	[7] I0032 Booster Heater Run† 0..1 (0:Off, 1:On)
-	[8] I0033 Disinfection operation 0..1 (0:Off, 1:Busy)
-	[9] I0034 Backup Heater Level 1,2† 0..2 (0:Off, 1,2: Level)
-	[10] I0035 Defrost/start up mode 0..1 (0:Off, 1:Busy)
-	[11] I0036 Hot Start 0..1 (0:Off, 1:Busy)
-	[12] I0037 3-Way Valve 0..1 (0:Space Heat/Cool, 1: DHW)
-	[13] I0038 Solar Pump 0..1 (0:Off, 1:On)
+	[1] I0021 Unit ERROR 0..1 (0:No Error, 1:Error)
+	[2] I0022 Unit ERROR Code RTD ASCII Format*
+	[3] I0023 Unit ERROR Sub Code 0-99
+	[4] I0028 Emergency Operation 0..1 (0:Off, 1:On)
+	[5] I0029 ADD Zone Running 0..1 (0:Off, 1:On)
+	[6] I0030 Circulation pump operation 0..1 (0:Off, 1:On)
+	[7] I0031 Compressor Run 0..1 (0:Off, 1:On)
+	[8] I0032 Booster Heater Run† 0..1 (0:Off, 1:On)
+	[9] I0033 Disinfection operation 0..1 (0:Off, 1:Busy)
+	[10] I0034 Backup Heater Level 1,2† 0..2 (0:Off, 1,2: Level)
+	[11] I0035 Defrost/start up mode 0..1 (0:Off, 1:Busy)
+	[12] I0036 Hot Start 0..1 (0:Off, 1:Busy)
+	[13] I0037 3-Way Valve 0..1 (0:Space Heat/Cool, 1: DHW)
 	[14] I0040 Leaving Water Temperature °C x100 Temperature
 	[15] I0041 Leaving Water Temperature PHE °C x100 Temperature
 	[16] I0042 Inlet Water Temperature °C x100 Temperature
@@ -169,13 +168,13 @@ Altherma.prototype.ProcesaDatos=function(Parametros)
 	//	this.parametros.dat1=parseFloat(dato);
 	//}
 
-	dato=Parametros.data[this.Id+'_dat0'];
+	dato=Parametros.data[this.Id+'_dat1'];
 	if(dato!=null)
 	{
 		this.parametros.dat0=dato;
 	}
 	
-	dato=Parametros.data[this.Id+'_dat6'];
+	dato=Parametros.data[this.Id+'_dat7'];
 	if(dato!=null)
 	{
 		this.parametros.dat6=dato;

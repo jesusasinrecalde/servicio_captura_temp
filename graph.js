@@ -225,6 +225,9 @@ function randomScalingFactor(){ return Math.round(Math.random()*100)}
 function llamarServicioCarriotsNummObjt(NumObjetos)
 {
 
+	//$('#loading').show();
+	//$('#load_window').modal('show');
+	$("div#divLoading").addClass('show');
 	elem1=document.getElementById('CabeceraGrafico');
     elem1.innerHTML="";
 	
@@ -438,9 +441,13 @@ function recepcionServicioRESTNumObjetos (datosREST)
 	//var obj=DarObjeto(IdObjetoGlobal);
 	//if(obj)
 	//	obj.ProcesaDatosPeticion(datosREST);
-	
-	
+	//$('#loading').hide();
+	//$('#load_window').modal('hide');  
+	$("div#divLoading").removeClass('show');
+
 }
+
+
 
 function pintaGrafico( data )
 {

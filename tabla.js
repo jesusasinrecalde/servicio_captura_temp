@@ -663,7 +663,7 @@ function llamarServicioCarriots()
 //	**** var carriotsURL = 'http://api.carriots.com/devices/defaultDevice@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
 //	var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
 	var carriotsURL = 'http://api.carriots.com/devices/prueba1@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
-
+	$("div#divLoading").addClass('show');
 	
 	$.ajax({
 	beforeSend: function(xhrObj){
@@ -754,7 +754,7 @@ function recepcionServicioREST (datosREST)
 		}
 	}
 	ActualizarParametrosRecibidor(nodo); // actualizamos los datos con los parametros recibidos
-	
+	$("div#divLoading").removeClass('show');
 }
 
 function ActualizarParametrosRecibidor(Parametros)
