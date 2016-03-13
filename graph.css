@@ -76,7 +76,7 @@
     left : 50%;
     top : 50%;
     position : absolute;
-    z-index : 101;
+	z-index : 101;
     width : 10px;
     height : 10px;
     margin-left : -16px;

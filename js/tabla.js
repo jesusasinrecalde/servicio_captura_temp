@@ -8,18 +8,22 @@ var tabla_objetos;
 var timer_interval_modo;
 var timer_interval_lectura_datos;
 var IdObjetoGlobal; // variable usada para pasar el IdObjeto atraves de funciones callback
+var g_key;
+var g_device;
 window.onload = function() {
-	if (supportsImports()) {
-	alert ("SI soporta import");
-	} else {
-		alert ("no soporta import");
-	// Use other libraries/require systems to load files.
-	}
 
-	tabla_valores = new Array();
-	tabla_objetos = new Array();
-	actualizar_datos = false;
-	timer_interval_modo=null;
+	g_key=localStorage["hjm_key"];
+	g_device=localStorage["hjm_device"];
+	if(g_key==null || g_device==null)
+	{
+			window.open ('register.html','_self',false);
+	}
+	else
+	{
+		tabla_valores = new Array();
+		tabla_objetos = new Array();
+		actualizar_datos = false;
+		timer_interval_modo=null;
 	
 	//Tem1= new TermostatoSistena(0);
 	//Tem1.set("Visible",true);
@@ -48,7 +52,7 @@ window.onload = function() {
 	//visibleTermostato(1,5);
 	//visibleTermostato(1,6);
 	//visibleTermostato(1,7);
-	
+	}
 
 }
 
@@ -668,14 +672,14 @@ function llamarServicioCarriots()
 {
 //	**** var carriotsURL = 'http://api.carriots.com/devices/defaultDevice@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
 //	var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
-	var carriotsURL = 'http://api.carriots.com/devices/prueba1@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
+	var carriotsURL = 'http://api.carriots.com/devices/'+g_device+'/streams/?order=-1&max=1';
 	$("div#divLoading").addClass('show');
 	
 	$.ajax({
 	beforeSend: function(xhrObj){
         xhrObj.setRequestHeader("Content-Type","application/json");
         xhrObj.setRequestHeader("Accept","application/json");
-        xhrObj.setRequestHeader("carriots.apikey","ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
+        xhrObj.setRequestHeader("carriots.apikey",g_key);
         //xhrObj.setRequestHeader("carriots.apikey","1ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
 
 		},
@@ -779,7 +783,7 @@ function ActualizarParametrosRecibidor(Parametros)
 function llamarServicioCarriotsNummObjt(idObjeto,NumObjetos)
 {
 
-	var carriotsURL = 'http://api.carriots.com/devices/prueba1@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max='+NumObjetos;
+	var carriotsURL = 'http://api.carriots.com/devices/'+g_device+'/streams/?order=-1&max='+NumObjetos;
 
 	//var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1';
 
@@ -789,7 +793,9 @@ function llamarServicioCarriotsNummObjt(idObjeto,NumObjetos)
 	beforeSend: function(xhrObj){
         xhrObj.setRequestHeader("Content-Type","application/json");
         xhrObj.setRequestHeader("Accept","application/json");
-        xhrObj.setRequestHeader("carriots.apikey","ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
+        //xhrObj.setRequestHeader("carriots.apikey","ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
+		xhrObj.setRequestHeader("carriots.apikey",g_key);
+		
 
 		},
     type : "GET",

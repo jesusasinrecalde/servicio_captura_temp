@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+	
+	
+	
+	<link rel="stylesheet" type="text/css" href="register.css">
+	<link rel="stylesheet" type="text/css" href="loading.css">
+	<link rel="import" href="bootstrap.html">
+	<script type="text/javascript" src="js/register.js"></script>
+	
+	
+</head>
+<body role="document" background="graph/fondo.jpg" bgcolor="FFCECB"> 
+ <!-- Begin page content -->
+    <div class="container">
+				
+		<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    	  <div class="modal-dialog">
+				<div class="loginmodal-container">
+					<div align="center">
+					<table>		
+					<tr>
+						<td>
+							<div class="logo" >HEJMO</div><br>
+						</td>
+					</tr>
+					</table>
+					</div>
+				  <form name="formulario" >
+					<input type="text" id="key" name="key" placeholder="key">
+					<input type="text" id="device" name="device" placeholder="dispositivo">
+					
+				  </form>
+				  <div align="center">
+				  <button type="button" class="btn btn-primary btn-lg loginmodal-submit" onclick="clickRegister(this)">Registrar</button>
+				  </div>
+				  <div id="divLoading"> </div>		
+				  
+				</div>
+			</div>
+		  </div>
+	</div>
+	
+</body>
+</hmtl>
