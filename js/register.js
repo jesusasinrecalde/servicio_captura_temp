@@ -9,17 +9,7 @@ window.onload = function() {
 	var tabla = document	.forms[0];
 	g_key="";
 	g_device="";
-	if(param_key!=null)
-	{
-		tabla.elements[0].value=param_key;
-		//$('#key').value=param_key;
 
-	}
-	
-	if(param_device!=null)
-	{
-			tabla.elements[1].value=param_device;
-	}
 }
 
 function clickRegister(obj)
