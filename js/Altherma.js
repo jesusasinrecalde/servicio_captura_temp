@@ -17,11 +17,11 @@ function Altherma(idTerm)
 	[2] I0022 Unit ERROR Code RTD ASCII Format*
 	[3] I0023 Unit ERROR Sub Code 0-99
 	[4] I0028 Emergency Operation 0..1 (0:Off, 1:On)
-	[5] I0029 ADD Zone Running 0..1 (0:Off, 1:On)
+	[5] I0029 ADD Zone Running 0..1 (0:Off, 1:On) ( NO SE MUESTRA)
 	[6] I0030 Circulation pump operation 0..1 (0:Off, 1:On)
 	[7] I0031 Compressor Run 0..1 (0:Off, 1:On)
 	[8] I0032 Booster Heater Run† 0..1 (0:Off, 1:On)
-	[9] I0033 Disinfection operation 0..1 (0:Off, 1:Busy)
+	[9] I0033 Disinfection operation 0..1 (0:Off, 1:Busy) ( NO SE MUESTRA)
 	[10] I0034 Backup Heater Level 1,2† 0..2 (0:Off, 1,2: Level)
 	[11] I0035 Defrost/start up mode 0..1 (0:Off, 1:Busy)
 	[12] I0036 Hot Start 0..1 (0:Off, 1:Busy)
@@ -30,13 +30,13 @@ function Altherma(idTerm)
 	[15] I0041 Leaving Water Temperature PHE °C x100 Temperature
 	[16] I0042 Inlet Water Temperature °C x100 Temperature
 	[17] I0043 Domestic Hot Water Temperature†
-	[18] I0044 Outside Air Temperature °C x100 Temperature
+	[18] I0044 Outside Air Temperature °C x100 Temperature ( SE MUESTRA EN EL CAPTION)
 	[19] I0045 Liquid Refrigerant Temperature °C x100 Temperature
 	[20] I0046 Current Leaving Water Temperature MAIN Setpoint °C x100 Temperature
-	[21] I0047 Current Leaving Water Temperature ADD Setpoint† °C x100 Temperature
-	[22] I0048 External Sensor °C x100 Temperature
+	[21] I0047 Current Leaving Water Temperature ADD Setpoint† °C x100 Temperature ( NO SE MUESTRA)
+	[22] I0048 External Sensor °C x100 Temperature ( NO SE MUESTRA)
 	[23] I0049 Flow Rate litre/s x100
-	[24] I0050 Measured Room Temperature °C x100 Temperature
+	[24] I0050 Measured Room Temperature °C x100 Temperature ( NO SE MUESTRA)
 	[25] I0051 Current DHW Setpoint °C x100 Temperature
 */	
 	this.parametros={dat1:0, dat2:0 ,dat3: 0,dat4: 0,dat5: 0,dat6:0
@@ -53,8 +53,17 @@ function Altherma(idTerm)
 	clone.getElementById("marco_principal").id  ="marco_principal"+this.Id;
 	
 	//Elementos que van los datos de consumo
-	clone.getElementById("dat16").id ="dat16"+this.Id;
+	clone.getElementById("alarma").id ="alarma"+this.Id;
+	
+	clone.getElementById("dat4").id ="dat4"+this.Id;
+	clone.getElementById("dat8").id ="dat8"+this.Id;
 	clone.getElementById("dat6").id ="dat6"+this.Id;
+	clone.getElementById("dat7").id ="dat7"+this.Id;
+	clone.getElementById("dat10").id ="dat10"+this.Id;
+	clone.getElementById("dat11").id ="dat11"+this.Id;
+	clone.getElementById("dat12").id ="dat12"+this.Id;
+	clone.getElementById("dat13").id ="dat13"+this.Id;
+	clone.getElementById("dat14").id ="dat14"+this.Id;
 	//clone.getElementById("dat3").id ="dat3"+this.Id;
 	//clone.getElementById("dat4").id ="dat4"+this.Id;
 	//clone.getElementById("dat5").id ="dat5"+this.Id;
@@ -62,7 +71,13 @@ function Altherma(idTerm)
 	//clone.getElementById("dat7").id ="dat7"+this.Id;
 	//clone.getElementById("dat8").id ="dat8"+this.Id;
 	//clone.getElementById("dat9").id ="dat9"+this.Id;
-	clone.getElementById("dat14").id ="dat14"+this.Id;
+	clone.getElementById("dat15").id ="dat15"+this.Id;
+	clone.getElementById("dat16").id ="dat16"+this.Id;
+	clone.getElementById("dat17").id ="dat17"+this.Id;
+	clone.getElementById("dat19").id ="dat19"+this.Id;
+	clone.getElementById("dat20").id ="dat20"+this.Id;
+	clone.getElementById("dat23").id ="dat23"+this.Id;
+	clone.getElementById("dat25").id ="dat25"+this.Id;
 	
 	clone.getElementById("icono_warning").id ="icono_warning"+this.Id;
 	
@@ -109,10 +124,19 @@ Altherma.prototype.Actualizar=function()
 	//var Consumo=this.parametros.dat9 / 0.399;
 	elem1=document.getElementById('icono_warning'+this.Id);
 	if(this.parametros.dat1==0)
+	{	
 		$('#icono_warning'+this.Id).hide();
+		
+		$('#alarma'+this.Id).hide();
+	}
 	else
+	{
 		$('#icono_warning'+this.Id).show();
-	
+		elem1=document.getElementById('alarma'+this.Id);
+		elem1.innerHTML="ALARMA : " +this.parametros.dat2+ "("+this.parametros.dat3+")";
+
+		$('#alarma'+this.Id).show();
+	}
 	
 	
 	elem1=document.getElementById('TempExterior'+this.Id);
@@ -120,20 +144,45 @@ Altherma.prototype.Actualizar=function()
 	
 	//elem1=document.getElementById('dat9'+this.Id);
     //elem1.innerHTML=Consumo.toFixed(2) + " KgCO2";
+	debugger;
+	this.EvaluaElmBullet(document.getElementById('dat4'+this.Id),this.parametros.dat4);
+	this.EvaluaElmBullet(document.getElementById('dat8'+this.Id),this.parametros.dat8);
+	this.EvaluaElmBullet(document.getElementById('dat6'+this.Id),this.parametros.dat6);
+	this.EvaluaElmBullet(document.getElementById('dat7'+this.Id),this.parametros.dat7);
+	this.EvaluaElmBullet(document.getElementById('dat10'+this.Id),this.parametros.dat10);
+	this.EvaluaElmBullet(document.getElementById('dat11'+this.Id),this.parametros.dat11);
+	this.EvaluaElmBullet(document.getElementById('dat12'+this.Id),this.parametros.dat12);
 	
+	elem1=document.getElementById('dat13'+this.Id);
+	if(this.parametros.dat13==0)
+		elem1.innerHTML="Heat/Cool";
+	else
+		elem1.innerHTML="DHW";
 	
 	elem1=document.getElementById('dat14'+this.Id);
     elem1.innerHTML=this.parametros.dat14.toFixed(2) + " ºC";
 	
+	elem1=document.getElementById('dat15'+this.Id);
+    elem1.innerHTML=this.parametros.dat15.toFixed(2) + " ºC";
 	
 	elem1=document.getElementById('dat16'+this.Id);
     elem1.innerHTML=this.parametros.dat16.toFixed(2) + " ºC";
+	
+	elem1=document.getElementById('dat17'+this.Id);
+    elem1.innerHTML=this.parametros.dat17.toFixed(2) + " ºC";
 
-	elem1=document.getElementById('dat6'+this.Id);
-	if(this.parametros.dat6==0)
-		elem1.innerHTML= "OFF";
-	else
-		elem1.innerHTML= "ON";
+	elem1=document.getElementById('dat19'+this.Id);
+    elem1.innerHTML=this.parametros.dat19.toFixed(2) + " ºC";
+
+	elem1=document.getElementById('dat20'+this.Id);
+    elem1.innerHTML=this.parametros.dat20.toFixed(2) + " ºC";
+
+	elem1=document.getElementById('dat23'+this.Id);
+    elem1.innerHTML=this.parametros.dat23.toFixed(2) + " L.";
+
+	elem1=document.getElementById('dat25'+this.Id);
+    elem1.innerHTML=this.parametros.dat25.toFixed(2) + " ºC";
+
 	
 	////elem1=document.getElementById('dat6'+this.Id);
     ////elem1.innerHTML=this.parametros.dat6 +" var";
@@ -155,6 +204,27 @@ Altherma.prototype.Actualizar=function()
 	
 }
 
+Altherma.prototype.EvaluaElmBullet=function( elemento , dato)
+{
+	debugger;
+	var t_elem1 =elemento;
+	switch(dato )
+	{
+		case "0" :
+			t_elem1.src="./graph/bullet_grey.png";
+			break;
+		case "1" :
+			t_elem1.src="./graph/bullet_green.png";
+			break;
+		case "2" :
+		default :
+			t_elem1.src="./graph/bullet_yellow.png";
+			break;
+	}
+		
+	
+	return;
+}
 
 /** Funcion de procesamiento de datos recibido, 
 */
@@ -168,37 +238,144 @@ Altherma.prototype.ProcesaDatos=function(Parametros)
 	//	this.parametros.dat1=parseFloat(dato);
 	//}
 
+	var indice =0;
+	
 	dato=Parametros.data[this.Id+'_dat1'];
 	if(dato!=null)
 	{
-		this.parametros.dat0=dato;
+		console.log("Altherma ["+this.Id+"] Dat1 :"+Parametros.data[this.Id+'_dat1']+"\n");
+		this.parametros[0]=dato;
+	}
+	dato=Parametros.data[this.Id+'_dat2'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat2 :"+ Parametros.data[this.Id+'_dat2']+"\n");
+		this.parametros.dat2=dato;
+	}
+	dato=Parametros.data[this.Id+'_dat3'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat3 :" +Parametros.data[this.Id+'_dat3']+"\n");
+		this.parametros.dat3=dato;
+	}
+	dato=Parametros.data[this.Id+'_dat4'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat4 :" +Parametros.data[this.Id+'_dat4']+"\n");
+		this.parametros.dat4=dato;
+	}
+	dato=Parametros.data[this.Id+'_dat5'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat5 :"+ Parametros.data[this.Id+'_dat5']+"\n");
+		this.parametros.dat5=dato;
+	}
+	
+	dato=Parametros.data[this.Id+'_dat6'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat6 :" +Parametros.data[this.Id+'_dat6']+"\n");
+		this.parametros.dat6=dato;
 	}
 	
 	dato=Parametros.data[this.Id+'_dat7'];
 	if(dato!=null)
 	{
-		this.parametros.dat6=dato;
+		console.log("Altherma ["+this.Id+"] Dat7 :"+ Parametros.data[this.Id+'_dat7']+"\n");
+		this.parametros.dat7=dato;
+	}
+	
+		dato=Parametros.data[this.Id+'_dat8'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat8 :"+ Parametros.data[this.Id+'_dat8']+"\n");
+		this.parametros.dat8=dato;
+	}
+	dato=Parametros.data[this.Id+'_dat10'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat10 :"+ Parametros.data[this.Id+'_dat10']+"\n");
+		this.parametros.dat10=dato;
+	}
+	
+	dato=Parametros.data[this.Id+'_dat11'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat11:"+ Parametros.data[this.Id+'_dat11']+"\n");
+		this.parametros.dat11=dato;
+	}
+	
+	dato=Parametros.data[this.Id+'_dat12'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat12 :"+ Parametros.data[this.Id+'_dat12']+"\n");
+		this.parametros.dat12=dato;
 	}
 	
 	dato=Parametros.data[this.Id+'_dat14'];
 	if(dato!=null)
 	{
+		console.log("Altherma ["+this.Id+"] Dat14 :"+ Parametros.data[this.Id+'_dat14']+"\n");
 		this.parametros.dat14=parseFloat(dato);
+	}
+	
+	dato=Parametros.data[this.Id+'_dat15'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat15 :"+ Parametros.data[this.Id+'_dat15']+"\n");
+		this.parametros.dat15=parseFloat(dato);
 	}
 	
 	dato=Parametros.data[this.Id+'_dat16'];
 	if(dato!=null)
 	{
+		console.log("Altherma ["+this.Id+"] Dat16 :"+ Parametros.data[this.Id+'_dat16']+"\n");
 		this.parametros.dat16=parseFloat(dato);
 	}
 
+	dato=Parametros.data[this.Id+'_dat17'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat17 :"+ Parametros.data[this.Id+'_dat17']+"\n");
+		this.parametros.dat17=parseFloat(dato);
+	}
 	
 	dato=Parametros.data[this.Id+'_dat18'];
 	if(dato!=null)
 	{
+		console.log("Altherma ["+this.Id+"] Dat18 :"+ Parametros.data[this.Id+'_dat18']+"\n");
 		this.parametros.dat18=parseFloat(dato);
 	}
 
+	dato=Parametros.data[this.Id+'_dat19'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat19 :"+ Parametros.data[this.Id+'_dat19']+"\n");
+		this.parametros.dat19=parseFloat(dato);
+	}
+	
+	dato=Parametros.data[this.Id+'_dat20'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat20 :"+ Parametros.data[this.Id+'_dat20']+"\n");
+		this.parametros.dat20=parseFloat(dato);
+	}
+	
+	dato=Parametros.data[this.Id+'_dat23'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat23 :"+ Parametros.data[this.Id+'_dat23']+"\n");
+		this.parametros.dat23=parseFloat(dato);
+	}
+	
+	dato=Parametros.data[this.Id+'_dat25'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat25 :"+ Parametros.data[this.Id+'_dat25']+"\n");
+		this.parametros.dat25=parseFloat(dato);
+	}
+	
+	
 	
 	//dato=Parametros.data[this.Id+'_dat5'];
 	//if(dato!=null)

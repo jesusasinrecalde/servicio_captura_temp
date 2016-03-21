@@ -131,10 +131,15 @@ Altherma.prototype.Actualizar=function()
 
 	elem1=document.getElementById('dat6'+this.Id);
 	if(this.parametros.dat6==0)
-		elem1.innerHTML= "OFF";
+	{
+		elem1.src="./graph/bullet_grey.png";
+		console.log("Altherma ["+this.Id+"] dat6 OFF\n");
+	}
 	else
-		elem1.innerHTML= "ON";
-	
+	{
+		elem1.src="./graph/bullet_green.png";
+		console.log("Altherma ["+this.Id+"] dat6 ON\n");
+	}
 	////elem1=document.getElementById('dat6'+this.Id);
     ////elem1.innerHTML=this.parametros.dat6 +" var";
 	

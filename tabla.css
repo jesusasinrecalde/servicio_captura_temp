@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=BenchNine);
+﻿@import url(http://fonts.googleapis.com/css?family=BenchNine);
 @import url(https://fonts.googleapis.com/css?family=Candal);
 /** tg estilo tabla general */
 #html, #body {
@@ -57,8 +57,9 @@ height: 100%;  / * empuja el pie hacia abajo * /
 	
 .tg .tablaparam{
 		border-style:solid;
-	    border-width:2px;
+	    border-width:1px;
 		border-color:#ffffff;
+		font-size:15px;
 		
 	}
 	
@@ -82,6 +83,13 @@ height: 100%;  / * empuja el pie hacia abajo * /
 	font-size:100px;
 }
 .SelectModo{
+	width:30px;
+	height:30px;
+}
+
+.bullet
+{
+	border:0px;
 	width:30px;
 	height:30px;
 }
