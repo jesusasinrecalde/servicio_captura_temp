@@ -118,7 +118,7 @@ Altherma.prototype.Actualizar=function()
 	//elem1=document.getElementById('dat5'+this.Id);
     //elem1.innerHTML=this.parametros.dat5 + " W";
 	
-
+	debugger;
 	
 	
 	//var Consumo=this.parametros.dat9 / 0.399;
@@ -237,14 +237,14 @@ Altherma.prototype.ProcesaDatos=function(Parametros)
 	//{
 	//	this.parametros.dat1=parseFloat(dato);
 	//}
-
+	
 	var indice =0;
 	
 	dato=Parametros.data[this.Id+'_dat1'];
 	if(dato!=null)
 	{
 		console.log("Altherma ["+this.Id+"] Dat1 :"+Parametros.data[this.Id+'_dat1']+"\n");
-		this.parametros[0]=dato;
+		this.parametros.dat1=dato;
 	}
 	dato=Parametros.data[this.Id+'_dat2'];
 	if(dato!=null)
