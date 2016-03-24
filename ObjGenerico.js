@@ -89,6 +89,7 @@ ObjectoGenerico.prototype.set=function(atributo,valor)
 		case "Estado" :	
 			if(valor=="ENCENDIDO" || valor =="APAGADO")
 				this.Estado=valor;
+			 console.log(" ["+this.Id+"] estado :"+this.Estado+"\n");
 			break;
 		default : 
 			break;
@@ -179,6 +180,7 @@ ObjectoGenerico.prototype.CambioOnOff=function()
 		this.Estado="ENCENDIDO";
 	
 }
+
 
 
 /** Cambia la visualizacion del objeto en funcion de los datos que lo configuran

@@ -8,7 +8,7 @@ function Altherma(idTerm)
 	debugger;
 
 
-	ObjectoGenerico.call(this,idTerm,1,"Altherma","Altherma"+idTerm,false,"#91FF83","#D6FFD1","#370EC8","#669");
+	ObjectoGenerico.call(this,idTerm,1,"Altherma","Altherma"+idTerm,true,"#91FF83","#D6FFD1","#370EC8","#669");
 	
 	this.Id=idTerm;
 	
@@ -38,11 +38,19 @@ function Altherma(idTerm)
 	[23] I0049 Flow Rate litre/s x100
 	[24] I0050 Measured Room Temperature °C x100 Temperature ( NO SE MUESTRA)
 	[25] I0051 Current DHW Setpoint °C x100 Temperature
+
+	HOLDING REGISTER ====================================================================
+
+	[26] Punto de ajuste PRINCIPAL del agua de salida en modo calefacción* 25-55°C
+	[27] Punto de ajuste PRINCIPAL del agua de salida en modo refrigeración* 5-22°C
+	[28] Modo de funcionamiento 0..2 (0=automático, 1=calefacción, 2=refrigeración)
+	[29] Calefacción/refrigeración de espacio encendida/apagada 0..1 (0:apagada, 1:encendida)
 */	
 	this.parametros={dat1:0, dat2:0 ,dat3: 0,dat4: 0,dat5: 0,dat6:0
 						   , dat7: 0,dat8: 0,dat9: 0,dat10:0,dat11:0,dat12:0,dat13:0
 					       , dat14:0,dat15:0,dat16:0,dat17:0
-					       , dat18:0,dat19:0,dat20:0,dat21:0,dat22:0,dat23:0,dat24:0,dat25:0}; // datos que se recibe del servicio pass
+					       , dat18:0,dat19:0,dat20:0,dat21:0,dat22:0,dat23:0,dat24:0,dat25:0
+						   , dat26:0,dat27:0,dat28:0,dat29:0}; // datos que se recibe del servicio pass
 	//this.configuracion={temperatura:35.5, modo:0, Caption:""}; // datos que se envia al servicio pass , son los que se modifican graficamente
 	//this.ConsumoHora=new Array(6);
 		
@@ -51,6 +59,8 @@ function Altherma(idTerm)
 	// Elementos graficos propios del objeto
 	clone.getElementById("TempExterior").id ="TempExterior"+this.Id;
 	clone.getElementById("marco_principal").id  ="marco_principal"+this.Id;
+	
+	clone.getElementById("accordion").id ="accordion"+this.Id;
 	
 	//Elementos que van los datos de consumo
 	clone.getElementById("alarma").id ="alarma"+this.Id;
@@ -79,6 +89,8 @@ function Altherma(idTerm)
 	clone.getElementById("dat23").id ="dat23"+this.Id;
 	clone.getElementById("dat25").id ="dat25"+this.Id;
 	
+	clone.getElementById("dat28").id ="dat28"+this.Id;
+	
 	clone.getElementById("icono_warning").id ="icono_warning"+this.Id;
 	
 	
@@ -91,7 +103,7 @@ function Altherma(idTerm)
 	ObjectoGenerico.prototype.ClonaGenerico_2.call(this);// ... una vez definido el objeto grafico al completo lo incluimos en la pagina 
 	
 	//llamarServicioCarriotsNummObjt(this.Id,6);
-	
+	$('.accordion'+this.Id).collapse();
 	this.Actualizar();// Situamos la visualizacion al mismo nivel que el estado del objeto
 	
 };
@@ -145,14 +157,40 @@ Altherma.prototype.Actualizar=function()
 	//elem1=document.getElementById('dat9'+this.Id);
     //elem1.innerHTML=Consumo.toFixed(2) + " KgCO2";
 	debugger;
-	this.EvaluaElmBullet(document.getElementById('dat4'+this.Id),this.parametros.dat4);
+	//this.EvaluaElmBullet(document.getElementById('dat4'+this.Id),this.parametros.dat4);
+	elem1=document.getElementById('dat4'+this.Id);
+	if(this.parametros.dat4==0)
+		elem1.src="./graph/icons/emergencia_off.png";
+	else
+		elem1.src="./graph/icons/emergencia.png";
 	this.EvaluaElmBullet(document.getElementById('dat8'+this.Id),this.parametros.dat8);
-	this.EvaluaElmBullet(document.getElementById('dat6'+this.Id),this.parametros.dat6);
-	this.EvaluaElmBullet(document.getElementById('dat7'+this.Id),this.parametros.dat7);
+	//this.EvaluaElmBullet(document.getElementById('dat6'+this.Id),this.parametros.dat6);
+	elem1=document.getElementById('dat6'+this.Id);
+	if(this.parametros.dat6==0)
+		elem1.src="./graph/icons/pump_off.png";
+	else
+		elem1.src="./graph/icons/pump.png";
+	//this.EvaluaElmBullet(document.getElementById('dat7'+this.Id),this.parametros.dat7);
+	elem1=document.getElementById('dat7'+this.Id);
+	if(this.parametros.dat7==0)
+		elem1.src="./graph/icons/flash_off.png";
+	else
+		elem1.src="./graph/icons/flash.png";
 	this.EvaluaElmBullet(document.getElementById('dat10'+this.Id),this.parametros.dat10);
-	this.EvaluaElmBullet(document.getElementById('dat11'+this.Id),this.parametros.dat11);
-	this.EvaluaElmBullet(document.getElementById('dat12'+this.Id),this.parametros.dat12);
+	//this.EvaluaElmBullet(document.getElementById('dat11'+this.Id),this.parametros.dat11);
+	elem1=document.getElementById('dat11'+this.Id);
+	if(this.parametros.dat11==0)
+		elem1.src="./graph/icons/defrost_off.png";
+	else
+		elem1.src="./graph/icons/defrost.png";
 	
+	//this.EvaluaElmBullet(document.getElementById('dat12'+this.Id),this.parametros.dat12);
+	/*elem1=document.getElementById('dat12'+this.Id);
+	if(this.parametros.dat12==0)
+		elem1.src="./graph/icons/hotstart_off.png";
+	else
+		elem1.src="./graph/icons/hotstart.png";
+	*/
 	elem1=document.getElementById('dat13'+this.Id);
 	if(this.parametros.dat13==0)
 		elem1.innerHTML="Heat/Cool";
@@ -183,6 +221,25 @@ Altherma.prototype.Actualizar=function()
 	elem1=document.getElementById('dat25'+this.Id);
     elem1.innerHTML=this.parametros.dat25.toFixed(2) + " ºC";
 
+	elem1=document.getElementById('dat28'+this.Id);
+	switch(this.parametros.dat28)
+	{
+		case "0" :
+			elem1.src="./graph/icons/automatico.png";
+			break;
+		case "1" :
+			elem1.src="./graph/icons/calor.png";
+			break;
+		case "2" :
+			elem1.src="./graph/icons/frio.png";
+			break;
+		default :
+			elem1.src="./graph/icons/automatico.png";
+			break;
+		
+	}
+		
+	
 	
 	////elem1=document.getElementById('dat6'+this.Id);
     ////elem1.innerHTML=this.parametros.dat6 +" var";
@@ -206,7 +263,7 @@ Altherma.prototype.Actualizar=function()
 
 Altherma.prototype.EvaluaElmBullet=function( elemento , dato)
 {
-	debugger;
+	
 	var t_elem1 =elemento;
 	switch(dato )
 	{
@@ -375,7 +432,39 @@ Altherma.prototype.ProcesaDatos=function(Parametros)
 		this.parametros.dat25=parseFloat(dato);
 	}
 	
+	dato=Parametros.data[this.Id+'_dat26'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat26 :"+ Parametros.data[this.Id+'_dat26']+"\n");
+		this.parametros.dat26=dato;
+	}
 	
+	dato=Parametros.data[this.Id+'_dat27'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat27 :"+ Parametros.data[this.Id+'_dat27']+"\n");
+		this.parametros.dat27=dato;
+	}
+	
+	dato=Parametros.data[this.Id+'_dat28'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat28 :"+ Parametros.data[this.Id+'_dat28']+"\n");
+		this.parametros.dat28=dato;
+	}
+	
+	debugger;
+	dato=Parametros.data[this.Id+'_dat29'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat29 :"+ Parametros.data[this.Id+'_dat29']+"\n");
+		this.parametros.dat29=dato;
+		
+		if(this.parametros.dat29==0)
+			ObjectoGenerico.prototype.set.call(this,"Estado","APAGADO");
+		else
+			ObjectoGenerico.prototype.set.call(this,"Estado","ENCENDIDO");
+	}
 	
 	//dato=Parametros.data[this.Id+'_dat5'];
 	//if(dato!=null)
