@@ -11,7 +11,7 @@ function DatosGenerico(idTerm)
 	ObjectoGenerico.call(this,idTerm,1,"Consumo","Consumo"+idTerm,false,"#91FF83","#D6FFD1","#63AD5A","#669");
 	
 	this.Id=idTerm;
-	this.parametros={dat1:35.5, dat2:0,dat3:30.5,dat4:0,dat5:0,dat6:0,dat7:0,dat8:0,dat9:0}; // datos que se recibe del servicio pass
+	this.parametros={dat1:35.5, dat2:0,dat3:30.5,dat4:0,dat5:0,dat6:0,dat7:0,dat8:0,dat9:0,valor1:"",valor2:0}; // datos que se recibe del servicio pass
 	//this.configuracion={temperatura:35.5, modo:0, Caption:""}; // datos que se envia al servicio pass , son los que se modifican graficamente
 	this.ConsumoHora=new Array(6);
 		
@@ -31,10 +31,13 @@ function DatosGenerico(idTerm)
 	//clone.getElementById("dat7").id ="dat7"+this.Id;
 	//clone.getElementById("dat8").id ="dat8"+this.Id;
 	clone.getElementById("dat9").id ="dat9"+this.Id;
+	
+	clone.getElementById("datlinea").id ="datlinea"+this.Id;
+	
 	clone.getElementById("datCoste").id ="datCoste"+this.Id;
 	
 	clone.getElementById("icono_graph").id ="icono_graph"+this.Id;
-	
+	clone.getElementById("icono_consumo").id ="icono_consumo"+this.Id;
 	
 	
 	$("#contenedor").append(clone); // se añade el objeto al documento DOM dentro del elemento contenedor ...
@@ -86,6 +89,8 @@ DatosGenerico.prototype.Actualizar=function()
 	elem1=document.getElementById('datCoste'+this.Id);
     elem1.innerHTML=coste.toFixed(2) + " €";
 	
+	elem1=document.getElementById('datlinea'+this.Id);
+    elem1.innerHTML=this.parametros.valor1;
 	
 	
 	//elem1=document.getElementById('dat6'+this.Id);
@@ -98,8 +103,25 @@ DatosGenerico.prototype.Actualizar=function()
 	
 	//elem1=document.getElementById('dat8'+this.Id);
     //elem1.innerHTML=this.parametros.dat8 +" VA";
-	
-	
+	var nivelConsumo = document.getElementById('icono_consumo'+this.Id);
+	switch(this.parametros.valor2)
+	{
+		case 0 :
+			nivelConsumo.src="./graph/igual.png";
+			break;
+		
+		case 1 :
+			nivelConsumo.src="./graph/up.png";
+			break;
+		
+		case 2 :
+			nivelConsumo.src="./graph/down.png";
+			break;
+		
+		default :
+			nivelConsumo.src="./graph/igual.png";
+			break;
+	}
 	
 	
 	
@@ -111,9 +133,9 @@ DatosGenerico.prototype.Actualizar=function()
 
 /** Funcion de procesamiento de datos recibido, 
 */
-DatosGenerico.prototype.ProcesaDatos=function(Parametros)
+DatosGenerico.prototype.ProcesaDatos=function(Parametros,ParametrosTresHoras)
 {
-	console.log("Actualizar datos Obj tipo 1 Id"+this.Id+"\n");
+	console.log("* Actualizar datos Obj tipo 1 Id"+this.Id+"\n");
 	
 	var dato=Parametros.data[this.Id+'_dat1'];
 	if(dato!=null)
@@ -149,12 +171,50 @@ DatosGenerico.prototype.ProcesaDatos=function(Parametros)
 	
 	dato=Parametros.data[this.Id+'_dat9'];
 	//alert ("recibido " +dato);
+
 	if(dato!=null)
 	{
+		//var valorInicial=parseFloat(dato);
+		var valorInicial=ParametrosTresHoras[0].data[this.Id+'_dat9'];
+		var valorfinal1=ParametrosTresHoras[9].data[this.Id+'_dat9'];
+		var valorfinal2=ParametrosTresHoras[19].data[this.Id+'_dat9'];
+		var valorfinal3=ParametrosTresHoras[29].data[this.Id+'_dat9'];
+		var hora1 =DarStringHora(ParametrosTresHoras[0].at);
+		var hora2 =DarStringHora(ParametrosTresHoras[9].at);
+		var hora3 =DarStringHora(ParametrosTresHoras[19].at);
+		//var valorfinal=
+		this.parametros.dat9=parseFloat(valorInicial)-parseFloat(valorfinal1);
+		var periodo1=parseFloat(valorfinal1)-parseFloat(valorfinal2);
+		var periodo2=parseFloat(valorfinal2)-parseFloat(valorfinal3);
+		console.log("[0]"+dato+"[1]"+valorfinal1+"[2]"+valorfinal2+"[3]"+valorfinal3+"\n");
+		console.log("Consumo"+this.Id+"["+hora1+" "+this.parametros.dat9+"] ["+hora2+" "+periodo1+"] ["+hora3+" "+periodo2+"]\n");
+		this.parametros.valor1=hora1+" "+this.parametros.dat9.toFixed(2)+" "+hora2+" "+periodo1.toFixed(2)+" "+hora3+" "+periodo2.toFixed(2);
+	
 		
-		this.parametros.dat9=parseFloat(dato);
-		//alert ("recibido 1 " +this.parametros.dat9);
+		if(this.parametros.dat9>periodo1)
+			this.parametros.valor2=1;
+		
+		if(this.parametros.dat9<periodo1)
+			this.parametros.valor2=2;
+		else
+			this.parametros.valor2=0;
+
+	//alert ("recibido 1 " +this.parametros.dat9);
+	/*	var hora ;
+		var dato;
+		
+		for(var indice=0;indice < 30 ; indice ++)
+		{
+			dato=ParametrosTresHoras[indice].data[this.Id+'_dat9'];
+			hora=DarStringHora(ParametrosTresHoras[indice].at);
+			console.log(" "+indice+" "+hora+" "+dato+"\n");
+			
+		}
+	*/
 	}
+	
+	
+	
 /*	
 	dato=Parametros.data[this.Id+'_dat6'];
 	if(dato!=null)
@@ -211,4 +271,26 @@ DatosGenerico.prototype.ProcesaDatosPeticion=function(ListaResultado)
 	//alert("recibidor :"+ListaResultado.total_documents);
 	debugger;
 	return;
+}
+
+function DarStringHora(fechaCarriots)
+{
+	var mesok=new Array(12);
+	mesok[0]="Enero";
+	mesok[1]="Febrero";
+	mesok[2]="Marzo";
+	mesok[3]="Abril";
+	mesok[4]="Mayo";
+	mesok[5]="Junio";
+	mesok[6]="Julio";
+	mesok[7]="Agosto";
+	mesok[8]="Septiembre";
+	mesok[9]="Octubre";
+	mesok[10]="Noviembre";
+	mesok[11]="Diciembre";
+    // imprimir fecha y hora 
+	var d = new Date (fechaCarriots*1000);
+	//return  d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes();
+	return  d.getHours()+':'+d.getMinutes();
+
 }

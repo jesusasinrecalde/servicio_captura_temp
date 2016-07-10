@@ -24,7 +24,15 @@
 	<link rel="stylesheet" type="text/css" href="graph.css">
 	
 	<script type="text/javascript" src="js/graph.js"></script>
-		
+	 <script type="text/javascript" src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+    </script>
+	<link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+
+	 <script type="text/javascript"
+     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+    </script>
+
+	
 </head>
 <body role="document">
 
@@ -43,7 +51,7 @@
         <span class="icon-bar"></span>
       </button>
 	  <a class="navbar-brand" href="tabla.html">
-        <img alt="Brand" src="favicon.ico" border="0" width="30" height="30">
+        <img alt="Brand" src="./graph/hejmo_logo_INVERTER.png" border="0" width="30" height="30">
       </a>
 	  
 	  
@@ -63,6 +71,7 @@
 				<button type="button" class="btn btn-default" id="btn_365Dias" onclick="EvntBtn365Dias(this)">--- dias </button>
 			</div>
 		</div>
+		
 		</form>
       </ul>  
       
@@ -145,6 +154,15 @@
 				</h3>
             </div>
             <div class="panel panel-default" id="cuerpo_dch">
+				<div class="well">
+			<div id="datetimepicker1" class="input-append date">
+				<input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input>
+				<span class="add-on">
+					<i data-time-icon="icon-time" data-date-icon="icon-calendar">
+					</i>
+				</span>
+			</div>
+		</div>
 				<div id="grafico" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 			</div>
         </div>

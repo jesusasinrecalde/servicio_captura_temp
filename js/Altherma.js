@@ -285,7 +285,7 @@ Altherma.prototype.EvaluaElmBullet=function( elemento , dato)
 
 /** Funcion de procesamiento de datos recibido, 
 */
-Altherma.prototype.ProcesaDatos=function(Parametros)
+Altherma.prototype.ProcesaDatos=function(Parametros,ParametrosTresHoras)
 {
 	console.log("Actualizar datos Obj tipo 2 Id"+this.Id+"\n");
 	

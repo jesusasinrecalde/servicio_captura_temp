@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Candal);
 /** tg estilo tabla general */
 #html, #body {
-height: 100%; / * hacer que la página llene toda la altura * /
+height: 100%; / * hacer que la tempAmbiente llene toda la altura * /
 }
 
 #contenidoprincipal  {
@@ -127,4 +127,29 @@ height: 100%;  / * empuja el pie hacia abajo * /
 	.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}
 	}
 
+.consumo_main{
+	text-align:left;
+	font-size:80px;
+	
+}
 
+.consumo_main_small{
+	text-align:left;
+	font-size:15px;
+	
+}
+
+.consumo_main_medio{
+	text-align:left;
+	font-size:30px;
+	
+}
+
+.cuadro {
+	-khtml-border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+border: 2px solid #cccccc;
+background-color:#dddddd
+}

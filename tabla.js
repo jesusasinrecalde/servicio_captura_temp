@@ -1,6 +1,6 @@
 
 
-var tabla_valores;
+var tabla_valores;llamarServicioCarriotsNummObjt
 var actualizar_datos; // flag para indicar si hay datos modificados o no
 var timer_actualizar_datos; // temporizador utilizado para realizar el parpadeo en el caso que actualizar_datos sea true
 var Tem1;
@@ -690,6 +690,7 @@ function llamarServicioCarriots()
 });
 }
 
+
 function recepcionServicioREST (datosREST)
 {
 	debugger;
@@ -702,7 +703,7 @@ function recepcionServicioREST (datosREST)
 	var Tem1;
 	var iNumElementos=parseInt(nodo.data['numElem']);
 
-	var mesok=new Array(12);
+/*	var mesok=new Array(12);
 	mesok[0]="Enero";
 	mesok[1]="Febrero";
 	mesok[2]="Marzo";
@@ -719,7 +720,8 @@ function recepcionServicioREST (datosREST)
 	var d = new Date (nodo.at*1000);
 	var stringFecha = '         Ultimo Dato: '+d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getHours()
 	      +':'+d.getMinutes();
-
+*/
+	var stringFecha = '  **       Ultimo Dato: '+DarStringFecha(nodo.at);
 	var elem1=document.getElementById("fecha_actualizacion");
     elem1.innerHTML=stringFecha;
 
@@ -823,3 +825,24 @@ function supportsImports() {
   return 'import' in document.createElement('link');
 }
 
+// funcion para poner en util.js
+function DarStringFecha(fechaCarriots)
+{
+	var mesok=new Array(12);
+	mesok[0]="Enero";
+	mesok[1]="Febrero";
+	mesok[2]="Marzo";
+	mesok[3]="Abril";
+	mesok[4]="Mayo";
+	mesok[5]="Junio";
+	mesok[6]="Julio";
+	mesok[7]="Agosto";
+	mesok[8]="Septiembre";
+	mesok[9]="Octubre";
+	mesok[10]="Noviembre";
+	mesok[11]="Diciembre";
+    // imprimir fecha y hora 
+	var d = new Date (fechaCarriots*1000);
+	return  d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes();
+
+}

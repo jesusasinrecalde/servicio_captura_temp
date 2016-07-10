@@ -50,6 +50,13 @@ var g_key;
 var g_device;
 window.onload = function() {
 
+$('#datetimepicker1').datetimepicker({
+      format: 'dd/MM/yyyy hh:mm:ss',
+        language: 'pt-BR'
+
+    });
+	
+	
 g_key=localStorage["hjm_key"];
 	g_device=localStorage["hjm_device"];
 	if(g_key==null || g_device==null)

@@ -239,7 +239,7 @@ ObjectoGenerico.prototype.HayDatosCambiados=function()
 
 /** Funcion generica de procesamiento de datos recibidor, sin sobrecargar no incorpora ningun dato
 */
-ObjectoGenerico.prototype.ProcesaDatos=function(Parametros)
+ObjectoGenerico.prototype.ProcesaDatos=function(Parametros,ParametrosTresHoras)
 {
 	return;
 }

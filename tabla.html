@@ -240,7 +240,10 @@
 		<img class ="image_cab" id="icono_despliegue"  src="./graph/arrow_down.png" onclick="EvntBtwDespliegue(this)"  border="0" width="15" height="20" />
 	</td>
     <td class="tg-228w"  width ="400"> <div class="tg-228w" id="caption">Datos</div></td>
-	<td></td>
+	<td> 
+		<img class ="image_cab" id="icono_consumo"  src="./graph/igual.png"  border="0" width="20" height="20" />		
+	
+	</td>
 	<td class="tg-228w">
 		<div  id="CarbonEmitidos" >----</div>
     </td>
@@ -249,13 +252,116 @@
 	</td>	
   </tr >
   <tr  id="marco_inf" style='display:none;'>
+		
+			
+			
+			
 	<!-- td id="marco_inf" -->
     <div class="div_marco_inf" >
-		<td  colspan = "6" >
-			<table align="center"  >
-				<tr  class="tg-s6z2" id="zona_iconos" colspan="6"  >
-				
+		
+		<td  colspan="6" >
+				<table align ="center">
+				<tr>
+				<td>
+				<div class="cuadro"  align="center">
+					<div class="consumo_main_medio" align="center">1.17 Kwh</div>
+					<div class="consumo_main_small" align="center">16:40 - 15:00</div>
+				</div>
+				</td>
+				<td>
+			
+				<div class="cuadro"  align="center">
+					<div class="consumo_main_medio" align="center">0,08 Kwh</div >
+					<div class="consumo_main_small"  align="center">16:40 - 15:00</div>
+				</div>
+				</td>
 				</tr>
+				</table>
+				
+				<table align = "center">
+					<tr>
+							<td >
+							
+								<table>
+								<tr >
+									<td>
+										<div  align="right">
+										<img class ="image_cab"   id="icono_consumo"  src="./graph/igual.png"  border="0" width="30" height="30" />
+										</div>
+										
+									</td>
+								</tr>
+								<tr >
+									<td >
+										<div class="consumo_main_small">16:00 - 17:40</div>
+									</td>
+								</tr>
+								</table>
+							</td>
+							<td >
+								
+								<div class="consumo_main">
+									1,52 kwh
+								</div>
+								
+								
+							</td>
+							
+						</tr>	
+						
+						</table>
+						
+						
+						
+			<table align="center">
+				<tr>
+					<td>
+						<div class="cuadro">
+							<div align="center">
+								<img class ="image_cab"   id="icono_consumo"  src="./graph/cerdito.png"  border="0" width="40" height="40" />
+							</div>
+								<div class="consumo_main_medio">0,27?</div>	
+						</div>
+									
+						
+					</td>
+					<td>
+						<div class="cuadro">
+							<div align="center">
+								<img class ="image_cab"   id="icono_consumo"  src="./graph/co2.png"  border="0" width="40" height="40" />
+							</div>
+								<div class="consumo_main_medio">0,27kg</div>	
+						</div>
+									
+						
+					</td>
+					<td>
+						<div class="cuadro">
+							<div align="center">
+								<img class ="image_cab"   id="icono_consumo"  src="./graph/rayo.png" border="0" width="40" height="40" />
+							</div>
+								<div class="consumo_main_medio">222.4V</div>	
+						</div>
+									
+						
+					</td>
+					<td>
+						<div class="cuadro">
+							<div align="center">
+								<img class ="image_cab"   id="icono_consumo"  src="./graph/amperaje.png" border="0" width="60" height="40" />
+							</div>
+								<div class="consumo_main_medio">54.5A</div>	
+						</div>
+									
+						
+					</td>
+				</tr>
+			</table>
+			<table align="center"  >
+				
+				
+				
+				
 				<tr id="marco_principal" class="tg-s6z2" colspan="3" >
 					<tr class="tablaparam" colspan="2" >
 						<td class="tablaparam" align="right">Coste  : </td>
@@ -277,6 +383,10 @@
 					<tr class="tablaparam" colspan="2" >
 						<td class="tablaparam" align="right">Emision  : </td>
 						<td class="tablaparam" id="dat9">---</td>
+					</tr>
+					<tr class="tablaparam" colspan="2" >
+						<td class="tablaparam" align="right">dat  : </td>
+						<td class="tablaparam" id="datlinea">---</td>
 					</tr>
 				</tr>
 				

@@ -1,29 +1,27 @@
 
-
-var tabla_valores;
+DarStringFecha
+var tabla_valores;llamarServicioCarriotsNummObjt
 var actualizar_datos; // flag para indicar si hay datos modificados o no
 var timer_actualizar_datos; // temporizador utilizado para realizar el parpadeo en el caso que actualizar_datos sea true
 var Tem1;
 var tabla_objetos;
+var tabla_datos_tres_horas;
 var timer_interval_modo;
 var timer_interval_lectura_datos;
 var IdObjetoGlobal; // variable usada para pasar el IdObjeto atraves de funciones callback
-var g_key;
-var g_device;
 window.onload = function() {
+	//if (supportsImports()) {
+	//alert ("SI soporta import");
+	//} else {
+	//	alert ("no soporta import");
+	// Use other libraries/require systems to load files.
+	//}
 
-	g_key=localStorage["hjm_key"];
-	g_device=localStorage["hjm_device"];
-	if(g_key==null || g_device==null)
-	{
-			window.open ('register.html','_self',false);
-	}
-	else
-	{
-		tabla_valores = new Array();
-		tabla_objetos = new Array();
-		actualizar_datos = false;
-		timer_interval_modo=null;
+	tabla_valores = new Array();
+	tabla_objetos = new Array();
+	tabla_datos_tres_horas = new Array();
+	actualizar_datos = false;
+	timer_interval_modo=null;
 	
 	//Tem1= new TermostatoSistena(0);
 	//Tem1.set("Visible",true);
@@ -33,7 +31,8 @@ window.onload = function() {
 	//Tem1=new DatosGenerico(1);
 	//tabla_objetos.push(Tem1);
 	//crearTermostatoTipo0( 0);
-	llamarServicioCarriots(); 	
+	// ****************************************  llamarServicioCarriots(); 	
+	llamarServicioCarriotsPrimeravez();
 	//crearTermostatoTipo0( 1);
 	//crearTermostatoTipo0( 2);
 	//crearTermostatoTipo0( 3);
@@ -42,8 +41,8 @@ window.onload = function() {
 	//crearTermostatoTipo0( 6);
 	//crearTermostatoTipo0( 7);
 	// se crea el temporizador parar recargar datos
-	timer_interval_lectura_datos=setInterval(llamarServicioCarriots,100000);// 10 minutos
-	debugger;
+	// **********************************************timer_interval_lectura_datos=setInterval(llamarServicioCarriots,100000);// 10 minutos
+	
 	//visibleTermostato(1,0);
 	//visibleTermostato(1,1);
 	//visibleTermostato(0,2);
@@ -52,7 +51,7 @@ window.onload = function() {
 	//visibleTermostato(1,5);
 	//visibleTermostato(1,6);
 	//visibleTermostato(1,7);
-	}
+	
 
 }
 
@@ -537,7 +536,7 @@ function graph()
 */
 function DarObjeto(IdTerm)
 {
-	var objeto=null
+	var objeto=null;
 	for (x=0;x<tabla_objetos.length;x++)
 	{
 		if(tabla_objetos[x].get("Id")== IdTerm)
@@ -668,18 +667,81 @@ function func_inteval_lectura_datos()
 	llamarServicioCarriots();
 }
 
-function llamarServicioCarriots()
+function llamarServicioCarriotsPrimeravez()
 {
-//	**** var carriotsURL = 'http://api.carriots.com/devices/defaultDevice@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
-//	var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
-	var carriotsURL = 'http://api.carriots.com/devices/'+g_device+'/streams/?order=-1&max=1';
+
+	var carriotsURL = 'http://api.carriots.com/devices/prueba1@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=30';
 	$("div#divLoading").addClass('show');
 	
 	$.ajax({
 	beforeSend: function(xhrObj){
         xhrObj.setRequestHeader("Content-Type","application/json");
         xhrObj.setRequestHeader("Accept","application/json");
-        xhrObj.setRequestHeader("carriots.apikey",g_key);
+        xhrObj.setRequestHeader("carriots.apikey","ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
+        
+
+		},
+    type : "GET",
+    url: carriotsURL,
+    success: recepcionServicioRESTPrimeravez,
+    error : function(jqXHR, status) { 
+		debugger;
+		//alert(jqXHR.getAllResponseHeaders());
+	alert("ERROR :"+jqXHR.responseText+" "+jqXHR.statusText);}
+		//alert(status +' fallo ');}
+});
+}
+
+function recepcionServicioRESTPrimeravez (datosREST)
+{
+	debugger;
+	var totalDocuments = datosREST.total_documents;
+	var numdatos = datosREST.length;
+    var numdatos = datosREST.result.length;
+   
+	var nodo=datosREST.result[0];
+	var nodoTabla;
+	
+	var iNumElementos=parseInt(nodo.data['numElem']);
+
+    // actualizamos el encabezado indicando la fecha de actualizacion
+	var stringFecha = '         Ultimo Dato: '+DarStringFecha(nodo.at);
+	var elem1=document.getElementById("fecha_actualizacion");
+    elem1.innerHTML=stringFecha;
+	
+	
+	// añadimos los elementos a la tabla de 3 horas en orden LIFO ya que hay que mantener que el primer elemento sea el mas reciente
+	//tabla_datos_tres_horas=datosREST.result.slice();
+
+	
+	if(iNumElementos>0)// Si no esta creado el campo numero de elementos no se continua con la creacion de objetos
+	{
+		if(tabla_objetos.length==0) // si no se ha creadoobjetos entonces creamos y los metemos en la tabla 
+		{
+			CreacionElementos(iNumElementos, nodo);
+		
+		}
+		
+	}
+	ActualizarParametrosRecibidor(nodo,datosREST.result); // actualizamos los datos con los parametros recibidos
+	
+	timer_interval_lectura_datos=setInterval(llamarServicioCarriots,100000);// 10 minutos
+	$("div#divLoading").removeClass('show');	
+}
+
+
+function llamarServicioCarriots()
+{
+//	**** var carriotsURL = 'http://api.carriots.com/devices/defaultDevice@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
+//	var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
+	var carriotsURL = 'http://api.carriots.com/devices/prueba1@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=30';
+	$("div#divLoading").addClass('show');
+	
+	$.ajax({
+	beforeSend: function(xhrObj){
+        xhrObj.setRequestHeader("Content-Type","application/json");
+        xhrObj.setRequestHeader("Accept","application/json");
+        xhrObj.setRequestHeader("carriots.apikey","ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
         //xhrObj.setRequestHeader("carriots.apikey","1ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
 
 		},
@@ -694,87 +756,71 @@ function llamarServicioCarriots()
 });
 }
 
+
 function recepcionServicioREST (datosREST)
 {
-	debugger;
+
 	var totalDocuments = datosREST.total_documents;
 	var numdatos = datosREST.length;
     var numdatos = datosREST.result.length;
-    debugger;
-	var nodo=datosREST.result[0];
-	var valor;
-	var Tem1;
-	var iNumElementos=parseInt(nodo.data['numElem']);
+   	var nodo=datosREST.result[0];
+	
+	
+//	var iNumElementos=parseInt(nodo.data['numElem']);
 
-	var mesok=new Array(12);
-	mesok[0]="Enero";
-	mesok[1]="Febrero";
-	mesok[2]="Marzo";
-	mesok[3]="Abril";
-	mesok[4]="Mayo";
-	mesok[5]="Junio";
-	mesok[6]="Julio";
-	mesok[7]="Agosto";
-	mesok[8]="Septiembre";
-	mesok[9]="Octubre";
-	mesok[10]="Noviembre";
-	mesok[11]="Diciembre";
-    // imprimir fecha y hora 
-	var d = new Date (nodo.at*1000);
-	var stringFecha = '         Ultimo Dato: '+d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getHours()
-	      +':'+d.getMinutes();
-
+    // actualizamos el encabezado indicando la fecha de actualizacion
+	var stringFecha = '         Ultimo Dato: '+DarStringFecha(nodo.at);
 	var elem1=document.getElementById("fecha_actualizacion");
     elem1.innerHTML=stringFecha;
-
 	
-	if(iNumElementos>0)// Si no esta creado el campo numero de elementos no se continua con la creacion de objetos
-	{
-		if(tabla_objetos.length==0) // si no se ha creadoobjetos entonces creamos y los metemos en la tabla 
-		{
-			//var iNumElementos=parseInt(NumElementos);
-			for(var indice=0;indice<iNumElementos;indice++)
-			{
-				valor = nodo.data['ID_'+indice];
-				if(valor!=null)
-				{
-					var TipoElemento=nodo.data['ID_'+indice];
-					switch(TipoElemento)
-					{
-						case "0" : // termostato sistema
-							Tem1= new TermostatoSistena(indice);
-							Tem1.set("Visible",true);
-							tabla_objetos.push(Tem1);
-							break;
-						case "1" : // datos genericos
-							Tem1=new DatosGenerico(indice);
-							tabla_objetos.push(Tem1);
-							break;
-						case "2" : // Altherma
-							Tem1=new Altherma(indice);
-							tabla_objetos.push(Tem1);
-							break;	
-						default :
-							break;
-					}
-				}
-				else// si no hay mas elementos se para la creacion del bucle independiente del valor de contador que figure
-					break;
-			}
-		}
-	}
-	ActualizarParametrosRecibidor(nodo); // actualizamos los datos con los parametros recibidos
+	ActualizarParametrosRecibidor(nodo,datosREST.result); // actualizamos los datos con los parametros recibidos
+	
+	
 	$("div#divLoading").removeClass('show');
 }
 
-function ActualizarParametrosRecibidor(Parametros)
+function CreacionElementos(iNumElementos, nodo )
+{
+	var valor;
+	var Tem1;
+	
+	for(var indice=0;indice<iNumElementos;indice++)
+	{
+		valor = nodo.data['ID_'+indice];
+		if(valor!=null)
+		{
+			var TipoElemento=nodo.data['ID_'+indice];
+			switch(TipoElemento)
+			{
+				case "0" : // termostato sistema
+					Tem1= new TermostatoSistena(indice);
+					Tem1.set("Visible",true);
+					tabla_objetos.push(Tem1);
+					break;
+				case "1" : // datos genericos
+					Tem1=new DatosGenerico(indice);
+					tabla_objetos.push(Tem1);
+					break;
+				case "2" : // Altherma
+					Tem1=new Altherma(indice);
+					tabla_objetos.push(Tem1);
+					break;	
+				default :
+					break;
+			}
+		}
+		else// si no hay mas elementos se para la creacion del bucle independiente del valor de contador que figure
+			break;
+	}
+}
+function ActualizarParametrosRecibidor(Parametros,ParametrosTresHoras)
 {
 	console.log("ActualizarParametrosRecibidor\n");
 	var objeto;
 	for (x=0;x<tabla_objetos.length;x++)
 	{
 		objeto=tabla_objetos[x];
-		objeto.ProcesaDatos(Parametros);
+		objeto.ProcesaDatos(Parametros,ParametrosTresHoras);
 		
 	}
 }
@@ -783,7 +829,7 @@ function ActualizarParametrosRecibidor(Parametros)
 function llamarServicioCarriotsNummObjt(idObjeto,NumObjetos)
 {
 
-	var carriotsURL = 'http://api.carriots.com/devices/'+g_device+'/streams/?order=-1&max='+NumObjetos;
+	var carriotsURL = 'http://api.carriots.com/devices/prueba1@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max='+NumObjetos;
 
 	//var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1';
 
@@ -793,9 +839,7 @@ function llamarServicioCarriotsNummObjt(idObjeto,NumObjetos)
 	beforeSend: function(xhrObj){
         xhrObj.setRequestHeader("Content-Type","application/json");
         xhrObj.setRequestHeader("Accept","application/json");
-        //xhrObj.setRequestHeader("carriots.apikey","ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
-		xhrObj.setRequestHeader("carriots.apikey",g_key);
-		
+        xhrObj.setRequestHeader("carriots.apikey","ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
 
 		},
     type : "GET",
@@ -829,3 +873,24 @@ function supportsImports() {
   return 'import' in document.createElement('link');
 }
 
+// funcion para poner en util.js
+function DarStringFecha(fechaCarriots)
+{
+	var mesok=new Array(12);
+	mesok[0]="Enero";
+	mesok[1]="Febrero";
+	mesok[2]="Marzo";
+	mesok[3]="Abril";
+	mesok[4]="Mayo";
+	mesok[5]="Junio";
+	mesok[6]="Julio";
+	mesok[7]="Agosto";
+	mesok[8]="Septiembre";
+	mesok[9]="Octubre";
+	mesok[10]="Noviembre";
+	mesok[11]="Diciembre";
+    // imprimir fecha y hora 
+	var d = new Date (fechaCarriots*1000);
+	return  d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes();
+
+}
