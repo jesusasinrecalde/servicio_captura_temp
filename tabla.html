@@ -235,7 +235,7 @@
 <div class="tg-wrap col-xs-12 col-md-6" id="obj_tipo2" align="center">
 <table class="tg">
   
-  <tr class="header" id="marco_superior" colspan = "6">
+  <tr class="header" id="marco_superior" >
     <td class="tg-228w"  >
 		<img class ="image_cab" id="icono_despliegue"  src="./graph/arrow_down.png" onclick="EvntBtwDespliegue(this)"  border="0" width="15" height="20" />
 	</td>
@@ -244,6 +244,8 @@
 		<img class ="image_cab" id="icono_consumo"  src="./graph/igual.png"  border="0" width="20" height="20" />		
 	
 	</td>
+	<td></td>
+	
 	<td class="tg-228w">
 		<div  id="CarbonEmitidos" >----</div>
     </td>
@@ -264,15 +266,15 @@
 				<tr>
 				<td>
 				<div class="cuadro"  align="center">
-					<div class="consumo_main_medio" align="center">1.17 Kwh</div>
-					<div class="consumo_main_small" align="center">16:40 - 15:00</div>
+					<div class="consumo_main_medio" id="consumo3" align="center">1.17 Kwh</div>
+					<div class="consumo_main_small" id="periodo3" align="center">16:40 - 15:00</div>
 				</div>
 				</td>
 				<td>
 			
 				<div class="cuadro"  align="center">
-					<div class="consumo_main_medio" align="center">0,08 Kwh</div >
-					<div class="consumo_main_small"  align="center">16:40 - 15:00</div>
+					<div class="consumo_main_medio" id="consumo2" align="center">0,08 Kwh</div >
+					<div class="consumo_main_small" id="periodo2" align="center">16:40 - 15:00</div>
 				</div>
 				</td>
 				</tr>
@@ -286,21 +288,21 @@
 								<tr >
 									<td>
 										<div  align="right">
-										<img class ="image_cab"   id="icono_consumo"  src="./graph/igual.png"  border="0" width="30" height="30" />
+										<img class ="image_cab"   id="icono_consumo_main"  src="./graph/igual.png"  border="0" width="30" height="30" />
 										</div>
 										
 									</td>
 								</tr>
 								<tr >
 									<td >
-										<div class="consumo_main_small">16:00 - 17:40</div>
+										<div class="consumo_main_small" id="periodo_main">16:00 - 17:40</div>
 									</td>
 								</tr>
 								</table>
 							</td>
 							<td >
 								
-								<div class="consumo_main">
+								<div class="consumo_main" id="consumo_main">
 									1,52 kwh
 								</div>
 								
@@ -320,7 +322,7 @@
 							<div align="center">
 								<img class ="image_cab"   id="icono_consumo"  src="./graph/cerdito.png"  border="0" width="40" height="40" />
 							</div>
-								<div class="consumo_main_medio">0,27?</div>	
+								<div class="consumo_main_medio" id="coste">0,27?</div>	
 						</div>
 									
 						
@@ -330,7 +332,7 @@
 							<div align="center">
 								<img class ="image_cab"   id="icono_consumo"  src="./graph/co2.png"  border="0" width="40" height="40" />
 							</div>
-								<div class="consumo_main_medio">0,27kg</div>	
+								<div class="consumo_main_medio" id="emision">0,27kg</div>	
 						</div>
 									
 						
@@ -340,7 +342,7 @@
 							<div align="center">
 								<img class ="image_cab"   id="icono_consumo"  src="./graph/rayo.png" border="0" width="40" height="40" />
 							</div>
-								<div class="consumo_main_medio">222.4V</div>	
+								<div class="consumo_main_medio" id="tension">222.4V</div>	
 						</div>
 									
 						
@@ -350,7 +352,7 @@
 							<div align="center">
 								<img class ="image_cab"   id="icono_consumo"  src="./graph/amperaje.png" border="0" width="60" height="40" />
 							</div>
-								<div class="consumo_main_medio">54.5A</div>	
+								<div class="consumo_main_medio" id="corriente">54.5A</div>	
 						</div>
 									
 						
@@ -359,35 +361,9 @@
 			</table>
 			<table align="center"  >
 				
-				
-				
-				
-				<tr id="marco_principal" class="tg-s6z2" colspan="3" >
-					<tr class="tablaparam" colspan="2" >
-						<td class="tablaparam" align="right">Coste  : </td>
-						<td class="tablaparam" id="datCoste">---</td>
-					</tr>
-					<tr class="tablaparam" colspan="2" >
-						<td class="tablaparam" align="right">Tension  : </td>
-						<td class="tablaparam" id="dat1">---</td>
-					</tr>
-					<tr class="tablaparam" colspan="2" >		
-						<td class="tablaparam" align="right" >Corriente  : </td>
-						<td class="tablaparam" id="dat2">---</td>				
-					</tr>
+			<tr id="marco_principal" class="tg-s6z2" colspan="3" >
 					
-					<tr class="tablaparam" colspan="2" >		
-						<td class="tablaparam" align="right">Potencia  total : </td>
-						<td class="tablaparam" id="dat5">---</td>				
-					</tr>
-					<tr class="tablaparam" colspan="2" >
-						<td class="tablaparam" align="right">Emision  : </td>
-						<td class="tablaparam" id="dat9">---</td>
-					</tr>
-					<tr class="tablaparam" colspan="2" >
-						<td class="tablaparam" align="right">dat  : </td>
-						<td class="tablaparam" id="datlinea">---</td>
-					</tr>
+							
 				</tr>
 				
 				

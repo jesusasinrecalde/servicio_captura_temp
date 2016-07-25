@@ -133,7 +133,7 @@ ObjectoGenerico.prototype.ClonaGenerico_2=function()
 	var elem1=document.getElementById("caption"+this.Id);
     elem1.innerHTML=this.Caption;
 	
-	$('#icono_despliegue'+this.Id).click(this.depliegue);
+	$('#icono_desplieguDe'+this.Id).click(this.depliegue);
 }	
 
 ObjectoGenerico.prototype.Desplegar=function()
@@ -143,22 +143,24 @@ ObjectoGenerico.prototype.Desplegar=function()
 	
 	this.ParpadeoGrafico('#icono_despliegue'+this.Id);
 	var icono = document.getElementById('icono_despliegue'+this.Id);
-	if(this.Minimizado)
+	if(this.Minimizado)// paso a maximizamo
 	{
 		icono.src="./graph/arrow_up.png";
 		if(this.flgVerBTNONOFF)
 		{
 			$('#icono_OnOffSup'+this.Id).fadeOut(400);// si se pasa de minizado a maximizado el boton de apagado del caption desaparece
 		}
+		this.OnMaximizado();
 		
 	}
-	else
+	else // paso a minimizado
 	{
 		icono.src="./graph/arrow_down.png";
 		if(this.flgVerBTNONOFF)
 		{
 			$('#icono_OnOffSup'+this.Id).fadeIn(300);
 		}
+		this.OnMinimizado();
 	}
 	$('#marco_inf'+this.Id).toggle("fade");
 	this.Minimizado= !this.Minimizado;
@@ -278,3 +280,16 @@ ObjectoGenerico.prototype.DesactivaTemporizadorCambio=function()
 	this.iluminaModo=false;
 }	
 
+/** Funcion generica de evento cuando se minimiza el objeto , sin sobrecargar no hace nada 
+*/
+ObjectoGenerico.prototype.OnMinimizado=function()
+{
+	return;
+}
+
+/** Funcion generica de evento cuando se maximiza el objeto , sin sobrecargar no hace nada 
+*/
+ObjectoGenerico.prototype.OnMaximizado=function()
+{
+	return;
+}

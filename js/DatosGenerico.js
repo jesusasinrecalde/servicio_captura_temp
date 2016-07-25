@@ -11,7 +11,7 @@ function DatosGenerico(idTerm)
 	ObjectoGenerico.call(this,idTerm,1,"Consumo","Consumo"+idTerm,false,"#91FF83","#D6FFD1","#63AD5A","#669");
 	
 	this.Id=idTerm;
-	this.parametros={dat1:35.5, dat2:0,dat3:30.5,dat4:0,dat5:0,dat6:0,dat7:0,dat8:0,dat9:0,valor1:"",valor2:0}; // datos que se recibe del servicio pass
+	this.parametros={dat1:35.5, dat2:0,dat3:30.5,dat4:0,dat5:0,dat6:0,dat7:0,dat8:0,dat9:0,valor1:"",valor2:0,periodo1:"",consumo2:0,periodo2:"",consumo3:0,periodo3:""}; // datos que se recibe del servicio pass
 	//this.configuracion={temperatura:35.5, modo:0, Caption:""}; // datos que se envia al servicio pass , son los que se modifican graficamente
 	this.ConsumoHora=new Array(6);
 		
@@ -21,23 +21,21 @@ function DatosGenerico(idTerm)
 	clone.getElementById("CarbonEmitidos").id   ="CarbonEmitidos"+this.Id;
 	clone.getElementById("marco_principal").id  ="marco_principal"+this.Id;
 	
-	//Elementos que van los datos de consumo
-	clone.getElementById("dat1").id ="dat1"+this.Id;
-	clone.getElementById("dat2").id ="dat2"+this.Id;
-	//clone.getElementById("dat3").id ="dat3"+this.Id;
-	//clone.getElementById("dat4").id ="dat4"+this.Id;
-	clone.getElementById("dat5").id ="dat5"+this.Id;
-	//clone.getElementById("dat6").id ="dat6"+this.Id;
-	//clone.getElementById("dat7").id ="dat7"+this.Id;
-	//clone.getElementById("dat8").id ="dat8"+this.Id;
-	clone.getElementById("dat9").id ="dat9"+this.Id;
-	
-	clone.getElementById("datlinea").id ="datlinea"+this.Id;
-	
-	clone.getElementById("datCoste").id ="datCoste"+this.Id;
-	
 	clone.getElementById("icono_graph").id ="icono_graph"+this.Id;
 	clone.getElementById("icono_consumo").id ="icono_consumo"+this.Id;
+	clone.getElementById("consumo_main").id ="consumo_main"+this.Id;
+	clone.getElementById("icono_consumo_main").id ="icono_consumo_main"+this.Id;
+	clone.getElementById("periodo_main").id ="periodo_main"+this.Id;
+	clone.getElementById("coste").id ="coste"+this.Id;
+	clone.getElementById("emision").id ="emision"+this.Id;
+	clone.getElementById("tension").id ="tension"+this.Id;
+	clone.getElementById("corriente").id ="corriente"+this.Id;
+	
+	clone.getElementById("consumo2").id ="consumo2"+this.Id;
+	clone.getElementById("periodo2").id ="periodo2"+this.Id;
+	
+	clone.getElementById("consumo3").id ="consumo3"+this.Id;
+	clone.getElementById("periodo3").id ="periodo3"+this.Id;
 	
 	
 	$("#contenedor").append(clone); // se añade el objeto al documento DOM dentro del elemento contenedor ...
@@ -59,40 +57,42 @@ DatosGenerico.prototype = Object.create(ObjectoGenerico.prototype);
 
 DatosGenerico.prototype.Actualizar=function()
 {
-	var elem1=document.getElementById('dat1'+this.Id);
+	//var elem1=document.getElementById('dat1'+this.Id);
+    //elem1.innerHTML=this.parametros.dat1+" V";
+	
+	var elem1=document.getElementById('tension'+this.Id);
     elem1.innerHTML=this.parametros.dat1+" V";
 	
-	elem1=document.getElementById('dat2'+this.Id);
+	//elem1=document.getElementById('dat2'+this.Id);
+    //elem1.innerHTML=this.parametros.dat2+" A";
+	
+	elem1=document.getElementById('corriente'+this.Id);
     elem1.innerHTML=this.parametros.dat2+" A";
-	
-	//elem1=document.getElementById('dat3'+this.Id);
-    //elem1.innerHTML=this.parametros.dat3;
-	
-	//elem1=document.getElementById('dat4'+this.Id);
-    //elem1.innerHTML=this.parametros.dat4+ " W";
-	
-	elem1=document.getElementById('dat5'+this.Id);
-    elem1.innerHTML=this.parametros.dat5 + " W";
-	
-
-	
 	
 	var Consumo=this.parametros.dat9 / 0.399;
 	
 	elem1=document.getElementById('CarbonEmitidos'+this.Id);
     elem1.innerHTML=this.parametros.dat9.toFixed(2) + " KwH";
 	
-	elem1=document.getElementById('dat9'+this.Id);
-    elem1.innerHTML=Consumo.toFixed(2) + " KgCO2";
+	elem1=document.getElementById('consumo_main'+this.Id);
+    elem1.innerHTML=this.parametros.dat9.toFixed(2) + " KwH";
+	
+	
+	//elem1=document.getElementById('dat9'+this.Id);
+    //elem1.innerHTML=Consumo.toFixed(2) + " KgCO2";
+	
+	elem1=document.getElementById('emision'+this.Id);
+    elem1.innerHTML=Consumo.toFixed(2) + " Kg";
 	
 	var coste = this.parametros.dat9 * 0.12;
-	elem1=document.getElementById('datCoste'+this.Id);
+	//elem1=document.getElementById('datCoste'+this.Id);
+    //elem1.innerHTML=coste.toFixed(2) + " €";
+	
+	elem1=document.getElementById('coste'+this.Id);
     elem1.innerHTML=coste.toFixed(2) + " €";
 	
-	elem1=document.getElementById('datlinea'+this.Id);
-    elem1.innerHTML=this.parametros.valor1;
-	
-	
+	elem1=document.getElementById('periodo_main'+this.Id);
+    elem1.innerHTML=this.parametros.periodo1;
 	//elem1=document.getElementById('dat6'+this.Id);
     //elem1.innerHTML=this.parametros.dat6 +" var";
 	
@@ -104,26 +104,44 @@ DatosGenerico.prototype.Actualizar=function()
 	//elem1=document.getElementById('dat8'+this.Id);
     //elem1.innerHTML=this.parametros.dat8 +" VA";
 	var nivelConsumo = document.getElementById('icono_consumo'+this.Id);
+	var nivelConsumo_main = document.getElementById('icono_consumo_main'+this.Id);
+
 	switch(this.parametros.valor2)
 	{
 		case 0 :
-			nivelConsumo.src="./graph/igual.png";
+			nivelConsumo.src=     "./graph/igual.png";
+			nivelConsumo_main.src="./graph/igual.png";
 			break;
 		
 		case 1 :
-			nivelConsumo.src="./graph/up.png";
+			nivelConsumo.src=     "./graph/up.png";
+			nivelConsumo_main.src="./graph/up.png";
 			break;
 		
 		case 2 :
-			nivelConsumo.src="./graph/down.png";
+			nivelConsumo.src=     "./graph/down.png";
+			nivelConsumo_main.src="./graph/down.png";
 			break;
 		
 		default :
-			nivelConsumo.src="./graph/igual.png";
+			nivelConsumo.src=     "./graph/igual.png";
+			nivelConsumo_main.src="./graph/igual.png";
 			break;
 	}
 	
 	
+	elem1=document.getElementById('consumo2'+this.Id);
+    elem1.innerHTML=this.parametros.consumo2.toFixed(2) + " KwH";
+	
+	elem1=document.getElementById('periodo2'+this.Id);
+    elem1.innerHTML=this.parametros.periodo2;
+
+	elem1=document.getElementById('consumo3'+this.Id);
+    elem1.innerHTML=this.parametros.consumo3.toFixed(2) + " KwH";
+	
+	elem1=document.getElementById('periodo3'+this.Id);
+    elem1.innerHTML=this.parametros.periodo3;
+
 	
 	ObjectoGenerico.prototype.Actualizar.call(this);
 	
@@ -182,19 +200,27 @@ DatosGenerico.prototype.ProcesaDatos=function(Parametros,ParametrosTresHoras)
 		var hora1 =DarStringHora(ParametrosTresHoras[0].at);
 		var hora2 =DarStringHora(ParametrosTresHoras[9].at);
 		var hora3 =DarStringHora(ParametrosTresHoras[19].at);
+		var hora4 =DarStringHora(ParametrosTresHoras[29].at);
 		//var valorfinal=
 		this.parametros.dat9=parseFloat(valorInicial)-parseFloat(valorfinal1);
-		var periodo1=parseFloat(valorfinal1)-parseFloat(valorfinal2);
-		var periodo2=parseFloat(valorfinal2)-parseFloat(valorfinal3);
-		console.log("[0]"+dato+"[1]"+valorfinal1+"[2]"+valorfinal2+"[3]"+valorfinal3+"\n");
-		console.log("Consumo"+this.Id+"["+hora1+" "+this.parametros.dat9+"] ["+hora2+" "+periodo1+"] ["+hora3+" "+periodo2+"]\n");
-		this.parametros.valor1=hora1+" "+this.parametros.dat9.toFixed(2)+" "+hora2+" "+periodo1.toFixed(2)+" "+hora3+" "+periodo2.toFixed(2);
-	
+		var fperiodo1=parseFloat(valorfinal1)-parseFloat(valorfinal2);
+		var fperiodo2=parseFloat(valorfinal2)-parseFloat(valorfinal3);
 		
-		if(this.parametros.dat9>periodo1)
+		console.log("[0]"+dato+"[1]"+valorfinal1+"[2]"+valorfinal2+"[3]"+valorfinal3+"\n");
+		console.log("Consumo"+this.Id+"["+hora1+" "+this.parametros.dat9+"] ["+hora2+" "+fperiodo1+"] ["+hora3+" "+fperiodo2+"]\n");
+		this.parametros.valor1=hora1+" "+this.parametros.dat9.toFixed(2)+" "+hora2+" "+fperiodo1.toFixed(2)+" "+hora3+" "+fperiodo2.toFixed(2);
+	
+		this.parametros.consumo2=fperiodo1;
+		this.parametros.periodo2=hora3+" - "+hora2;
+	
+		this.parametros.consumo3=fperiodo2;
+		this.parametros.periodo3=hora4+" - "+hora3;
+	
+		this.parametros.periodo1=hora2+" - "+hora1;
+		if(this.parametros.dat9>fperiodo1)
 			this.parametros.valor2=1;
 		
-		if(this.parametros.dat9<periodo1)
+		else if(this.parametros.dat9<fperiodo1)
 			this.parametros.valor2=2;
 		else
 			this.parametros.valor2=0;
@@ -291,6 +317,24 @@ function DarStringHora(fechaCarriots)
     // imprimir fecha y hora 
 	var d = new Date (fechaCarriots*1000);
 	//return  d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes();
-	return  d.getHours()+':'+d.getMinutes();
+	var m=("0" + d.getMinutes()).slice (-2);
+	var h=("0" + d.getHours()).slice (-2);
+	return  h+':'+m;
 
+}
+
+DatosGenerico.prototype.OnMinimizado=function()
+{
+
+		
+	$('#icono_consumo'+this.Id).fadeIn(400);	
+	$('#CarbonEmitidos'+this.Id).fadeIn(400);
+	
+	
+}
+
+DatosGenerico.prototype.OnMaximizado=function()
+{
+	$('#icono_consumo'+this.Id).fadeOut(400);
+	$('#CarbonEmitidos'+this.Id).fadeOut(400);
 }
