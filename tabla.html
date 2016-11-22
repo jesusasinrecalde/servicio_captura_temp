@@ -47,6 +47,7 @@
               <li class="active"><a href="#">Home</a></li>
               <li><a href="#">About</a></li>
               <li><a href="#">Contact</a></li>
+              <li><a href="#" onclick="EvntLogout(this)">Logout</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -403,14 +404,16 @@
 	</td>
     <td class="tg-228w"  width ="400"> <div class="tg-228w" id="caption">Datos</div></td>
 	<td>
-		<img class ="image_cab" id="icono_warning"  src="./graph/warning.png"  border="0" width="30" height="30" />
+		
 	</span></td>	
 	<td class="tg-228w">
+		<img class ="image_cab" id="icono_warning"  src="./graph/warning.png"  border="0" width="20" height="20" />
 		<div  id="TempExterior" >----</div>
     </td>
 	<td class="tg-228w" id="obj_onoff" >
 		<img class ="image_cab" id="icono_OnOffSup"  src="./graph/on.png" onclick="EvntBtnOn_off(this)"  border="0" width="20" height="20" />
 	</td>	
+
   </tr >
   <tr  id="marco_inf" style='display:none;'>
 	<!-- td id="marco_inf" -->
@@ -418,26 +421,22 @@
 		<td  colspan = "6" >
 			<table align="center"  >
 				<tr  class="tg-s6z2" id="zona_alarma" colspan="1"  >
-					<td id="alarma" >
-					ALARMA :
-					</td>
+					
 				</tr>
 				<tr  class="tg-s6z2" id="zona_iconos" colspan="6"  >
 					<td>
 						<img class ="image_cab bullet" id="dat28"  src="./graph/icons/calor.png"  />
 					</td>
 					<td >
-						<img class ="image_cab bullet" id="dat4"  src="./graph/icons/emergencia_off.png"  />
+						<img class ="image_cab bullet" id="dat4"  src="./graph/icons/ACS_OFF.png"  />
 					</td>
 					
-					<td>
-						<img class ="image_cab bullet" id="dat11"  src="./graph/icons/defrost_off.png"  />
-					</td>
+					<td></td>
 					<td>
 						<img class ="image_cab bullet" id="dat6"  src="./graph/icons/pump_off.png"  />
 					</td>
 					<td>
-						<img class ="image_cab bullet" id="dat7"  src="./graph/icons/flash_off.png"  />
+						<img class ="image_cab bullet" id="dat7"  src="./graph/icons/compressor_off.png"  />
 					</td>
 					<td>
 					</td>
@@ -458,11 +457,11 @@
 									<tr id="marco_principal" class="tg-s6z2" colspan="3" >
 										<tr class="tablaparam" colspan="4" >		
 											
-											<td class="tablaparam" align="right">Calentador Refuerzo : </td>
+											<td class="tablaparam" align="right">Deposito ACS : </td>
 											<td class="tablaparam" >
 												<img class ="image_cab bullet" id="dat8"  src="./graph/bullet_grey.png"  />
 											</td>
-											<td class="tablaparam" align="right" >Calentador Backup : </td>
+											<td class="tablaparam" align="right" >Resistencia dep. ACS : </td>
 											<td class="tablaparam" >
 												<img class ="image_cab bullet" id="dat10"  src="./graph/bullet_grey.png"  />
 											</td>
@@ -471,41 +470,41 @@
 										
 										<tr class="tablaparam" colspan="4" >
 											
-											<td class="tablaparam" align="right" >Hot Start : </td>
-											<td class="tablaparam" >
-												<img class ="image_cab bullet" id="dat12"  src="./graph/bullet_grey.png"  />
-											</td>
-											<td class="tablaparam" align="right" >Valv. 3 vias : </td>
+											<td class="tablaparam" align="right" >Temp consigna ACS : </td>
+											<td class="tablaparam" id="dat12">---</td>
+											<td class="tablaparam" align="right" >Temp consigna Clima: </td>
 											<td class="tablaparam" id="dat13">---</td>
 																	
 											
 										</tr>
 										
 										<tr class="tablaparam" colspan="4" >
-											<td class="tablaparam" align="right">Temp Sal. agua : </td>
-											<td class="tablaparam" id="dat14">---</td>
-											<td class="tablaparam" align="right">Temp Sal. agua PHE: </td>
+											<td class="tablaparam" align="right">Estado Clima : </td>
+											<td class="tablaparam" >
+												<img class ="image_cab bullet" id="dat14"  src="./graph/bullet_grey.png"  />
+											</td>
+											<td class="tablaparam" align="right">Temp dep. ACS: </td>
 											<td class="tablaparam" id="dat15">---</td>
 						
 										</tr>
 										<tr class="tablaparam" colspan="4" >
-											<td class="tablaparam" align="right">Temp Entrada agua : </td>
+											<td class="tablaparam" align="right">Temp salida agua : </td>
 											<td class="tablaparam" id="dat16">---</td>
-											<td class="tablaparam" align="right">Domestic. temp. agua : </td>
+											<td class="tablaparam" align="right">Temp. agua ICP : </td>
 											<td class="tablaparam" id="dat17">---</td>
 										</tr>
 										<tr class="tablaparam" colspan="4" >
-											<td class="tablaparam" align="right">Liquid. refrigerante : </td>
+											<td class="tablaparam" align="right">Temp entrante agua : </td>
 											<td class="tablaparam" id="dat19">---</td>
-											<td class="tablaparam" align="right">Consigna salida agua  : </td>
+											<td class="tablaparam" align="right">Temp refigerante  : </td>
 											<td class="tablaparam" id="dat20">---</td>
 				
 										</tr>
 										<tr class="tablaparam" colspan="4" >
 											<td class="tablaparam" align="right">Flujo : </td>
 											<td class="tablaparam" id="dat23">---</td>
-											<td class="tablaparam" align="right">Ajuste DHW  : </td>
-											<td class="tablaparam" id="dat25">---</td>
+											<td class="tablaparam" align="right"></td>
+											<td class="tablaparam" id="dat25"></td>
 										</tr>
 									</tr>
 					

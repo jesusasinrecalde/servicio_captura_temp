@@ -9,6 +9,10 @@ var tabla_datos_tres_horas;
 var timer_interval_modo;
 var timer_interval_lectura_datos;
 var IdObjetoGlobal; // variable usada para pasar el IdObjeto atraves de funciones callback
+
+var g_key;
+var g_device;
+
 window.onload = function() {
 	//if (supportsImports()) {
 	//alert ("SI soporta import");
@@ -17,41 +21,49 @@ window.onload = function() {
 	// Use other libraries/require systems to load files.
 	//}
 
-	tabla_valores = new Array();
-	tabla_objetos = new Array();
-	tabla_datos_tres_horas = new Array();
-	actualizar_datos = false;
-	timer_interval_modo=null;
+	g_key=localStorage["hjm_key"];
+	g_device=localStorage["hjm_device"];
+	if(g_key==null || g_device==null)
+	{
+			window.open ('register.html','_self',false);
+	}
+	else
+	{
+		tabla_valores = new Array();
+		tabla_objetos = new Array();
+		tabla_datos_tres_horas = new Array();
+		actualizar_datos = false;
+		timer_interval_modo=null;
 	
-	//Tem1= new TermostatoSistena(0);
-	//Tem1.set("Visible",true);
-	
-	//tabla_objetos.push(Tem1);
-	
-	//Tem1=new DatosGenerico(1);
-	//tabla_objetos.push(Tem1);
-	//crearTermostatoTipo0( 0);
-	// ****************************************  llamarServicioCarriots(); 	
-	llamarServicioCarriotsPrimeravez();
-	//crearTermostatoTipo0( 1);
-	//crearTermostatoTipo0( 2);
-	//crearTermostatoTipo0( 3);
-	//crearTermostatoTipo0( 4);
-	//crearTermostatoTipo0( 5);
-	//crearTermostatoTipo0( 6);
-	//crearTermostatoTipo0( 7);
-	// se crea el temporizador parar recargar datos
-	// **********************************************timer_interval_lectura_datos=setInterval(llamarServicioCarriots,100000);// 10 minutos
-	
-	//visibleTermostato(1,0);
-	//visibleTermostato(1,1);
-	//visibleTermostato(0,2);
-	//visibleTermostato(1,3);
-	//visibleTermostato(1,4);
-	//visibleTermostato(1,5);
-	//visibleTermostato(1,6);
-	//visibleTermostato(1,7);
-	
+		//Tem1= new TermostatoSistena(0);
+		//Tem1.set("Visible",true);
+		
+		//tabla_objetos.push(Tem1);
+		
+		//Tem1=new DatosGenerico(1);
+		//tabla_objetos.push(Tem1);
+		//crearTermostatoTipo0( 0);
+		// ****************************************  llamarServicioCarriots(); 	
+		llamarServicioCarriotsPrimeravez();
+		//crearTermostatoTipo0( 1);
+		//crearTermostatoTipo0( 2);
+		//crearTermostatoTipo0( 3);
+		//crearTermostatoTipo0( 4);
+		//crearTermostatoTipo0( 5);
+		//crearTermostatoTipo0( 6);
+		//crearTermostatoTipo0( 7);
+		// se crea el temporizador parar recargar datos
+		// **********************************************timer_interval_lectura_datos=setInterval(llamarServicioCarriots,100000);// 10 minutos
+		
+		//visibleTermostato(1,0);
+		//visibleTermostato(1,1);
+		//visibleTermostato(0,2);
+		//visibleTermostato(1,3);
+		//visibleTermostato(1,4);
+		//visibleTermostato(1,5);
+		//visibleTermostato(1,6);
+		//visibleTermostato(1,7);
+	}
 
 }
 
@@ -670,14 +682,15 @@ function func_inteval_lectura_datos()
 function llamarServicioCarriotsPrimeravez()
 {
 
-	var carriotsURL = 'http://api.carriots.com/devices/prueba1@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=30';
+	debugger;
+	var carriotsURL = 'http://api.carriots.com/devices/'+g_device+'/streams/?order=-1&max=30';
 	$("div#divLoading").addClass('show');
 	
 	$.ajax({
 	beforeSend: function(xhrObj){
         xhrObj.setRequestHeader("Content-Type","application/json");
         xhrObj.setRequestHeader("Accept","application/json");
-        xhrObj.setRequestHeader("carriots.apikey","ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
+        xhrObj.setRequestHeader("carriots.apikey",g_key);
         
 
 		},
@@ -734,14 +747,14 @@ function llamarServicioCarriots()
 {
 //	**** var carriotsURL = 'http://api.carriots.com/devices/defaultDevice@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
 //	var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
-	var carriotsURL = 'http://api.carriots.com/devices/prueba1@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=30';
+	var carriotsURL = 'http://api.carriots.com/devices/'+g_device+'/streams/?order=-1&max=30';
 	$("div#divLoading").addClass('show');
 	
 	$.ajax({
 	beforeSend: function(xhrObj){
         xhrObj.setRequestHeader("Content-Type","application/json");
         xhrObj.setRequestHeader("Accept","application/json");
-        xhrObj.setRequestHeader("carriots.apikey","ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
+        xhrObj.setRequestHeader("carriots.apikey",g_key);
         //xhrObj.setRequestHeader("carriots.apikey","1ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
 
 		},
@@ -829,7 +842,7 @@ function ActualizarParametrosRecibidor(Parametros,ParametrosTresHoras)
 function llamarServicioCarriotsNummObjt(idObjeto,NumObjetos)
 {
 
-	var carriotsURL = 'http://api.carriots.com/devices/prueba1@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max='+NumObjetos;
+	var carriotsURL = 'http://api.carriots.com/devices/'+g_device+'/streams/?order=-1&max='+NumObjetos;
 
 	//var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1';
 
@@ -839,7 +852,7 @@ function llamarServicioCarriotsNummObjt(idObjeto,NumObjetos)
 	beforeSend: function(xhrObj){
         xhrObj.setRequestHeader("Content-Type","application/json");
         xhrObj.setRequestHeader("Accept","application/json");
-        xhrObj.setRequestHeader("carriots.apikey","ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
+        xhrObj.setRequestHeader("carriots.apikey",g_key);
 
 		},
     type : "GET",
@@ -894,3 +907,15 @@ function DarStringFecha(fechaCarriots)
 	return  d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes();
 
 }
+
+// Funcion para deslogarse del sistema , se borra el registro y se redirige a la pagina de login 
+function EvntLogout ( obj)
+{
+	localStorage.removeItem("hjm_key");
+	localStorage.removeItem("hjm_device");
+	window.open ('register.html','_self',false);
+
+}
+
+
+

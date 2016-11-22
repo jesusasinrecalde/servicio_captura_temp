@@ -125,6 +125,11 @@ height: 100%;  / * empuja el pie hacia abajo * /
 	.tg {width: auto !important;}
 	.tg col {width: auto !important;}
 	.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}
+	.tg-228w{
+	text-align:left;
+	font-size:10px;
+	color:#ffffff /* blanco */
+}
 	}
 
 .consumo_main{

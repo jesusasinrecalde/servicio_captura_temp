@@ -8,7 +8,7 @@ function Altherma(idTerm)
 	debugger;
 
 
-	ObjectoGenerico.call(this,idTerm,1,"Altherma","Altherma"+idTerm,true,"#91FF83","#D6FFD1","#370EC8","#669");
+	ObjectoGenerico.call(this,idTerm,1,"Altherma DA LT","Altherma"+idTerm,false,"#35A127","#D6FFD1","#8B70EE"/*"#370EC8"*/,"#669");
 	
 	this.Id=idTerm;
 	
@@ -63,14 +63,13 @@ function Altherma(idTerm)
 	clone.getElementById("accordion").id ="accordion"+this.Id;
 	
 	//Elementos que van los datos de consumo
-	clone.getElementById("alarma").id ="alarma"+this.Id;
+	
 	
 	clone.getElementById("dat4").id ="dat4"+this.Id;
 	clone.getElementById("dat8").id ="dat8"+this.Id;
 	clone.getElementById("dat6").id ="dat6"+this.Id;
 	clone.getElementById("dat7").id ="dat7"+this.Id;
 	clone.getElementById("dat10").id ="dat10"+this.Id;
-	clone.getElementById("dat11").id ="dat11"+this.Id;
 	clone.getElementById("dat12").id ="dat12"+this.Id;
 	clone.getElementById("dat13").id ="dat13"+this.Id;
 	clone.getElementById("dat14").id ="dat14"+this.Id;
@@ -135,24 +134,19 @@ Altherma.prototype.Actualizar=function()
 	
 	//var Consumo=this.parametros.dat9 / 0.399;
 	elem1=document.getElementById('icono_warning'+this.Id);
-	if(this.parametros.dat1==0)
+	if(this.parametros.dat9==0 && this.parametros.dat10==0)
 	{	
 		$('#icono_warning'+this.Id).hide();
 		
-		$('#alarma'+this.Id).hide();
 	}
 	else
 	{
 		$('#icono_warning'+this.Id).show();
-		elem1=document.getElementById('alarma'+this.Id);
-		elem1.innerHTML="ALARMA : " +this.parametros.dat2+ "("+this.parametros.dat3+")";
-
-		$('#alarma'+this.Id).show();
 	}
 	
 	
 	elem1=document.getElementById('TempExterior'+this.Id);
-    elem1.innerHTML=this.parametros.dat18.toFixed(2) + " ºC";
+    elem1.innerHTML=this.parametros.dat12 + " ºC";
 	
 	//elem1=document.getElementById('dat9'+this.Id);
     //elem1.innerHTML=Consumo.toFixed(2) + " KgCO2";
@@ -160,29 +154,36 @@ Altherma.prototype.Actualizar=function()
 	//this.EvaluaElmBullet(document.getElementById('dat4'+this.Id),this.parametros.dat4);
 	elem1=document.getElementById('dat4'+this.Id);
 	if(this.parametros.dat4==0)
-		elem1.src="./graph/icons/emergencia_off.png";
+		elem1.src="./graph/icons/ACS_OFF.png";
 	else
-		elem1.src="./graph/icons/emergencia.png";
-	this.EvaluaElmBullet(document.getElementById('dat8'+this.Id),this.parametros.dat8);
-	//this.EvaluaElmBullet(document.getElementById('dat6'+this.Id),this.parametros.dat6);
+		elem1.src="./graph/icons/ACS.png";
+	
+
+	if(this.parametros.dat5==0)
+		this.set("Estado","APAGADO");
+	else
+		this.set("Estado","ENCENDIDO");
+
+
+
+	this.EvaluaElmBullet(document.getElementById('dat8'+this.Id),this.parametros.dat1);
 	elem1=document.getElementById('dat6'+this.Id);
-	if(this.parametros.dat6==0)
+	if(this.parametros.dat17==0)
 		elem1.src="./graph/icons/pump_off.png";
 	else
 		elem1.src="./graph/icons/pump.png";
 	//this.EvaluaElmBullet(document.getElementById('dat7'+this.Id),this.parametros.dat7);
 	elem1=document.getElementById('dat7'+this.Id);
-	if(this.parametros.dat7==0)
-		elem1.src="./graph/icons/flash_off.png";
+	if(this.parametros.dat18==0)
+		elem1.src="./graph/icons/compressor_off.png";
 	else
-		elem1.src="./graph/icons/flash.png";
-	this.EvaluaElmBullet(document.getElementById('dat10'+this.Id),this.parametros.dat10);
+		elem1.src="./graph/icons/compressor.png";
+
+	this.EvaluaElmBullet(document.getElementById('dat10'+this.Id),this.parametros.dat2);
 	//this.EvaluaElmBullet(document.getElementById('dat11'+this.Id),this.parametros.dat11);
-	elem1=document.getElementById('dat11'+this.Id);
-	if(this.parametros.dat11==0)
-		elem1.src="./graph/icons/defrost_off.png";
-	else
-		elem1.src="./graph/icons/defrost.png";
+	
+	elem1=document.getElementById('dat12'+this.Id);
+    elem1.innerHTML=this.parametros.dat12 + " ºC";
 	
 	//this.EvaluaElmBullet(document.getElementById('dat12'+this.Id),this.parametros.dat12);
 	/*elem1=document.getElementById('dat12'+this.Id);
@@ -192,46 +193,38 @@ Altherma.prototype.Actualizar=function()
 		elem1.src="./graph/icons/hotstart.png";
 	*/
 	elem1=document.getElementById('dat13'+this.Id);
-	if(this.parametros.dat13==0)
-		elem1.innerHTML="Heat/Cool";
-	else
-		elem1.innerHTML="DHW";
+	elem1.innerHTML=this.parametros.dat7 + " ºC";
 	
-	elem1=document.getElementById('dat14'+this.Id);
-    elem1.innerHTML=this.parametros.dat14.toFixed(2) + " ºC";
+	
+	this.EvaluaElmBullet(document.getElementById('dat14'+this.Id),this.parametros.dat8);
 	
 	elem1=document.getElementById('dat15'+this.Id);
-    elem1.innerHTML=this.parametros.dat15.toFixed(2) + " ºC";
+    elem1.innerHTML=this.parametros.dat11 + " ºC";
 	
 	elem1=document.getElementById('dat16'+this.Id);
-    elem1.innerHTML=this.parametros.dat16.toFixed(2) + " ºC";
+    elem1.innerHTML=this.parametros.dat13 + " ºC";
 	
 	elem1=document.getElementById('dat17'+this.Id);
-    elem1.innerHTML=this.parametros.dat17.toFixed(2) + " ºC";
+    elem1.innerHTML=this.parametros.dat14 + " ºC";
 
 	elem1=document.getElementById('dat19'+this.Id);
-    elem1.innerHTML=this.parametros.dat19.toFixed(2) + " ºC";
+    elem1.innerHTML=this.parametros.dat15 + " ºC";
 
 	elem1=document.getElementById('dat20'+this.Id);
-    elem1.innerHTML=this.parametros.dat20.toFixed(2) + " ºC";
+    elem1.innerHTML=this.parametros.dat16 + " ºC";
 
 	elem1=document.getElementById('dat23'+this.Id);
-    elem1.innerHTML=this.parametros.dat23.toFixed(2) + " L.";
+    elem1.innerHTML=this.parametros.dat21 + " L.";
 
-	elem1=document.getElementById('dat25'+this.Id);
-    elem1.innerHTML=this.parametros.dat25.toFixed(2) + " ºC";
-
+	
 	elem1=document.getElementById('dat28'+this.Id);
-	switch(this.parametros.dat28)
+	switch(this.parametros.dat6	)
 	{
 		case "0" :
-			elem1.src="./graph/icons/automatico.png";
+			elem1.src="./graph/icons/frio.png";
 			break;
 		case "1" :
 			elem1.src="./graph/icons/calor.png";
-			break;
-		case "2" :
-			elem1.src="./graph/icons/frio.png";
 			break;
 		default :
 			elem1.src="./graph/icons/automatico.png";
@@ -369,6 +362,12 @@ Altherma.prototype.ProcesaDatos=function(Parametros,ParametrosTresHoras)
 		this.parametros.dat12=dato;
 	}
 	
+	dato=Parametros.data[this.Id+'_dat13'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat13 :"+ Parametros.data[this.Id+'_dat13']+"\n");
+		this.parametros.dat13=dato;
+	}
 	dato=Parametros.data[this.Id+'_dat14'];
 	if(dato!=null)
 	{
@@ -418,6 +417,12 @@ Altherma.prototype.ProcesaDatos=function(Parametros,ParametrosTresHoras)
 		this.parametros.dat20=parseFloat(dato);
 	}
 	
+	dato=Parametros.data[this.Id+'_dat21'];
+	if(dato!=null)
+	{
+		console.log("Altherma ["+this.Id+"] Dat21 :"+ Parametros.data[this.Id+'_dat21']+"\n");
+		this.parametros.dat21=parseFloat(dato);
+	}
 	dato=Parametros.data[this.Id+'_dat23'];
 	if(dato!=null)
 	{
