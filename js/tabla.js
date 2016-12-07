@@ -1,6 +1,6 @@
 
-DarStringFecha
-var tabla_valores;llamarServicioCarriotsNummObjt
+
+var tabla_valores;
 var actualizar_datos; // flag para indicar si hay datos modificados o no
 var timer_actualizar_datos; // temporizador utilizado para realizar el parpadeo en el caso que actualizar_datos sea true
 var Tem1;
@@ -14,57 +14,63 @@ var g_key;
 var g_device;
 
 window.onload = function() {
-	//if (supportsImports()) {
-	//alert ("SI soporta import");
-	//} else {
-	//	alert ("no soporta import");
-	// Use other libraries/require systems to load files.
-	//}
-
+	
+	debugger;
 	g_key=localStorage["hjm_key"];
 	g_device=localStorage["hjm_device"];
 	if(g_key==null || g_device==null)
 	{
-			window.open ('register.html','_self',false);
+		
+		$('#login-modal').modal('show');
 	}
 	else
+	{
+		LanzamientoHejmo();
+	}
+
+}
+
+function LanzamientoHejmo()
+{
+	
+	$('#login-modal').modal('hide')
+	$('#menu_logout').show();
+	$('#menu_login').hide();
+	
+	g_key=localStorage["hjm_key"];
+	g_device=localStorage["hjm_device"];
+	
+	if(tabla_objetos==null)
 	{
 		tabla_valores = new Array();
 		tabla_objetos = new Array();
 		tabla_datos_tres_horas = new Array();
-		actualizar_datos = false;
-		timer_interval_modo=null;
-	
-		//Tem1= new TermostatoSistena(0);
-		//Tem1.set("Visible",true);
 		
-		//tabla_objetos.push(Tem1);
-		
-		//Tem1=new DatosGenerico(1);
-		//tabla_objetos.push(Tem1);
-		//crearTermostatoTipo0( 0);
-		// ****************************************  llamarServicioCarriots(); 	
-		llamarServicioCarriotsPrimeravez();
-		//crearTermostatoTipo0( 1);
-		//crearTermostatoTipo0( 2);
-		//crearTermostatoTipo0( 3);
-		//crearTermostatoTipo0( 4);
-		//crearTermostatoTipo0( 5);
-		//crearTermostatoTipo0( 6);
-		//crearTermostatoTipo0( 7);
-		// se crea el temporizador parar recargar datos
-		// **********************************************timer_interval_lectura_datos=setInterval(llamarServicioCarriots,100000);// 10 minutos
-		
-		//visibleTermostato(1,0);
-		//visibleTermostato(1,1);
-		//visibleTermostato(0,2);
-		//visibleTermostato(1,3);
-		//visibleTermostato(1,4);
-		//visibleTermostato(1,5);
-		//visibleTermostato(1,6);
-		//visibleTermostato(1,7);
 	}
-
+	
+	if(tabla_objetos.length)
+	{
+		if(timer_interval_lectura_datos)
+			clearInterval(timer_interval_lectura_datos);
+		if(timer_interval_modo)
+			clearInterval(timer_interval_modo);
+		
+		for (x=0;x<tabla_objetos.length;x++)
+		{
+			tabla_objetos[x].DestruyeObjetoGrafico();
+		}
+		
+		tabla_valores.lenght=0;
+		tabla_objetos.lenght=0;
+		tabla_datos_tres_horas.lenght=0;
+	}
+	
+	actualizar_datos = false;
+	timer_interval_modo=null;
+	timer_interval_lectura_datos=false;
+	llamarServicioCarriotsPrimeravez();
+	
+	
 }
 
 /** Crear estructura termostato de tipo sistena ( 0 )
@@ -681,7 +687,7 @@ function func_inteval_lectura_datos()
 
 function llamarServicioCarriotsPrimeravez()
 {
-
+	
 	debugger;
 	var carriotsURL = 'http://api.carriots.com/devices/'+g_device+'/streams/?order=-1&max=30';
 	$("div#divLoading").addClass('show');
@@ -789,7 +795,7 @@ function recepcionServicioREST (datosREST)
 	ActualizarParametrosRecibidor(nodo,datosREST.result); // actualizamos los datos con los parametros recibidos
 	
 	
-	$("div#divLoading").removeClass('show');
+	$("#divLoading").removeClass('show');
 }
 
 function CreacionElementos(iNumElementos, nodo )
@@ -911,11 +917,16 @@ function DarStringFecha(fechaCarriots)
 // Funcion para deslogarse del sistema , se borra el registro y se redirige a la pagina de login 
 function EvntLogout ( obj)
 {
+
 	localStorage.removeItem("hjm_key");
 	localStorage.removeItem("hjm_device");
-	window.open ('register.html','_self',false);
+    $('#login-modal').modal('show');
 
 }
 
-
+function EvntLogin ( obj )
+{
+	$('#login-modal').modal('show');
+	
+}
 

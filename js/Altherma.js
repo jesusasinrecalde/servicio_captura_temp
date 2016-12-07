@@ -56,6 +56,8 @@ function Altherma(idTerm)
 		
 	var clone = ObjectoGenerico.prototype.ClonaGenerico.call(this,'#Altherma');
 	debugger;
+	
+	
 	// Elementos graficos propios del objeto
 	clone.getElementById("TempExterior").id ="TempExterior"+this.Id;
 	clone.getElementById("marco_principal").id  ="marco_principal"+this.Id;
@@ -183,7 +185,7 @@ Altherma.prototype.Actualizar=function()
 	//this.EvaluaElmBullet(document.getElementById('dat11'+this.Id),this.parametros.dat11);
 	
 	elem1=document.getElementById('dat12'+this.Id);
-    elem1.innerHTML=this.parametros.dat12 + " ºC";
+    elem1.innerHTML=this.parametros.dat3 + " ºC";
 	
 	//this.EvaluaElmBullet(document.getElementById('dat12'+this.Id),this.parametros.dat12);
 	/*elem1=document.getElementById('dat12'+this.Id);
@@ -214,7 +216,7 @@ Altherma.prototype.Actualizar=function()
     elem1.innerHTML=this.parametros.dat16 + " ºC";
 
 	elem1=document.getElementById('dat23'+this.Id);
-    elem1.innerHTML=this.parametros.dat21 + " L.";
+    elem1.innerHTML=this.parametros.dat21 + " l/h";
 
 	
 	elem1=document.getElementById('dat28'+this.Id);

@@ -13,13 +13,17 @@
   
 		
    
-	<link rel="stylesheet" type="text/css" href="tabla.css">
-	<link rel="stylesheet" type="text/css" href="loading.css">
+	<link rel="stylesheet" type="text/css" href="css/tabla.css">
+	<link rel="stylesheet" type="text/css" href="css/loading.css">
+	<link rel="stylesheet" type="text/css" href="css/register.css">
 	<script type="text/javascript" src="js/tabla.js"></script>
 	<script type="text/javascript" src="js/ObjGenerico.js"></script>
 	<script type="text/javascript" src="js/Termostato_sistena.js"></script>
 	<script type="text/javascript" src="js/DatosGenerico.js"></script>
 	<script type="text/javascript" src="js/Altherma.js"></script>
+	<script type="text/javascript" src="js/register.js"></script>
+
+
 
 	
 	
@@ -47,8 +51,9 @@
               <li class="active"><a href="#">Home</a></li>
               <li><a href="#">About</a></li>
               <li><a href="#">Contact</a></li>
-              <li><a href="#" onclick="EvntLogout(this)">Logout</a></li>
-              <li class="dropdown">
+              <li><a href="#" id="menu_logout" onclick="EvntLogout(this)" style ="display : none;" >Logout</a></li>
+              <li><a href="#" id="menu_login" onclick="EvntLogin(this)">Login</a></li>
+			  <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="#">Action</a></li>
@@ -586,7 +591,36 @@
 </div>
 </template>
 
-<div class="modal fade Formulario_conf " id="conf_term1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+
+
+<div class="modal fade" id="login-modal" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myModalLabel" >
+    <div class="modal-dialog">
+		<div class="loginmodal-container">
+			<div align="center">
+				<table>		
+				<tr>
+					<td>
+						<div class="logo" >HEJMO</div><br>
+					</td>
+				</tr>
+				</table>
+			</div>
+		  <form name="formulario" >
+			<input type="text" id="key" name="key" placeholder="key">
+			<input type="text" id="device" name="device" placeholder="dispositivo">
+					
+		  </form>
+		  <div align="center">
+			  <button type="button" class="btn btn-primary btn-lg loginmodal-submit" onclick="clickRegister(this)">Registrar</button>
+		  </div>
+		  <div id="divLoading"> </div>		
+				  
+		</div>
+	</div>
+ </div>
+
+
+<div class="modal fade in Formulario_conf " role="dialog" id="conf_term1" style ="display : none;">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -621,6 +655,7 @@
     </div>
   </div>
 </div><!-- Fin ventana modal about -->
+</div>
 
 
 </html>

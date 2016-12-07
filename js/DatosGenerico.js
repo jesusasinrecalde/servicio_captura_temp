@@ -17,6 +17,7 @@ function DatosGenerico(idTerm)
 		
 	var clone = ObjectoGenerico.prototype.ClonaGenerico.call(this,'#DatosGenerico');
 	
+	
 	// Elementos graficos propios del objeto
 	clone.getElementById("CarbonEmitidos").id   ="CarbonEmitidos"+this.Id;
 	clone.getElementById("marco_principal").id  ="marco_principal"+this.Id;

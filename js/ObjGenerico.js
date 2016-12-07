@@ -28,6 +28,7 @@ function ObjectoGenerico(idTerm,Tipo,Caption,Nombre,bflgVerBTNONOFF,SUP_ColorFon
 	this.SUP_ColorActivo=SUP_ColorActivo;
 	this.SUP_ColorFondoInactivo=SUP_ColorFondoInactivo;
 	this.SUP_ColorInactivo=SUP_ColorInactivo;
+	
 };
 
 ObjectoGenerico.prototype.get=function(atributo)
@@ -120,6 +121,7 @@ ObjectoGenerico.prototype.ClonaGenerico=function(NombrePlantilla)
 	elemento.getElementById("icono_OnOffInf").id="icono_OnOffInf"+this.Id;
 	
 	
+	this.GraphicName=this.Nombre+this.Id;
 	
 	return elemento;
 }	
@@ -291,5 +293,18 @@ ObjectoGenerico.prototype.OnMinimizado=function()
 */
 ObjectoGenerico.prototype.OnMaximizado=function()
 {
+	return;
+}
+
+/** Funcion generica para la destruccion del objeto grafico asociado al objeto 
+*/
+ObjectoGenerico.prototype.DestruyeObjetoGrafico=function()
+{
+	var objeto = document.getElementById(this.GraphicName)
+	if(!objeto)
+	{
+		var padre= objeto.parentNode;
+		padre.removeChild(this.GraphicName);
+	}
 	return;
 }

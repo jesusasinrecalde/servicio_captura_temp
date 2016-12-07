@@ -1,16 +1,6 @@
 var g_key;
 var g_device;
-window.onload = function() {
-	//$("div#login-modal").addClass('show');
-	$('#login-modal').modal('show');
-	debugger;
-	var param_key = getUrlVars()["key"];
-	var param_device = getUrlVars()["device"];
-	var tabla = document	.forms[0];
-	g_key="";
-	g_device="";
 
-}
 
 function clickRegister(obj)
 {
@@ -20,14 +10,15 @@ function clickRegister(obj)
 		g_key=tabla.elements[0].value;
 		g_device=tabla.elements[1].value;
 		
-		llamarServicioCarriots(tabla.elements[0].value,tabla.elements[1].value);
+		
+		llamarServicioCarriotsRegister(tabla.elements[0].value,tabla.elements[1].value);
 		//llamarServicioCarriots(tabla.elements[0].value,tabla.elements[1].value);
 		
 		
 }
 
 
-function llamarServicioCarriots(clave , dispositivo)
+function llamarServicioCarriotsRegister(clave , dispositivo)
 {
 	debugger;
 	$("div#divLoading").addClass('show');
@@ -44,25 +35,28 @@ function llamarServicioCarriots(clave , dispositivo)
 		},
     type : "GET",
     url: "http://api.carriots.com/devices/"+dispositivo+"/streams/?order=-1&max=1",
-    success: recepcionServicioREST,
-    error : falloServicioREST
+    success: recepcionServicioRESTlogin,
+    error : falloServicioRESTlogin
 	});
 	
 
 }
 
-function falloServicioREST (jqXHR, status)
+function falloServicioRESTlogin (jqXHR, status)
 {
 	$("div#divLoading").removeClass('show');
+	$('#login-modal').modal({show : 'true'}); // continuamos con el menu de login 
 	
 	
 }
-function  recepcionServicioREST (datosREST)
+function  recepcionServicioRESTlogin (datosREST)
 {
+	debugger;
 	$("div#divLoading").removeClass('show');
+	//$('#login-modal').removeClass('show');
 	localStorage["hjm_key"] = g_key;
 	localStorage["hjm_device"] = g_device;
-	window.open ('tabla.html','_self',false);
+	LanzamientoHejmo();
 	//alert(' OK ' );
 	
 }
