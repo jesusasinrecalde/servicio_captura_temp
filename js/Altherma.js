@@ -8,7 +8,7 @@ function Altherma(idTerm)
 	debugger;
 
 
-	ObjectoGenerico.call(this,idTerm,1,"Altherma DA LT","Altherma"+idTerm,false,"#35A127","#D6FFD1","#8B70EE"/*"#370EC8"*/,"#669");
+	ObjectoGenerico.call(this,idTerm,1,"Altherma CB LT","Altherma"+idTerm,false,"#35A127","#D6FFD1","#8B70EE"/*"#370EC8"*/,"#669");
 	
 	this.Id=idTerm;
 	

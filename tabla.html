@@ -48,8 +48,7 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#">About</a></li>
+              <li><a href="#" onclick="About(this)">About</a></li>
               <li><a href="#">Contact</a></li>
               <li><a href="#" id="menu_logout" onclick="EvntLogout(this)" style ="display : none;" >Logout</a></li>
               <li><a href="#" id="menu_login" onclick="EvntLogin(this)">Login</a></li>
@@ -401,6 +400,7 @@
 <template id="Altherma">
 	
 <div class="tg-wrap col-xs-12 col-md-6" id="obj_tipo2" align="center">
+
 <table class="tg">
   
   <tr class="header" id="marco_superior" colspan = "6">
@@ -458,57 +458,56 @@
 									</h4>
 								</div>
 							<div id="collapseOne" class="panel-collapse collapse">
+								<div class="tg-wrap col-xs-24 col-md-6 tablaparam" id="elm1" align="center">
+									Deposito ACS :
+									<img class ="image_cab bullet" id="dat8"  src="./graph/bullet_grey.png"  />
+								</div>
+								<div class="tg-wrap col-xs-24 col-md-6 tablaparam" id="elm2" align="center">
+									Resistencia dep. ACS :
+									<img class ="image_cab bullet" id="dat10"  src="./graph/bullet_grey.png"  />
+								</div>
+								
+								<div class="tg-wrap col-xs-24 col-md-6 tablaparam" id="elm3" align="center">
+										Temp consigna ACS : 
+										<a class="tablaparam" id="dat12">----</a>
+								</div>
+								<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm4" align="center">
+										Temp consigna Clima:
+										<a class="tablaparam" id="dat13">----</a>
+								</div>
+										
+								<div class="tg-wrap col-xs-24 col-md-6 tablaparam" id="elm5" align="center">
+										Estado Clima : 
+										<img class ="image_cab bullet" id="dat14"  src="./graph/bullet_grey.png"  />
+								</div>
+								<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm6" align="center">
+										Temp. dep. ACS:
+										<a class="tablaparam" id="dat15">----</a>
+								</div>
+								<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm7" align="center">
+										Temp. salida agua: 
+										<a class="tablaparam" id="dat16">----</a>
+								</div>
+								<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm8" align="center">
+									Temp. agua ICP :
+									<a class="tablaparam" id="dat17">----</a>
+								</div>
+								<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm9" align="center">
+									Temp. entrante agua : 
+									<a class="tablaparam" id="dat19">----</a>
+								</div>
+								<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm10" align="center">
+									Temp. refigerante: 
+									<a class="tablaparam" id="dat20">----</a>
+								</div>
+								<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm11" align="center">
+									Flujo : 
+									<a class="tablaparam" id="dat23">----</a>
+								</div>
+							
 								<table align="center"  >
 									<tr id="marco_principal" class="tg-s6z2" colspan="3" >
-										<tr class="tablaparam" colspan="4" >		
-											
-											<td class="tablaparam" align="right">Deposito ACS : </td>
-											<td class="tablaparam" >
-												<img class ="image_cab bullet" id="dat8"  src="./graph/bullet_grey.png"  />
-											</td>
-											<td class="tablaparam" align="right" >Resistencia dep. ACS : </td>
-											<td class="tablaparam" >
-												<img class ="image_cab bullet" id="dat10"  src="./graph/bullet_grey.png"  />
-											</td>
-										
-										</tr>
-										
 										<tr class="tablaparam" colspan="4" >
-											
-											<td class="tablaparam" align="right" >Temp consigna ACS : </td>
-											<td class="tablaparam" id="dat12">---</td>
-											<td class="tablaparam" align="right" >Temp consigna Clima: </td>
-											<td class="tablaparam" id="dat13">---</td>
-																	
-											
-										</tr>
-										
-										<tr class="tablaparam" colspan="4" >
-											<td class="tablaparam" align="right">Estado Clima : </td>
-											<td class="tablaparam" >
-												<img class ="image_cab bullet" id="dat14"  src="./graph/bullet_grey.png"  />
-											</td>
-											<td class="tablaparam" align="right">Temp dep. ACS: </td>
-											<td class="tablaparam" id="dat15">---</td>
-						
-										</tr>
-										<tr class="tablaparam" colspan="4" >
-											<td class="tablaparam" align="right">Temp salida agua : </td>
-											<td class="tablaparam" id="dat16">---</td>
-											<td class="tablaparam" align="right">Temp. agua ICP : </td>
-											<td class="tablaparam" id="dat17">---</td>
-										</tr>
-										<tr class="tablaparam" colspan="4" >
-											<td class="tablaparam" align="right">Temp entrante agua : </td>
-											<td class="tablaparam" id="dat19">---</td>
-											<td class="tablaparam" align="right">Temp refigerante  : </td>
-											<td class="tablaparam" id="dat20">---</td>
-				
-										</tr>
-										<tr class="tablaparam" colspan="4" >
-											<td class="tablaparam" align="right">Flujo : </td>
-											<td class="tablaparam" id="dat23">---</td>
-											<td class="tablaparam" align="right"></td>
 											<td class="tablaparam" id="dat25"></td>
 										</tr>
 									</tr>
@@ -620,6 +619,34 @@
  </div>
 
 
+<div class="modal fade" id="about" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myModalLabel" >
+    <div class="modal-dialog">
+		<div class="loginmodal-container">
+			<div align="center">
+				<img class ="image_cab" id="icono_OnOffSup"  src=".\graph\hejmo_logo_title_inverter.png" onclick="aboutClick(this)"   border="0" width="200" height="200" />
+			
+			</div>
+			<div align="center">
+				<a align="center"> </a>
+			</div>
+			<div align="center">
+				<a align="center">Ver 0.1</a>
+			</div>
+			<div align="center">
+				<a align="center">(c) 2016 </a>
+			</div>
+			<div align="center">
+				<a align="center"> </a>
+			</div>
+		  <div align="center">
+			  <button type="button" class="btn btn-primary btn-lg " data-dismiss="modal">   OK   </button>
+		  </div>
+				
+				  
+		</div>
+	</div>
+ </div> 
+ 
 <div class="modal fade in Formulario_conf " role="dialog" id="conf_term1" style ="display : none;">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -656,6 +683,8 @@
   </div>
 </div><!-- Fin ventana modal about -->
 </div>
+
+
 
 
 </html>

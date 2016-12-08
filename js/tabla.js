@@ -25,6 +25,7 @@ window.onload = function() {
 	}
 	else
 	{
+		
 		LanzamientoHejmo();
 	}
 
@@ -930,3 +931,13 @@ function EvntLogin ( obj )
 	
 }
 
+function About ( obj )
+{
+	$('#about').modal('show');
+	
+}
+
+function aboutClick()
+{
+	window.open ('http://hejmo.es',false);
+}
