@@ -50,10 +50,21 @@
 	font-size:20px;
 }
 
+.boton_accion
+	{
+		visibility: hidden;
+	}
+.progress
+ {
+	height: 5px;
+	padding-top: 0px;
+}
 
 #divLoading
 {
     display : none;
+	width:0% ;
+	display: none
 }
 #divLoading.show
 {
@@ -83,6 +94,8 @@
     margin-top : -16px;
 }
 
+
+
 @media screen and (min-width: 767px)
 	{
 	.boton_izd 
@@ -97,6 +110,11 @@
 	{
 		visibility: hidden;
 
+	}
+	
+	.boton_accion
+	{
+		visibility: visible;
 	}
 	}
 	

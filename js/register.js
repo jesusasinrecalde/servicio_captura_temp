@@ -4,15 +4,33 @@ var g_device;
 
 function clickRegister(obj)
 {
-		debugger;
-		var tabla = document.forms[0];
+	//	debugger;
+	//	var tabla = document.forms[0];
+	//	//var valor = $('#key').val();
+	//	g_key=tabla.elements[0].value;
+	//	g_device=tabla.elements[1].value;
+	//	
+	//	
+	//	llamarServicioCarriotsRegister(tabla.elements[0].value,tabla.elements[1].value);
+	//	//llamarServicioCarriots(tabla.elements[0].value,tabla.elements[1].value);
+	debugger;
+	var indice =0;
+	var tabla = null;
+	for(indice=0;indice<document.forms.length && tabla==null;indice++)
+	{
+		 
+		if(document.forms[indice].name=="login")
+			tabla = document.forms[indice];
+	}
+	
+	if(tabla)
+	{
 		//var valor = $('#key').val();
 		g_key=tabla.elements[0].value;
 		g_device=tabla.elements[1].value;
-		
-		
+	
 		llamarServicioCarriotsRegister(tabla.elements[0].value,tabla.elements[1].value);
-		//llamarServicioCarriots(tabla.elements[0].value,tabla.elements[1].value);
+	}	
 		
 		
 }
