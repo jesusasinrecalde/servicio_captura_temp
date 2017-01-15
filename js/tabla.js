@@ -837,7 +837,7 @@ function ActualizarFooter(Parametros)
 		if(Parametros.data['city']!="")
 		{
 			var elem1=document.getElementById("city");
-			elem1.innerHTML=Parametros.data['city'];
+			elem1.innerHTML="&nbsp;&nbsp;"+Parametros.data['city'];
 		}
 	}
 	

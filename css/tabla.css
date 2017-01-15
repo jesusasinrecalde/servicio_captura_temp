@@ -119,6 +119,7 @@ height: 100%;  / * empuja el pie hacia abajo * /
 	height: 60px; 
 	display:flex; 
 	align-items: center;
+	background-color: #e8edff;
 
 
 }
