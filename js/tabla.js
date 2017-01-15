@@ -15,7 +15,8 @@ var g_device;
 
 window.onload = function() {
 	
-	debugger;
+	
+	 $("#loading").addClass('hide');
 	g_key=localStorage["hjm_key"];
 	g_device=localStorage["hjm_device"];
 	if(g_key==null || g_device==null)
@@ -34,9 +35,11 @@ window.onload = function() {
 function LanzamientoHejmo()
 {
 	
-	$('#login-modal').modal('hide')
+	$('#login-modal').modal('hide');
 	$('#menu_logout').show();
 	$('#menu_login').hide();
+	$('#actualizar_dat').show();
+	debugger;
 	
 	g_key=localStorage["hjm_key"];
 	g_device=localStorage["hjm_device"];
@@ -58,6 +61,7 @@ function LanzamientoHejmo()
 		
 		for (x=0;x<tabla_objetos.length;x++)
 		{
+			console.log("Destruye objeto ["+x+"]\n");
 			tabla_objetos[x].DestruyeObjetoGrafico();
 		}
 		
@@ -78,7 +82,6 @@ function LanzamientoHejmo()
 */
 function crearTermostatoTipo0( id_term)
 {
-	debugger;
 	var termostato1= new Object();
 	
 	
@@ -137,7 +140,6 @@ function crearTermostatoTipo0( id_term)
 
 function BtnDesplegar( obj)
 {
-	debugger;
 	var id_term=parseInt(obj.getAttribute('IdTerm'));
 	var data = tabla_valores[id_term];
 	$('#icono_desplegar'+id_term).fadeOut(100);
@@ -160,7 +162,7 @@ function BtnDesplegar( obj)
 
 function BtnSubirTemp( obj )
 {
-	debugger;
+	
 	var id_ter=parseInt(obj.getAttribute('IdTerm'));
 	var temp_peque = document.getElementById('temp_peque'+id_ter);
 	$('#icono_func_mas'+id_ter).fadeOut(100);
@@ -231,20 +233,13 @@ function BtnOn_off(obj)
 
 function btn_ver_conf_term1(obj)
 {
-	debugger;
+	
 	var id_term=parseInt(obj.getAttribute('IdTerm'));
 	var data = tabla_valores[id_term];
 	var t = document.querySelector('#conf_term1');
 	document.getElementById("conf_grabar_term1").setAttribute( "IdTerm",id_term.toString());
 	var modo = document.getElementById("modo_term");
-	/*
-	var modo=document.querySelector('#modo_term');
-	for(i=0;i<modo.modo.length;i++)
-	{
-		modo.modo[i].value=false;
-	}
-	modo.modo[data.configuracion.modo].value=true;
-*/
+	
 	var elem =document.getElementById('ConfTerm1Label');
 	elem.innerHTML=data.Caption;
 	
@@ -270,7 +265,7 @@ function btn_ver_conf_term1(obj)
 
 function btn_grabar_configuracion(obj)
 {
-	debugger;
+	
 	var id_term=parseInt(obj.getAttribute('IdTerm'));
 	var data = tabla_valores[id_term];
 	data.Caption=document.getElementById('Nombre_term').value;
@@ -289,7 +284,7 @@ function btn_grabar_configuracion(obj)
 function mostrarForm( obj, id_term)
 {
 	
-	debugger;
+	
 }
 
 function Desplegar (id_term,origen)
@@ -297,7 +292,7 @@ function Desplegar (id_term,origen)
 	
 	var marcoInf =document.getElementById('marco_inf'+id_term);
 	var data = tabla_valores[id_term];
-	debugger;
+	
 	if(data.EstaMinimizado==1)
 	{
 		$('#icono_OnOffSup'+id_term).fadeIn(400);
@@ -350,7 +345,7 @@ function Actualizar( cambiaEstado, id_term)
 	
 	
 	
-	debugger;
+	
 		
 	if(data.estado==1) // si esta encendido
 	{
@@ -419,7 +414,7 @@ function Actualizar( cambiaEstado, id_term)
 	}
 	else// apagado
 	{
-		debugger;
+		
 		MarcoSup.style.backgroundColor="#838DFF";
 		MarcoSup.style.color="#C4DDF9";
 		
@@ -477,11 +472,11 @@ function HayDatosCambiados_Term ( idTerm)
 
 function func_inteval_modo()
 {
-	debugger;
+	
 	var obj;
 	var obj_dom;
 	var num_objetos=0;
-	debugger;
+	
 	for (x=0;x<tabla_valores.length;x++)
 	{
 		obj=tabla_valores[x];
@@ -573,25 +568,6 @@ function EvntBtwDespliegue(obj)
 	var obj=DarObjeto(id_term);
 	if(obj)
 		obj.Desplegar();
-	//Tem1.Desplegar();
-	//var id_term=parseInt(obj.getAttribute('IdTerm')); // asi se obtiene el Id 
-	//var data = tabla_valores[id_term];
-	//$('#icono_desplegar'+id_term).fadeOut(100);
-	//$('#icono_desplegar'+id_term).fadeIn(100);
-
-
-//	if(data.EstaMinimizado==1)// si esta minimizado ...
-//	{
-//		data.EstaMinimizado=0;// ... se maximiza
-//		
-//	}
-//	else
-//	{
-//		data.EstaMinimizado=1;
-//		
-//	}
-//	Desplegar(id_term,0);
-			
 
 }
 
@@ -656,7 +632,7 @@ function DesactivaTemporizadorCambio()
 
 function func_inteval_modo()
 {
-	debugger;
+	
 	var objeto;
 	var contador=0;
 	for (x=0;x<tabla_objetos.length;x++)
@@ -689,10 +665,10 @@ function func_inteval_lectura_datos()
 function llamarServicioCarriotsPrimeravez()
 {
 	
-	debugger;
+
 	var carriotsURL = 'http://api.carriots.com/devices/'+g_device+'/streams/?order=-1&max=30';
-	$("div#divLoading").addClass('show');
-	
+
+	$("#loading").removeClass('hide');
 	$.ajax({
 	beforeSend: function(xhrObj){
         xhrObj.setRequestHeader("Content-Type","application/json");
@@ -705,7 +681,7 @@ function llamarServicioCarriotsPrimeravez()
     url: carriotsURL,
     success: recepcionServicioRESTPrimeravez,
     error : function(jqXHR, status) { 
-		debugger;
+		
 		//alert(jqXHR.getAllResponseHeaders());
 	alert("ERROR :"+jqXHR.responseText+" "+jqXHR.statusText);}
 		//alert(status +' fallo ');}
@@ -714,7 +690,7 @@ function llamarServicioCarriotsPrimeravez()
 
 function recepcionServicioRESTPrimeravez (datosREST)
 {
-	debugger;
+	
 	var totalDocuments = datosREST.total_documents;
 	var numdatos = datosREST.length;
     var numdatos = datosREST.result.length;
@@ -746,7 +722,8 @@ function recepcionServicioRESTPrimeravez (datosREST)
 	ActualizarParametrosRecibidor(nodo,datosREST.result); // actualizamos los datos con los parametros recibidos
 	
 	timer_interval_lectura_datos=setInterval(llamarServicioCarriots,100000);// 10 minutos
-	$("div#divLoading").removeClass('show');	
+	$("#loading").addClass('hide');
+		
 }
 
 
@@ -755,21 +732,20 @@ function llamarServicioCarriots()
 //	**** var carriotsURL = 'http://api.carriots.com/devices/defaultDevice@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
 //	var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
 	var carriotsURL = 'http://api.carriots.com/devices/'+g_device+'/streams/?order=-1&max=30';
-	$("div#divLoading").addClass('show');
+	$("#loading").removeClass('hide');
+	
 	
 	$.ajax({
 	beforeSend: function(xhrObj){
         xhrObj.setRequestHeader("Content-Type","application/json");
         xhrObj.setRequestHeader("Accept","application/json");
         xhrObj.setRequestHeader("carriots.apikey",g_key);
-        //xhrObj.setRequestHeader("carriots.apikey","1ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713");
-
-		},
+       	},
     type : "GET",
     url: carriotsURL,
     success: recepcionServicioREST,
     error : function(jqXHR, status) { 
-		debugger;
+		
 		//alert(jqXHR.getAllResponseHeaders());
 	alert("ERROR :"+jqXHR.responseText+" "+jqXHR.statusText);}
 		//alert(status +' fallo ');}
@@ -796,7 +772,8 @@ function recepcionServicioREST (datosREST)
 	ActualizarParametrosRecibidor(nodo,datosREST.result); // actualizamos los datos con los parametros recibidos
 	
 	
-	$("#divLoading").removeClass('show');
+	$("#loading").addClass('hide');
+	
 }
 
 function CreacionElementos(iNumElementos, nodo )
@@ -813,15 +790,18 @@ function CreacionElementos(iNumElementos, nodo )
 			switch(TipoElemento)
 			{
 				case "0" : // termostato sistema
+				    console.log("Crea elm Termostato sistema ["+indice+"]\n");
 					Tem1= new TermostatoSistena(indice);
 					Tem1.set("Visible",true);
 					tabla_objetos.push(Tem1);
 					break;
 				case "1" : // datos genericos
+					console.log("Crea elm contador ["+indice+"]\n");
 					Tem1=new DatosGenerico(indice);
 					tabla_objetos.push(Tem1);
 					break;
 				case "2" : // Altherma
+					console.log("Crea elm TAltherma ["+indice+"]\n");
 					Tem1=new Altherma(indice);
 					tabla_objetos.push(Tem1);
 					break;	
@@ -833,9 +813,12 @@ function CreacionElementos(iNumElementos, nodo )
 			break;
 	}
 }
+
+// funcion que notifica a cada uno de los elementos existentes los datos recibidos para que se actualicen 
 function ActualizarParametrosRecibidor(Parametros,ParametrosTresHoras)
 {
 	console.log("ActualizarParametrosRecibidor\n");
+	ActualizarFooter(Parametros);
 	var objeto;
 	for (x=0;x<tabla_objetos.length;x++)
 	{
@@ -845,6 +828,36 @@ function ActualizarParametrosRecibidor(Parametros,ParametrosTresHoras)
 	}
 }
 
+function ActualizarFooter(Parametros)
+{
+	
+	
+	if(Parametros.data['city']!=null)
+	{
+		if(Parametros.data['city']!="")
+		{
+			var elem1=document.getElementById("city");
+			elem1.innerHTML=Parametros.data['city'];
+		}
+	}
+	
+	if(Parametros.data['icon_tmp']!=null)
+	{
+		var elem = document.getElementById('icon_temp');
+		if(Parametros.data['icon_tmp']!="")
+			elem.src= "http://openweathermap.org/img/w/"+Parametros.data['icon_tmp']+".png";
+	}
+	
+	if(Parametros.data['temp']!=null)
+	{
+		if(Parametros.data['temp']!="")
+		{
+			var elem1=document.getElementById("temp_city");
+			elem1.innerHTML=Parametros.data['temp']+"ºC";
+		}
+	}
+	
+}
 
 function llamarServicioCarriotsNummObjt(idObjeto,NumObjetos)
 {
@@ -866,7 +879,7 @@ function llamarServicioCarriotsNummObjt(idObjeto,NumObjetos)
     url: carriotsURL,
     success: recepcionServicioRESTNumObjetos,
     error : function(jqXHR, status) { 
-		debugger;
+		
 		//alert(jqXHR.getAllResponseHeaders());
 	alert("ERROR :"+jqXHR.responseText+" "+jqXHR.statusText);}
 		//alert(status +' fallo ');}
@@ -876,11 +889,11 @@ function llamarServicioCarriotsNummObjt(idObjeto,NumObjetos)
 
 function recepcionServicioRESTNumObjetos (datosREST)
 {
-	debugger;
+	
 	var totalDocuments = datosREST.total_documents;
 	var numdatos = datosREST.length;
     var numdatos = datosREST.result.length;
-    debugger;
+  
 	var obj=DarObjeto(IdObjetoGlobal);
 	if(obj)
 		obj.ProcesaDatosPeticion(datosREST);
@@ -889,39 +902,15 @@ function recepcionServicioRESTNumObjetos (datosREST)
 }
 
 
-function supportsImports() {
-  return 'import' in document.createElement('link');
-}
-
-// funcion para poner en util.js
-function DarStringFecha(fechaCarriots)
-{
-	var mesok=new Array(12);
-	mesok[0]="Enero";
-	mesok[1]="Febrero";
-	mesok[2]="Marzo";
-	mesok[3]="Abril";
-	mesok[4]="Mayo";
-	mesok[5]="Junio";
-	mesok[6]="Julio";
-	mesok[7]="Agosto";
-	mesok[8]="Septiembre";
-	mesok[9]="Octubre";
-	mesok[10]="Noviembre";
-	mesok[11]="Diciembre";
-    // imprimir fecha y hora 
-	var d = new Date (fechaCarriots*1000);
-	return  d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes();
-
-}
-
 // Funcion para deslogarse del sistema , se borra el registro y se redirige a la pagina de login 
 function EvntLogout ( obj)
 {
 
 	localStorage.removeItem("hjm_key");
 	localStorage.removeItem("hjm_device");
+	$('#actualizar_dat').hide();
     $('#login-modal').modal('show');
+	
 
 }
 
@@ -940,4 +929,9 @@ function About ( obj )
 function aboutClick()
 {
 	window.open ('http://hejmo.es',false);
+}
+
+function ActualizarDatos(obj)
+{
+		llamarServicioCarriots();
 }

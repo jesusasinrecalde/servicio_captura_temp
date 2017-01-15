@@ -123,6 +123,8 @@ ObjectoGenerico.prototype.ClonaGenerico=function(NombrePlantilla)
 	
 	this.GraphicName=this.Nombre+this.Id;
 	
+	console.log("GraphicName : "+this.GraphicName+"\n");
+	
 	return elemento;
 }	
 	
@@ -300,11 +302,16 @@ ObjectoGenerico.prototype.OnMaximizado=function()
 */
 ObjectoGenerico.prototype.DestruyeObjetoGrafico=function()
 {
-	var objeto = document.getElementById(this.GraphicName)
-	if(!objeto)
+	debugger;
+	var objeto = document.getElementById(this.GraphicName);
+	if(objeto)
 	{
-		var padre= objeto.parentNode;
-		padre.removeChild(this.GraphicName);
+		
+		console.log("Destruye graph "+this.GraphicName+"\n");
+		$("."+this.GraphicName).remove();
+		//var padre= objeto.parentNode;
+		//padre.removeChild(this.GraphicName);
+		//contenedor.removeChild(this.GraphicName);
 	}
 	return;
 }
