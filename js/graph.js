@@ -49,11 +49,18 @@ var TextoGrafico;
 var g_key;
 var g_device;
 
-
+var idHejmo=0;
 
 window.onload = function() {
 	
 	debugger;
+	
+	var parametros =getUrlVars();
+	if(parametros.id!=null)
+	{
+		idHejmo=parametros.id;
+	}
+	
 	g_key=localStorage["hjm_key"];
 	g_device=localStorage["hjm_device"];
 	if(g_key==null || g_device==null)
@@ -573,9 +580,12 @@ function recepcionServicioRESTNumObjetos (datosREST)
 	
 	if(valor_dato9!=null)
 	{
-		valor_anterior=parseFloat(nodo.data['0_dat9']);
-		valor_inicio=parseFloat(nodo.data['0_dat9']);
-		valor_final=parseFloat(datosREST.result[0].data['0_dat9']);
+		//valor_anterior=parseFloat(nodo.data['0_dat9']);
+		//valor_inicio=parseFloat(nodo.data['0_dat9']);
+		//valor_final=parseFloat(datosREST.result[0].data['0_dat9']);
+		valor_anterior=parseFloat(nodo.data[idHejmo+'_dat9']);
+		valor_inicio=parseFloat(nodo.data[idHejmo+'_dat9']);
+		valor_final=parseFloat(datosREST.result[0].data[idHejmo+'_dat9']);
 		vconsumoTotal=valor_final-valor_inicio;// se tiene que comparar al final del proceso .....
 	}
 	
@@ -593,12 +603,12 @@ function recepcionServicioRESTNumObjetos (datosREST)
 		nodo=datosREST.result[indice];
 		nodoSiguiente=datosREST.result[indice+1];
 		
-		valor_dato9=nodo.data['0_dat9'];
-		valor_dato9siguiente=nodoSiguiente.data['0_dat9'];
+		valor_dato9=nodo.data[idHejmo+'_dat9'];
+		valor_dato9siguiente=nodoSiguiente.data[idHejmo+'_dat9'];
 		if(valor_dato9!=null && valor_dato9siguiente!=null)
 		{
-			Dato=parseFloat(nodo.data['0_dat9']);
-			DatoSiguiente=parseFloat(nodoSiguiente.data['0_dat9']);
+			Dato=parseFloat(nodo.data[idHejmo+'_dat9']);
+			DatoSiguiente=parseFloat(nodoSiguiente.data[idHejmo+'_dat9']);
 			
 			dato_resta=Dato-DatoSiguiente;
 			if(dato_resta>0 && dato_resta<1)
@@ -727,22 +737,22 @@ function recepcionServicioRESTFecha (datosREST)
 		nodoSiguiente=datosREST.result[indice+1];
 		SacarConsolaFecha(nodo.at*1000);
 		
-		valor_dato9=nodo.data['0_dat9'];
-		valor_dato9siguiente=nodoSiguiente.data['0_dat9'];
+		valor_dato9=nodo.data[idHejmo+'_dat9'];
+		valor_dato9siguiente=nodoSiguiente.data[idHejmo+'_dat9'];
 		if(flgPrimeraVez==1 && valor_dato9!=null) // si es la primera vez el valor marca el primer dato valido 
 		{
 			flgPrimeraVez=0;
-			Gvalor_anterior=parseFloat(nodo.data['0_dat9']);
-			Gvalor_inicio=parseFloat(nodo.data['0_dat9']);
-			Gvalor_final=parseFloat(nodo.data['0_dat9']);
+			Gvalor_anterior=parseFloat(nodo.data[idHejmo+'_dat9']);
+			Gvalor_inicio=parseFloat(nodo.data[idHejmo+'_dat9']);
+			Gvalor_final=parseFloat(nodo.data[idHejmo+'_dat9']);
 			flgPrimeraVez=0; // desactivamos el flag de primera vez
 			
 		}		
 		if(valor_dato9!=null && valor_dato9siguiente!=null)
 		{
-			Dato=parseFloat(nodo.data['0_dat9']);
-			DatoSiguiente=parseFloat(nodoSiguiente.data['0_dat9']);
-			Gvalor_final=parseFloat(nodo.data['0_dat9']);
+			Dato=parseFloat(nodo.data[idHejmo+'_dat9']);
+			DatoSiguiente=parseFloat(nodoSiguiente.data[idHejmo+'_dat9']);
+			Gvalor_final=parseFloat(nodo.data[idHejmo+'_dat9']);
 			dato_resta=Dato-DatoSiguiente;
 			
 			
@@ -821,7 +831,7 @@ function recepcionServicioRESTFechaRango (datosREST)
 		for( indice = 0;indice<numdatos;indice++)
 		{
 			nodo=datosREST.result[indice];
-			valor_dato9=nodo.data['0_dat9'];
+			valor_dato9=nodo.data[idHejmo+'_dat9'];
 			if(valor_dato9!=null) // solo podemos poner una dato si este existe  
 			{
 				valor = parseFloat(valor_dato9);
