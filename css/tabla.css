@@ -113,13 +113,17 @@ height: 100%;  / * empuja el pie hacia abajo * /
 
 
 .mifooter{
-	position: fixed;
-	bottom: 0px; 
+	/*position: fixed;
+	bottom: 0px;
+	
+		
+	top : 50px;
 	width: 100%; 
-	height: 60px; 
+	height: 60px;
+	*/
 	display:flex; 
 	align-items: center;
-	background-color: #e8edff;
+	/*background-color: #e8edff;*/ 
 
 
 }
