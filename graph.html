@@ -7,7 +7,7 @@
 	
 	
 	
-    <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap-datetimepicker.min.css">
+  
 	
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
@@ -15,8 +15,10 @@
     
 	 
     <script type="text/javascript"  src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
-    <script type="text/javascript"  src="js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript"  src="js/moment-with-locales.min.js"></script>
+	<script type="text/javascript"  src="js/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript"  src="js/bootstrap-datetimepicker.es-ES.js"></script>
+	
 	
 	
 
@@ -43,6 +45,8 @@
 	<script type="text/javascript" src="js/register.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/register.css">
 	
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css">
+	
 </head>
 <body role="document">
 
@@ -61,7 +65,7 @@
         <span class="icon-bar"></span>
       </button>
 	  <a class="navbar-brand" href="tabla.html">
-        <img alt="Brand" src="./graph/hejmo_logo_INVERTER.png" border="0" width="80" height="40">
+        <img alt="Brand" src="./graph/hejmo_logo_INVERTER.png" border="0" width="60" height="60">
       </a>
 	  
 	  
@@ -83,35 +87,34 @@
 
 			</div>
 		</form>
-		<div class='col-md-3'>
-				<div class="form-group">
-					<H6>Fecha Inicio:</H6>
-					<div id="datetimepicker_inicio" class="input-append date">
-						<input type="text"></input>
-						<span class="add-on">
-							<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-						</span>
-					</div>
-				</div>
-			</div>
-		<div class='col-md-3'>
-				<div class="form-group">
-					<H6>Fecha Fin:</H6>
-					<div id="datetimepicker_fin" class="input-append date">
-						<input type="text"></input>
-						<span class="add-on">
-							<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-						</span>
-					</div>
-				</div>
-			</div>
-			<div class='col-md-3'>
-				<button type="button" class="btn btn-default" id="btn_exec1" onclick="EvntBtnInformeFecha(this)">
-					 <span class="glyphicon glyphicon-equalizer" aria-hidden="true"></span>
-				</button>
-				
-				
-			</div>
+	
+			 <div class="form-group col-md-6">
+                            <label class="col-md-2 control-label">Fecha</label>
+                            <div class="col-md-10">
+                                        <div class="input-group">
+											<div id="datetimepicker_from" class="input-group">
+												<span class="input-group-addon">
+													<span class="glyphicon glyphicon-calendar"></span>
+												</span>
+												<input type="text" id="carriotsbundle_streamfiltertype_at_from" name="carriotsbundle_streamfiltertype[at][from]" class="input-sm form-control" />
+											</div>
+											<span class="input-group-addon">hasta</span>
+											<div id="datetimepicker_to" class="input-group">
+												<input type="text" id="carriotsbundle_streamfiltertype_at_to" name="carriotsbundle_streamfiltertype[at][to]" class="input-sm form-control" />
+												<span class="input-group-addon">
+													<span class="glyphicon glyphicon-calendar"></span>
+												</span>
+											</div>
+											
+										</div>
+										<button type="button" class="btn btn-default" id="btn_exec1" onclick="EvntBtnInformeFecha(this)">
+											<span class="glyphicon glyphicon-equalizer" aria-hidden="true"></span>
+										</button>
+
+                                    
+                            </div>
+            </div>
+                   
 	</div>
 		
 			

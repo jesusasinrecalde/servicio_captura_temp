@@ -82,17 +82,50 @@ function LanzamientoHejmo()
 	$(".desplegable").hide( );
 	$('#login-modal').modal('hide');	
 	
- $('#datetimepicker_inicio').datetimepicker({
-        format: 'dd/MM/yyyy hh:mm:ss',
-        language: 'es-ES'
-      });
- $('#datetimepicker_fin').datetimepicker({
-        format: 'dd/MM/yyyy hh:mm:ss',
-        language: 'es-ES'
-      });
+ //$('#datetimepicker_inicio').datetimepicker({
+ //       format: 'dd/MM/yyyy hh:mm:ss',
+ //       language: 'es-ES'
+ //     });
+ //$('#datetimepicker_fin').datetimepicker({
+ //       format: 'dd/MM/yyyy hh:mm:ss',
+ //       language: 'es-ES'
+ //     });
+//
+//$( "#datepicker_inicio" ).datepicker();
+//$( "#datepicker_fin" ).datepicker();
 
-$( "#datepicker_inicio" ).datepicker();
-$( "#datepicker_fin" ).datepicker();
+
+     $('#datetimepicker_from').datetimepicker({
+            format : 'YYYY-MM-DD HH:mm',
+                        icons : {
+               // time: "fa fa-clock-o",
+               time: "glyphicon glyphicon-time",
+			   // date: "fa fa-calendar",
+				date: "glyphicon glyphicon-calendar",
+			     up: "glyphicon glyphicon-arrow-up",
+                down: "glyphicon glyphicon-arrow-down",
+				 locale: 'es-ES'
+				 
+            },
+            useCurrent: false //Important! See issue #1075
+        }).on("dp.change", function (e) {
+            $('#datetimepicker_to').data("DateTimePicker").minDate(e.date);
+        });
+        $('#datetimepicker_to').datetimepicker({
+            format : 'YYYY-MM-DD HH:mm',
+                        icons : {
+                //time: "fa fa-clock-o",
+                time: "glyphicon glyphicon-time",
+				date: "fa fa-calendar",
+               // date: "glyphicon glyphicon-calendar",
+				up: "glyphicon glyphicon-arrow-up",
+                down: "glyphicon glyphicon-arrow-down",
+				 locale: 'es-ES'
+            },
+            useCurrent: false //Important! See issue #1075
+        }).on("dp.change", function (e) {
+            $('#datetimepicker_from').data("DateTimePicker").maxDate(e.date);
+        });
 
 
 	g_key=localStorage["hjm_key"];
@@ -334,8 +367,14 @@ function EvntBtnInformeFecha(obj)
 {
 	BarraProgreso_reset();
 	debugger;
-	var DateIni = $('#datetimepicker_inicio').data('datetimepicker').getLocalDate();
-	var DateFin = $('#datetimepicker_fin').data('datetimepicker').getLocalDate();
+	
+	
+	
+	var DateIni = new Date($('#datetimepicker_from').data('date'));
+	var DateFin = new Date($('#datetimepicker_to').data('date'));
+	
+	//var DateIni = $('#datetimepicker_to').data('datetimepicker').viewDate();
+	//var DateFin = $('#datetimepicker_from').data('datetimepicker').viewDate();
 	if(DateIni && DateFin && DateFin.getTime()>=DateIni.getTime())
 	{
 		// Cabecera del grafico
