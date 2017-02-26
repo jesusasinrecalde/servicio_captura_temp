@@ -245,7 +245,7 @@ ObjectoGenerico.prototype.HayDatosCambiados=function()
 
 /** Funcion generica de procesamiento de datos recibidor, sin sobrecargar no incorpora ningun dato
 */
-ObjectoGenerico.prototype.ProcesaDatos=function(Parametros,ParametrosTresHoras)
+ObjectoGenerico.prototype.ProcesaDatos=function(Parametros,ParametrosTresHoras,flgPrimeravez)
 {
 	return;
 }
@@ -314,4 +314,37 @@ ObjectoGenerico.prototype.DestruyeObjetoGrafico=function()
 		//contenedor.removeChild(this.GraphicName);
 	}
 	return;
+}
+
+/** Funcion para dar los parametros a grabar , por defecto no da ninguno 
+*/
+ObjectoGenerico.prototype.DarDatosAGrabar=function()
+{
+	return null;
+}
+
+
+/** Funcion para mostrar una ventana modal , por defecto no muestra nada 
+*/
+
+ObjectoGenerico.prototype.MostrarVentanaModal=function()
+{
+	return null;
+}
+
+/** Funcion para Finalizar una ventana modal , por defecto no muestra nada 
+*/
+
+ObjectoGenerico.prototype.FinalizarVentanaModal=function()
+{
+	return null;
+}
+
+
+/** Funcion para Tener un evento en la ventana modal  , por defecto no hace nada 
+*/
+
+ObjectoGenerico.prototype.EventoVentanaModal=function(Evento)
+{
+	return ;
 }

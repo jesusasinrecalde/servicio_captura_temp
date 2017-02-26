@@ -152,7 +152,7 @@ DatosGenerico.prototype.Actualizar=function()
 
 /** Funcion de procesamiento de datos recibido, 
 */
-DatosGenerico.prototype.ProcesaDatos=function(Parametros,ParametrosTresHoras)
+DatosGenerico.prototype.ProcesaDatos=function(Parametros,ParametrosTresHoras,flgPrimeraVez)
 {
 	console.log("* Actualizar datos Obj tipo 1 Id"+this.Id+"\n");
 	

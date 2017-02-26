@@ -573,10 +573,15 @@ function EvntBtwDespliegue(obj)
 
 function EvntBtnOn_off(obj)
 {
+	debugger;
 	var id_term=parseInt(obj.getAttribute('IdTerm'));
 	var obj=DarObjeto(id_term);
 	if(obj)
+	{
 		obj.CambioOnOff();
+		obj.Actualizar();
+	}
+	
 }
 
 
@@ -688,6 +693,54 @@ function llamarServicioCarriotsPrimeravez()
 });
 }
 
+
+function EnviarDatos(obj)
+{
+	
+	var cadena="\"valor\":\"dato\"";
+	
+	llamarCarriotsMetodoPOST(cadena);
+	
+	
+}
+function llamarCarriotsMetodoPOST(datos)
+{
+	debugger;
+	var cadenaSalida="{"+"\"protocol\":\"v2\","+"\"checksum\":\"\","+"\"device\":\"In"+g_device+"\","+"\"at\":\"now\","+"\"data\":{"+datos+"}}"
+	
+
+	var carriotsURL = 'http://api.carriots.com/streams';
+
+	//$("#loading").removeClass('hide');
+	$.ajax({
+	/*headers : {
+		"carriots.apikey": g_key,
+		"Content-Type":"application/json",
+        "Accept":"application/json"
+	},*/
+	beforeSend: function(xhrObj){
+        xhrObj.setRequestHeader("Content-Type","application/json");
+        xhrObj.setRequestHeader("Accept","application/json");
+        xhrObj.setRequestHeader("carriots.apikey",g_key);
+        
+
+		},
+	
+    type : "post",
+	
+    url: carriotsURL,
+	data:cadenaSalida,
+	success: function( data, textStatus, jQxhr ){
+                  
+                },
+    error: function( jqXhr, textStatus, errorThrown ){
+                  
+                }
+	
+		
+});
+}
+
 function recepcionServicioRESTPrimeravez (datosREST)
 {
 	
@@ -719,7 +772,7 @@ function recepcionServicioRESTPrimeravez (datosREST)
 		}
 		
 	}
-	ActualizarParametrosRecibidor(nodo,datosREST.result); // actualizamos los datos con los parametros recibidos
+	ActualizarParametrosRecibidor(nodo,datosREST.result,'true'); // actualizamos los datos con los parametros recibidos
 	
 	timer_interval_lectura_datos=setInterval(llamarServicioCarriots,100000);// 10 minutos
 	$("#loading").addClass('hide');
@@ -769,7 +822,7 @@ function recepcionServicioREST (datosREST)
 	var elem1=document.getElementById("fecha_actualizacion");
     elem1.innerHTML=stringFecha;
 	
-	ActualizarParametrosRecibidor(nodo,datosREST.result); // actualizamos los datos con los parametros recibidos
+	ActualizarParametrosRecibidor(nodo,datosREST.result,'false'); // actualizamos los datos con los parametros recibidos
 	
 	
 	$("#loading").addClass('hide');
@@ -815,7 +868,7 @@ function CreacionElementos(iNumElementos, nodo )
 }
 
 // funcion que notifica a cada uno de los elementos existentes los datos recibidos para que se actualicen 
-function ActualizarParametrosRecibidor(Parametros,ParametrosTresHoras)
+function ActualizarParametrosRecibidor(Parametros,ParametrosTresHoras,flgPrimeraVez)
 {
 	console.log("ActualizarParametrosRecibidor\n");
 	ActualizarFooter(Parametros);
@@ -823,7 +876,7 @@ function ActualizarParametrosRecibidor(Parametros,ParametrosTresHoras)
 	for (x=0;x<tabla_objetos.length;x++)
 	{
 		objeto=tabla_objetos[x];
-		objeto.ProcesaDatos(Parametros,ParametrosTresHoras);
+		objeto.ProcesaDatos(Parametros,ParametrosTresHoras,flgPrimeraVez);
 		
 	}
 }
@@ -934,4 +987,73 @@ function aboutClick()
 function ActualizarDatos(obj)
 {
 		llamarServicioCarriots();
+}
+
+function EvntBtnAlthermConf(obj)
+{
+	var objeto;
+	var contador=0;
+	$(obj).fadeTo(100, 0.1).fadeTo(200, 1.0);
+	for (x=0;x<tabla_objetos.length;x++)
+	{
+		objeto=tabla_objetos[x];
+	
+		if(objeto.get("Tipo")==2)
+		{
+			break;
+			objeto.MostrarVentanaModal();
+			
+		}
+		objeto=null;
+		
+	}	
+	if(objeto)
+		objeto.MostrarVentanaModal();	
+	
+	//$('#AlthermaConf').modal('show');
+}
+
+function EvntBtnFINAlthermConf(obj)
+{
+	var objeto;
+	var contador=0;
+	$(obj).fadeTo(100, 0.1).fadeTo(200, 1.0);
+	for (x=0;x<tabla_objetos.length;x++)
+	{
+		objeto=tabla_objetos[x];
+	
+		if(objeto.get("Tipo")==2)
+		{
+			break;
+			objeto.MostrarVentanaModal();
+			
+		}
+		objeto=null;
+		
+	}	
+	if(objeto)
+		objeto.FinalizarVentanaModal();	
+	
+}	
+
+function EvnReload(obj)
+{
+	var objeto;
+	var contador=0;
+	$(obj).fadeTo(100, 0.1).fadeTo(200, 1.0);
+	for (x=0;x<tabla_objetos.length;x++)
+	{
+		objeto=tabla_objetos[x];
+	
+		if(objeto.get("Tipo")==2)
+		{
+			break;
+			objeto.MostrarVentanaModal();
+			
+		}
+		objeto=null;
+		
+	}	
+	if(objeto)
+		objeto.EventoVentanaModal(1);	
 }

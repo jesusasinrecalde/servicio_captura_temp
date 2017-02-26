@@ -9,6 +9,7 @@
 	<script src="js/jquery-1.11.3.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
 	
   
 		
@@ -53,6 +54,8 @@
               <li><a href="#" id="menu_logout" onclick="EvntLogout(this)" style ="display : none;" >Logout</a></li>
               <li><a href="#" id="menu_login" onclick="EvntLogin(this)">Login</a></li>
 			  <li><a href="#" id="actualizar_dat" onclick="ActualizarDatos(this)" style ="display : none;">Actualizar</a></li>
+			   <li><a href="#" id="enviar_dat" onclick="EnviarDatos(this)" ">Enviar</a></li>
+			  
             </ul>
             
 			<ul class="nav navbar-nav navbar-right">
@@ -519,9 +522,12 @@
 				
 				<table align="center">
 				<tr>
+					<td>
+						<i id="configuracion" class="fa fa-cogs fa-2x "  onclick="EvntBtnAlthermConf(this)"> </i>
+					</td>
 					<td id="on_off" colspan ="6" align="center">
 						<a href="#"  id="btn_onoff" onclick="EvntBtnOn_off(this)">
-							<img class ="image_cab" id="icono_OnOffInf"  src=".\graph\on.png" border="0" width="60" height="60" />
+						<img class ="image_cab" id="icono_OnOffInf"  src=".\graph\on.png" border="0" width="60" height="60" />
 						</a>
 					</td>
 				</tr>
@@ -646,45 +652,85 @@
 	</div>
  </div> 
  
-<div class="modal fade in Formulario_conf " role="dialog" id="conf_term1" style ="display : none;">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-	   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	  <table >
-		<tr>
-			<td><img src=".\graph\ajuste.png" style="max-width:75px; margin-top: -10px;" /></td>
-			<td><h3 class="modal-title" id="ConfTerm1Label">Configuracion</h3></td>
-		</tr>
-	  </table>
-       
-       
-	  </div>
-      <div class="modal-body">
-        <form >
-          <div class="form-group">
-            <h3><label for="message-text" class="label label-primary" >Nombre :</label></h3>
-            <input type="text" class="form-control" id="Nombre_term">
-          </div>
-          <div class="form-group">
-			 <h3><label for="message-text" class="label label-primary">Modo :</label></h3>
-				<label for="message-text" class="control-label radio-inline"><input type="radio" class ="SelectModo" name="modo_term" id="opt_frio" />&nbsp&nbsp&nbspFrio</label>
-				<label for="message-text" class="control-label radio-inline"><input type="radio" class ="SelectModo" name="modo_term" id="opt_calor"/>&nbsp&nbsp&nbspCalor</label>
-
-			<div/>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-        <button type="button" class="btn btn-primary" id="conf_grabar_term1" onclick="btn_grabar_configuracion(this)">Grabar</button>
-      </div>
-    </div>
-  </div>
-</div><!-- Fin ventana modal about -->
-</div>
 
 
 
-
+<div class="modal fade" id="AlthermaConf"  >
+    <div class="modal-dialog fullscreen">
+		<div class="modal-content">
+			<div class="modal-header  cabecera ">
+			<h4 class="modal-title  ">
+				<i class="fa fa-arrow-left" style="float: left;"    onclick="EvntBtnFINAlthermConf(this)"></i>
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbspConfiguracion
+				<i class="fa fa-undo"  style=" float: right;" onclick="EvnReload(this)"></i>
+			</h4>
+			</div>
+		<div class="modal-body" >
+			
+			<div class="text-center center" >
+				<div class="row ">
+					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" >
+						<div class="div_campo" ><label for="usr" class="unselectable campo text_clima" >Clima</label></div>
+						<div  class="div_campo div_campo1 div_clima" >
+							<span class="fa-stack fa-lg boton_pwd fa-2x  " id="clima"  onclick="EvnBtnPwd(this)" estado="1" >
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-power-off fa-stack-1x fa-inverse"></i>
+							</span>	
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
+						<label for="usr" class="unselectable campo div_campo text_tempclima" >Temp. Clima</label>
+						<div class="div_campo div_campo1 div_tempclima" >
+							<i class="fa fa-chevron-up fa-2x" style="clear:left;"  aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="valor3"  max="50" ></i>
+							<div style="clear:left;" class=" pppp">
+								<label for="usr" id="valor3" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >º</label> 
+							</div>
+							<div style="clear:left;" >
+								<i class="fa fa-chevron-down fa-2x" aria-hidden="true" onclick="EvnBajarTemp(this)" visualiza="valor3" min="-10 " ></i>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12  " >
+						<div>
+							<label for="usr" class="unselectable campo div_campo text_clima" >Modo Clima</label>
+						</div>
+						<span class="fa-stack fa-lg  fa-2x div_campo div_campo1"   >
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-sun-o fa-stack-1x fa-inverse"  id="modo" onclick="EvnBtnModo(this)" estado="1"></i>
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12  " >
+						<hr/>
+						<div ><label for="usr" class="unselectable campo div_campo text_clima" >ACS</label></div>
+						<span class="fa-stack fa-lg boton_pwd fa-2x div_campo1 div_campo div_acs "  id="ACS"  onclick="EvnBtnPwd(this)" estado="1" >
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-power-off fa-stack-1x fa-inverse"></i>
+						</span>	
+					</div>
+					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 "  >
+						<label for="usr" class="unselectable campo div_campo text_tempclima" >Temp. ACS</label>
+						<div class="div_campo div_campo1 div_tempacs">
+							<div  >
+								<i class="fa fa-chevron-up fa-2x" aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="valor2"  max="30" ></i>
+							</div>
+							<div style="clear:left;" class=" pppp">
+								<label for="usr" id="valor2" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >º</label> 
+							</div>
+							<div style="clear:left;" >
+								<i class="fa fa-chevron-down fa-2x" aria-hidden="true" onclick="EvnBajarTemp(this)" visualiza="valor2" min="-10 " ></i>
+							</div>	
+						</div>
+					</div>
+			
+				</div>
+			</div>
+				  
+		</div>
+		</div>
+	</div>
+ </div> 
+ 
 </html>
 	

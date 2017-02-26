@@ -8,7 +8,7 @@ function Altherma(idTerm)
 	debugger;
 
 
-	ObjectoGenerico.call(this,idTerm,1,"Altherma CB LT","Altherma"+idTerm,false,"#35A127","#D6FFD1","#8B70EE"/*"#370EC8"*/,"#669");
+	ObjectoGenerico.call(this,idTerm,2,"Altherma CB LT","Altherma"+idTerm,false,"#35A127","#D6FFD1","#8B70EE"/*"#370EC8"*/,"#669");
 	
 	this.Id=idTerm;
 	
@@ -53,6 +53,12 @@ function Altherma(idTerm)
 						   , dat26:0,dat27:0,dat28:0,dat29:0}; // datos que se recibe del servicio pass
 	//this.configuracion={temperatura:35.5, modo:0, Caption:""}; // datos que se envia al servicio pass , son los que se modifican graficamente
 	//this.ConsumoHora=new Array(6);
+
+	// parametros a grabar 
+	/*
+		grb1: on off , encendido clima , se relaciona con el parametro dat5 
+	*/
+	this.grabacion={StdClima:0, ModoClima:0,TempClima:0,StdACS:0,TempACS:0};
 		
 	var clone = ObjectoGenerico.prototype.ClonaGenerico.call(this,'#Altherma');
 	debugger;
@@ -75,13 +81,7 @@ function Altherma(idTerm)
 	clone.getElementById("dat12").id ="dat12"+this.Id;
 	clone.getElementById("dat13").id ="dat13"+this.Id;
 	clone.getElementById("dat14").id ="dat14"+this.Id;
-	//clone.getElementById("dat3").id ="dat3"+this.Id;
-	//clone.getElementById("dat4").id ="dat4"+this.Id;
-	//clone.getElementById("dat5").id ="dat5"+this.Id;
-	//clone.getElementById("dat6").id ="dat6"+this.Id;
-	//clone.getElementById("dat7").id ="dat7"+this.Id;
-	//clone.getElementById("dat8").id ="dat8"+this.Id;
-	//clone.getElementById("dat9").id ="dat9"+this.Id;
+
 	clone.getElementById("dat15").id ="dat15"+this.Id;
 	clone.getElementById("dat16").id ="dat16"+this.Id;
 	clone.getElementById("dat17").id ="dat17"+this.Id;
@@ -94,7 +94,7 @@ function Altherma(idTerm)
 	
 	clone.getElementById("icono_warning").id ="icono_warning"+this.Id;
 	
-	
+	clone.getElementById("configuracion").id ="configuracion"+this.Id;
 	
 	
 	
@@ -235,22 +235,6 @@ Altherma.prototype.Actualizar=function()
 	}
 		
 	
-	
-	////elem1=document.getElementById('dat6'+this.Id);
-    ////elem1.innerHTML=this.parametros.dat6 +" var";
-	
-	
-	
-	////elem1=document.getElementById('dat7'+this.Id);
-    ////elem1.innerHTML=this.parametros.dat7+ " VA";
-	
-	////elem1=document.getElementById('dat8'+this.Id);
-    ////elem1.innerHTML=this.parametros.dat8 +" VA";
-	
-	
-	
-	
-	
 	ObjectoGenerico.prototype.Actualizar.call(this);
 	
 	
@@ -280,16 +264,11 @@ Altherma.prototype.EvaluaElmBullet=function( elemento , dato)
 
 /** Funcion de procesamiento de datos recibido, 
 */
-Altherma.prototype.ProcesaDatos=function(Parametros,ParametrosTresHoras)
+Altherma.prototype.ProcesaDatos=function(Parametros,ParametrosTresHoras,flgpPrimeraVez)
 {
 	console.log("Actualizar datos Obj tipo 2 Id"+this.Id+"\n");
 	
-	//var dato=Parametros.data[this.Id+'_dat1'];
-	//if(dato!=null)
-	//{
-	//	this.parametros.dat1=parseFloat(dato);
-	//}
-	
+		
 	var indice =0;
 	
 	dato=Parametros.data[this.Id+'_dat1'];
@@ -460,33 +439,30 @@ Altherma.prototype.ProcesaDatos=function(Parametros,ParametrosTresHoras)
 		this.parametros.dat28=dato;
 	}
 	
-	debugger;
+	
 	dato=Parametros.data[this.Id+'_dat29'];
 	if(dato!=null)
 	{
 		console.log("Altherma ["+this.Id+"] Dat29 :"+ Parametros.data[this.Id+'_dat29']+"\n");
 		this.parametros.dat29=dato;
 		
-		if(this.parametros.dat29==0)
-			ObjectoGenerico.prototype.set.call(this,"Estado","APAGADO");
-		else
-			ObjectoGenerico.prototype.set.call(this,"Estado","ENCENDIDO");
+		//if(this.parametros.dat29==0)
+		//	ObjectoGenerico.prototype.set.call(this,"Estado","APAGADO");
+		//else
+		//	ObjectoGenerico.prototype.set.call(this,"Estado","ENCENDIDO");
 	}
 	
-	//dato=Parametros.data[this.Id+'_dat5'];
-	//if(dato!=null)
-	//{
-	//	this.parametros.dat5=parseFloat(dato);
-	//}
-	
-	//dato=Parametros.data[this.Id+'_dat9'];
-	////alert ("recibido " +dato);
-	//if(dato!=null)
-	//{
-	//	
-	//	this.parametros.dat9=parseFloat(dato);
-	//	//alert ("recibido 1 " +this.parametros.dat9);
-	//}
+	if(flgpPrimeraVez=='true')
+	{
+		
+		this.grabacion.StdClima=this.parametros.dat5;
+		this.grabacion.ModoClima=this.parametros.dat6;
+		this.grabacion.TempClima=this.parametros.dat7;
+		this.grabacion.StdACS=this.parametros.dat1;
+		this.grabacion.TempACS=this.parametros.dat3;
+		debugger;
+	}
+
 	this.Actualizar();
 	
 	return;
@@ -503,24 +479,204 @@ Altherma.prototype.MostrarGraph=function()
 
 Altherma.prototype.ProcesaDatosPeticion=function(ListaResultado)
 {
-	//var indice =0;
-	//var numdatos = ListaResultado.result.length;
-	//var nodo;
-	//var dato;
-	//debugger;
-	//for(indice=0;indice<numdatos;indice++)
-	//{
-	//	nodo=ListaResultado.result[indice];
-	//	dato=nodo.data[this.Id+'_dat9'];
-	//	if(dato!=null)
-	//	{
-	//		this.ConsumoHora[indice]=parseFloat(dato);
-	//	}
-	//}
-	
-	//this.parametros.dat9=this.ConsumoHora[0]-this.ConsumoHora[5];
-	//this.Actualizar();
-	////alert("recibidor :"+ListaResultado.total_documents);
-	//debugger;
+
 	return;
+}
+
+
+
+/** Funcion para mostrar una ventana modal , muestra la ventana de configuracion
+*/
+
+Altherma.prototype.MostrarVentanaModal=function()
+{
+	var elem2=document.getElementById('valor3');
+     elem2.innerHTML=this.grabacion.TempClima;
+	 
+	 var elem3=document.getElementById('valor2');
+     elem3.innerHTML=this.grabacion.TempACS;
+	
+	SetBotonColor("#clima",this.grabacion.StdClima);
+	SetBotonColor("#ACS",this.grabacion.StdACS);
+	
+	SetModo("#modo", this.grabacion.ModoClima);
+	
+	    
+	$("#AlthermaConf").attr('elm',this.Id);
+	$('#AlthermaConf').modal('show');
+}
+
+
+
+Altherma.prototype.FinalizarVentanaModal=function()
+{
+	debugger;
+	$("#AlthermaConf").modal('toggle');
+	this.grabacion.StdClima=GetBotonColor("#clima");
+	this.grabacion.StdACS=GetBotonColor("#ACS");
+	this.grabacion.ModoClima=GetBotonColor("#modo");
+
+	var elem2=document.getElementById('valor3');
+     this.grabacion.TempClima=parseFloat(elem2.innerHTML);
+	 
+	 var elem3=document.getElementById('valor2');
+     this.grabacion.TempACS=parseFloat(elem3.innerHTML);
+}
+
+/** Funcion para Tener un evento en la ventana modal  , por defecto no muestra nada 
+*/
+
+Altherma.prototype.EventoVentanaModal=function(Evento)
+{
+	if(Evento==1) // recarga de la ventana 
+	{
+		var elem2=document.getElementById('valor3');
+		elem2.innerHTML=this.grabacion.TempClima;
+	 
+		var elem3=document.getElementById('valor2');
+		elem3.innerHTML=this.grabacion.TempACS;
+	
+		SetBotonColor("#clima",this.grabacion.StdClima);
+		SetBotonColor("#ACS",this.grabacion.StdACS);
+	
+		SetModo("#modo", this.grabacion.ModoClima);
+	}
+	return ;
+}
+
+
+function SetBotonColor(obj,estado)
+{
+		if(estado==0)
+		{
+			estado="0";
+			color="#FF0000";
+		}
+		else
+		{
+			estado="1";
+			color="#00FF26";
+			
+		}
+		
+		$(obj).attr("estado",estado);
+		$(obj).css("color",color);
+
+}
+
+function GetBotonColor(obj)
+{
+		var retorno=parseInt($(obj).attr("estado"));
+		
+		return retorno;
+
+}
+
+function EvnBtnModo(obj)
+{
+	debugger;
+	$(obj).fadeTo(100, 0.1).fadeTo(200, 1.0);
+	var estado=obj.getAttribute('estado');
+	if(estado)
+	{
+		if(estado=="1")
+		{
+			$(obj).removeClass("fa-sun-o");
+			$(obj).addClass("fa-snowflake-o");
+			estado="0";
+		}
+		else
+		{
+			estado="0";
+			$(obj).removeClass("fa-snowflake-o");
+			$(obj).addClass("fa-sun-o");
+			
+		}
+		obj.setAttribute("estado",estado);
+	}
+}
+
+function SetModo(obj, estado)
+{
+	if(estado==1)
+	{
+		$(obj).removeClass("fa-sun-o");
+		$(obj).addClass("fa-snowflake-o");
+		estado="0";
+	}
+	else
+	{
+		estado="1";
+		$(obj).removeClass("fa-snowflake-o");
+		$(obj).addClass("fa-sun-o");
+		
+	}
+	$(obj).attr("estado",estado);
+	
+}
+
+
+function EvnBajarTemp(obj)
+{
+	debugger;
+	
+	var visualiza=obj.getAttribute('visualiza');
+	var minimo=obj.getAttribute('min');
+	if(visualiza && minimo)
+	{	
+		var valmin=parseFloat(minimo);
+		var elem1=document.getElementById(visualiza);
+		var numero = parseFloat(elem1.innerHTML)
+		if(numero >minimo)
+		{
+			$(obj).fadeTo(100, 0.1).fadeTo(200, 1.0);
+			numero-=0.5;
+			elem1.innerHTML=numero;
+		};
+	}
+	
+}
+
+function EvnSubirTemp(obj)
+{
+	debugger;
+	var visualiza=obj.getAttribute('visualiza');
+	var maximo=obj.getAttribute('max');
+	
+	if(visualiza && maximo)
+	{	
+		var valmax=parseFloat(maximo);
+		var elem1=document.getElementById(visualiza);
+		var numero = parseFloat(elem1.innerHTML)
+		if(numero <valmax)
+		{
+			$(obj).fadeTo(100, 0.1).fadeTo(200, 1.0);
+			numero+=0.5;
+			elem1.innerHTML=numero;
+		};
+	}
+}
+
+function EvnBtnPwd(obj)
+{
+	$(obj).fadeTo(100, 0.1).fadeTo(200, 1.0);
+	var estado=obj.getAttribute('estado');
+	var color;
+	if(estado)
+	{
+		if(estado=="1")
+		{
+			estado="0";
+			color="#FF0000";
+		}
+		else
+		{
+			estado="1";
+			color="#00FF26";
+			
+		}
+		
+		obj.setAttribute("estado",estado);
+		$(obj).css("color",color);
+	}
 }
