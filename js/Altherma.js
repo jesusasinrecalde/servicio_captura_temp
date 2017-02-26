@@ -490,6 +490,7 @@ Altherma.prototype.ProcesaDatosPeticion=function(ListaResultado)
 
 Altherma.prototype.MostrarVentanaModal=function()
 {
+	debugger;
 	var elem2=document.getElementById('valor3');
      elem2.innerHTML=this.grabacion.TempClima;
 	 
@@ -544,7 +545,34 @@ Altherma.prototype.EventoVentanaModal=function(Evento)
 	return ;
 }
 
+/** Funcion generica que indica si hay datos modificado, 
+*/
+Altherma.prototype.HayDatosCambiados=function()
+{
+	var retorno="true";
+	debugger;
+	if(this.grabacion.StdClima==parseInt(this.parametros.dat5) && 
+		this.grabacion.ModoClima==parseInt(this.parametros.dat6 )&&
+		this.grabacion.TempClima==parseFloat(this.parametros.dat7)&&
+		this.grabacion.StdACS==parseInt(this.parametros.dat1) &&
+		this.grabacion.TempACS==parseFloat(this.parametros.dat3))
+		retorno="false";
+	return retorno;
+}
 
+
+/** Funcion para dar los parametros a grabar , por defecto no da ninguno 
+*/
+Altherma.prototype.DarDatosAGrabar=function()
+{
+	var salida="\""+this.Id+"_dat1\""+":\""+this.grabacion.StdACS+"\""+
+				",\""+this.Id+"_dat3\""+":\""+this.grabacion.TempACS+"\""+
+				",\""+this.Id+"_dat4\""+":\""+this.grabacion.StdClima+"\""+
+				",\""+this.Id+"_dat5\""+":\""+this.grabacion.ModoClima+"\""+
+				",\""+this.Id+"_dat6\""+":\""+this.grabacion.TempClima+"\"";
+				
+	return salida ;
+}
 function SetBotonColor(obj,estado)
 {
 		if(estado==0)
@@ -574,25 +602,22 @@ function GetBotonColor(obj)
 
 function EvnBtnModo(obj)
 {
-	debugger;
+
 	$(obj).fadeTo(100, 0.1).fadeTo(200, 1.0);
 	var estado=obj.getAttribute('estado');
 	if(estado)
 	{
-		if(estado=="1")
+		if(estado=="0")
 		{
-			$(obj).removeClass("fa-sun-o");
-			$(obj).addClass("fa-snowflake-o");
-			estado="0";
+			SetModo(obj,"1");
+			
 		}
 		else
 		{
-			estado="0";
-			$(obj).removeClass("fa-snowflake-o");
-			$(obj).addClass("fa-sun-o");
+			SetModo(obj,"0");
 			
 		}
-		obj.setAttribute("estado",estado);
+		//obj.setAttribute("estado",estado);
 	}
 }
 
@@ -602,11 +627,11 @@ function SetModo(obj, estado)
 	{
 		$(obj).removeClass("fa-sun-o");
 		$(obj).addClass("fa-snowflake-o");
-		estado="0";
+		estado="1";
 	}
 	else
 	{
-		estado="1";
+		estado="0";
 		$(obj).removeClass("fa-snowflake-o");
 		$(obj).addClass("fa-sun-o");
 		
@@ -680,3 +705,5 @@ function EvnBtnPwd(obj)
 		$(obj).css("color",color);
 	}
 }
+
+

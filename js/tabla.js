@@ -57,10 +57,10 @@ function LanzamientoHejmo()
 		if(timer_interval_lectura_datos)
 			clearInterval(timer_interval_lectura_datos);
 		if(timer_interval_modo)
-			clearInterval(timer_interval_modo);
+			clearInterval();
 		
 		for (x=0;x<tabla_objetos.length;x++)
-		{
+		{timer_interval_modo
 			console.log("Destruye objeto ["+x+"]\n");
 			tabla_objetos[x].DestruyeObjetoGrafico();
 		}
@@ -477,63 +477,24 @@ function func_inteval_modo()
 	var obj_dom;
 	var num_objetos=0;
 	
-	for (x=0;x<tabla_valores.length;x++)
+	
+	var objeto=null;
+	for (x=0;x<tabla_objetos.length;x++)
 	{
-		obj=tabla_valores[x];
-		obj_dom= document.getElementById('term_modo'+x);
-		if(	 (obj.parametros.modo != obj.configuracion.modo)|| (obj.parametros.temperatura != obj.configuracion.temperatura))
-		{	
-			if(obj.EstaMinimizado==0)
-			{
-				if(obj.parametros.modo != obj.configuracion.modo)
-				{
-					if(obj.iluminadoModo)
-						$( '#term_modo'+x ).fadeTo( 'slow',.3 );
-					else
-						$( '#term_modo'+x ).fadeTo( 'slow',1);
-				}
-				else
-				{
-					$( '#term_modo'+x ).fadeTo( 'slow',1 );
-				}
-			
-			
-				if(obj.parametros.temperatura != obj.configuracion.temperatura)
-				{
-					if(obj.iluminadoModo)
-						$( '#temp_grande'+x ).fadeTo( 'slow',.3 );
-					else
-						$( '#temp_grande'+x ).fadeTo( 'slow',1);
-				}
-				else
-				{
-					$( '#temp_grande'+x ).fadeTo( 'slow',1 );
-				}	
-			
-			}
-			
+		if(tabla_objetos[x].HayDatosCambiados()=="true");
+		{
+			tabla_objetos[x].AccionCambioDatos();
 			num_objetos++;
-			if(obj.iluminadoModo)
-			{
-				obj.iluminadoModo=false;
-				$( '#caption_temp'+x ).fadeTo( 'slow',.3 );
-			}
-			else
-			{
-				obj.iluminadoModo=true;
-				$( '#caption_temp'+x ).fadeTo( 'slow',1 );
-			}
 		}
-		else
-			$( '#caption_temp'+x ).fadeTo( 'slow',1 );
 		
-	}// for...
+	}
+	
 	
 	// si no hay objetos que cambiar se desactiva el temporizador
 	if(!num_objetos)
 	{
-		clearInterval(timer_interval_modo);
-		timer_interval_modo=null;
+		DesactivaVisualizacionCambio();
+		
 	}
 }
 
@@ -644,7 +605,7 @@ function func_inteval_modo()
 	{
 		objeto=tabla_objetos[x];
 	
-		if(objeto.HayDatosCambiados())
+		if(objeto.HayDatosCambiados()=="true")
 		{
 			objeto.AccionCambioDatos();
 			contador++;
@@ -694,15 +655,7 @@ function llamarServicioCarriotsPrimeravez()
 }
 
 
-function EnviarDatos(obj)
-{
-	
-	var cadena="\"valor\":\"dato\"";
-	
-	llamarCarriotsMetodoPOST(cadena);
-	
-	
-}
+
 function llamarCarriotsMetodoPOST(datos)
 {
 	debugger;
@@ -1034,6 +987,19 @@ function EvntBtnFINAlthermConf(obj)
 	if(objeto)
 		objeto.FinalizarVentanaModal();	
 	
+	debugger;
+	
+	EnviarDatos(); // se envia los datos independientemente de si cambian o no sera la raspberri quien sepa si cambian o no 
+	
+	if(DetectarDatosCambiados()=="true")
+	{
+		ActivarVisualizacionCambio();
+	}
+	else
+	{
+		DesactivaVisualizacionCambio();
+	}
+	
 }	
 
 function EvnReload(obj)
@@ -1056,4 +1022,68 @@ function EvnReload(obj)
 	}	
 	if(objeto)
 		objeto.EventoVentanaModal(1);	
+}
+
+
+function DetectarDatosCambiados()
+{
+	var retorno="false";
+	var objeto;
+	
+	for (x=0;x<tabla_objetos.length && retorno == "false" ;x++)
+	{
+		objeto=tabla_objetos[x];
+		retorno=objeto.HayDatosCambiados();
+	
+	}	
+	return retorno;
+}
+
+function ActivarVisualizacionCambio()
+{
+	if(timer_interval_modo==null)	
+	{
+			// se crea el temporizador parar destacar el cambio de modo
+		timer_interval_modo=setInterval(func_inteval_modo,1000);
+	}
+}
+
+function DesactivaVisualizacionCambio()
+{
+	if(timer_interval_modo)
+	{
+			clearInterval(timer_interval_modo);
+			timer_interval_modo=null;
+	}
+	
+	var objeto=null;
+	for (x=0;x<tabla_objetos.length;x++)
+	{
+		tabla_objetos[x].DesactivaTemporizadorCambio();
+		
+		
+	}
+	
+}
+
+function EnviarDatos(obj)
+{
+	if(DetectarDatosCambiados()=="true")
+	{
+		var textoEnviar="";
+	
+	
+		var objeto=null;
+		for (x=0;x<tabla_objetos.length;x++)
+		{
+			var cadena=	tabla_objetos[x].DarDatosAGrabar();
+			if(cadena!=null)
+				textoEnviar+=cadena;
+		
+		}
+	//var cadena="\"valor\":\"dato\"";
+	
+		llamarCarriotsMetodoPOST(textoEnviar);
+	}
+	
 }

@@ -240,7 +240,7 @@ ObjectoGenerico.prototype.Actualizar=function()
 */
 ObjectoGenerico.prototype.HayDatosCambiados=function()
 {
-	return false;
+	return "false";
 }
 
 /** Funcion generica de procesamiento de datos recibidor, sin sobrecargar no incorpora ningun dato
