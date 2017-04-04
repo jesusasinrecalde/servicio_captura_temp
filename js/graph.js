@@ -51,6 +51,11 @@ var g_device;
 
 var idHejmo=0;
 
+
+
+var tablaValoresBruto=null;
+
+
 window.onload = function() {
 	
 	debugger;
@@ -82,18 +87,7 @@ function LanzamientoHejmo()
 	$(".desplegable").hide( );
 	$('#login-modal').modal('hide');	
 	
- //$('#datetimepicker_inicio').datetimepicker({
- //       format: 'dd/MM/yyyy hh:mm:ss',
- //       language: 'es-ES'
- //     });
- //$('#datetimepicker_fin').datetimepicker({
- //       format: 'dd/MM/yyyy hh:mm:ss',
- //       language: 'es-ES'
- //     });
-//
-//$( "#datepicker_inicio" ).datepicker();
-//$( "#datepicker_fin" ).datepicker();
-
+ 
 
      $('#datetimepicker_from').datetimepicker({
             format : 'YYYY-MM-DD HH:mm',
@@ -132,11 +126,7 @@ function LanzamientoHejmo()
 	g_device=localStorage["hjm_device"];
 	
     
-	//g_key="ee919e312f4a7310093bb7519293dede9cf4db4262accdb9284d91f234ae7713";
-	//g_device="prueba1@jesusasinrecalde.jesusasinrecalde";
-	
-	
-	
+		
 	$("#btn_izddown").hide();
 	$("#btn_dchdown").hide();
 		
@@ -150,28 +140,42 @@ function LanzamientoHejmo()
 function DarGrafico24horas()
 {
 	TextoGrafico="Consumo ultimas 24 horas"
-	BarraProgreso_reset();
-	CalculoIterAcciones(144);
-	llamarServicioCarriotsNummObjt(144);
+	DarGraficoDiferencia(86400);
+}
+
+/* genera el grafico cuya fecha fin es la fecha actual y la fecha inicio es la diferencia expresada en segundos de la fecha fin expresada en segundos
+*/
+function DarGraficoDiferencia(diferencia)
+{
+		
+	var DateActual = new Date();
+		
+	var fechaCarriotsFin=Math.abs(DateActual.getTime()/1000);
+	var fechaCarriotsInit=fechaCarriotsFin-diferencia;
 	
+	if(tablaValoresBruto==null)
+	{
+		tablaValoresBruto=new Array();
+	}
+	else
+		tablaValoresBruto.length=0; // borramos la tabla en bruto
+	
+	LlamadaCarriots='https://api.carriots.com/streams/?device='+g_device+'&order=-1&created_at_from='+fechaCarriotsInit+'&created_at_to='+fechaCarriotsFin;
+	offset=0;
+	flgPrimeraVez=1;
+	llamarServicioCarriotsFecha();
 }
 
 function DarGrafico48Horas()
 {
 	TextoGrafico="Consumo ultimas 48 horas"
-	BarraProgreso_reset();
-	CalculoIterAcciones(288);
-	llamarServicioCarriotsNummObjt(288);
+	DarGraficoDiferencia(86400*2);
 }
 
 function DarGrafico7dias()
 {
-	debugger;
-	TextoGrafico="Consumo ultimos 7 dias"
-	BarraProgreso_reset();
-	CalculoIterAcciones(1008);
-	
-	llamarServicioCarriotsNummObjt(1008);
+	TextoGrafico="Consumo ultimas 48 horas"
+	DarGraficoDiferencia(86400*7);
 }
 
 function CalculoIterAcciones(numeroIter)
@@ -202,8 +206,9 @@ function CalculoIterAcciones(numeroIter)
 function DarGrafico1Mes()
 {
 	TextoGrafico="Consumo ultimos 30 Dias"
-	CalculoIterAcciones(2016*2);
-	llamarServicioCarriotsNummObjt(2016*2);
+	//CalculoIterAcciones(2016*2);
+	//llamarServicioCarriotsNummObjt(2016*2);
+	DarGraficoDiferencia(86400*30);
 }
 // Leer los datos GET de nuestra pagina y devolver un array asociativo (Nombre de la variable GET => Valor de la variable).
 function getUrlVars()
@@ -369,12 +374,19 @@ function EvntBtnInformeFecha(obj)
 	debugger;
 	
 	
+	if(tablaValoresBruto==null)
+	{
+		tablaValoresBruto=new Array();
+	}
+	else
+		tablaValoresBruto.length=0; // borramos la tabla en bruto
+	
+	
 	
 	var DateIni = new Date($('#datetimepicker_from').data('date'));
 	var DateFin = new Date($('#datetimepicker_to').data('date'));
 	
-	//var DateIni = $('#datetimepicker_to').data('datetimepicker').viewDate();
-	//var DateFin = $('#datetimepicker_from').data('datetimepicker').viewDate();
+	
 	if(DateIni && DateFin && DateFin.getTime()>=DateIni.getTime())
 	{
 		// Cabecera del grafico
@@ -458,38 +470,7 @@ function GenerarGraficoRangoFechas(FechaInicio, FechaFin, Diferencia )
 			llamarServicioCarriotsFechaRango();
 }
 
-function randomScalingFactor(){ return Math.round(Math.random()*100)}
 
-function llamarServicioCarriotsNummObjt(NumObjetos)
-{
-	debugger;
-	//$('#loading').show();
-	//$('#load_window').modal('show');
-	$("div#divLoading").addClass('show');
-	elem1=document.getElementById('CabeceraGrafico');
-    elem1.innerHTML="";
-	
-	var carriotsURL='https://api.carriots.com/streams/?max='+tablaLlamadas[IterAccionActual].maximo+"&device="+g_device+"&order=-1&created_at_from=0&offset="
-	      +tablaLlamadas[IterAccionActual].offset
-	
-	
-	$.ajax({
-	beforeSend: function(xhrObj){
-        xhrObj.setRequestHeader("Content-Type","application/json");
-        xhrObj.setRequestHeader("Accept","application/json");
-        xhrObj.setRequestHeader("carriots.apikey",g_key);
-
-		},
-    type : "GET",
-    url: carriotsURL,
-    success: recepcionServicioRESTNumObjetos,
-    error : function(jqXHR, status) { 
-		debugger;
-		//alert(jqXHR.getAllResponseHeaders());
-	alert("ERROR :"+jqXHR.responseText+" "+jqXHR.statusText);}
-		//alert(status +' fallo ');}
-});
-}
 
 function llamarServicioCarriotsFecha()
 {
@@ -556,265 +537,46 @@ function llamarServicioCarriotsFechaRango()
 }
 
 
-
-
-function recepcionServicioRESTNumObjetos (datosREST)
-{
-	debugger;
-	var totalDocuments = datosREST.total_documents;
-	var numdatos = datosREST.length;
-    var numdatos = datosREST.result.length;
-	
-	debugger;
-	var offset=0;
-	if(numdatos>200 && numdatos<500)
-		offset=3;
-	else if( numdatos>=500)
-		offset=6;
-	//var salida= barChartData;
-
-	
-	var x = new Date();
-	var currentTimeZoneOffsetInHours = x.getTimezoneOffset()/60;
-	var offsetTime = 3600000*(currentTimeZoneOffsetInHours*-1);
-	
-	var indice = numdatos-1;
-	var nodo=datosREST.result[indice];
-	//var nodoInicio=datosREST.result[0];
-	var vconsumoTotal=0;
-	
-	// Se limpia las tablas si es la primera iteraccion-------------
-	if(IterAccionActual==0)
-	{
-		
-		
-		
-		lineChartData.data.length=0;
-		
-		
-		// Inicializacion de los valores maximo y minimo de consumo
-		ValorMaximo=0;
-		ValorMinimo=99999999999;
-		FechaValorMaximo="";
-		FechaValorMinimo="";
-		
-		vconsumoTotal=0;
-		
-		nodoInicio=datosREST.result[0]; // obtencion del primer nodo
-		
-		
-		
-	
-	}
-	// -------------------------------------------------------------
-   
-	
-	
-	var valor_dato9;
-	valor_dato9=nodo.data['0_dat9'];
-	var valor_anterior=null;
-	var valor_inicio=null;
-	var valor_final=null;
-	
-	
-	if(valor_dato9!=null)
-	{
-		//valor_anterior=parseFloat(nodo.data['0_dat9']);
-		//valor_inicio=parseFloat(nodo.data['0_dat9']);
-		//valor_final=parseFloat(datosREST.result[0].data['0_dat9']);
-		valor_anterior=parseFloat(nodo.data[idHejmo+'_dat9']);
-		valor_inicio=parseFloat(nodo.data[idHejmo+'_dat9']);
-		valor_final=parseFloat(datosREST.result[0].data[idHejmo+'_dat9']);
-		vconsumoTotal=valor_final-valor_inicio;// se tiene que comparar al final del proceso .....
-	}
-	
-	var valor_dato;
-	//var lineChartData  = { data: []};
-	var contadoroffset=0;
-	var dato_resta=0;
-	
-	var nodoSiguiente;
-	var Dato;
-	var DatoSiguiente;
-	var valor_dato9siguiente;
-	for( indice = 0;indice<numdatos-2;indice++)
-	{
-		nodo=datosREST.result[indice];
-		nodoSiguiente=datosREST.result[indice+1];
-		
-		valor_dato9=nodo.data[idHejmo+'_dat9'];
-		valor_dato9siguiente=nodoSiguiente.data[idHejmo+'_dat9'];
-		if(valor_dato9!=null && valor_dato9siguiente!=null)
-		{
-			Dato=parseFloat(nodo.data[idHejmo+'_dat9']);
-			DatoSiguiente=parseFloat(nodoSiguiente.data[idHejmo+'_dat9']);
-			
-			dato_resta=Dato-DatoSiguiente;
-			if(dato_resta>0 && dato_resta<1)
-			{
-				
-				
-				lineChartData.data.unshift({x: (nodo.at*1000)+offsetTime , y: dato_resta }); // se inserta el dato en la tabla ¡¡¡¡ al principio !!!!!
-
-
-	
-			}
-		}
-	}
-	
-	
-	IterAccionActual++;
-	debugger;
-	BarraProgreso_avanza(IterAccionActual,NumeroIterAcciones);
-	if( NumeroIterAcciones<=IterAccionActual) // estamos al final del barrido 
-	{
-		debugger;
-		// Fecha del ultimo nodo 
-		var d = new Date ((nodo.at*1000));
-
-		var stringFecha = d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getUTCHours()
-	      +':'+d.getMinutes();
-		stringFechaFin = stringFecha;
-
-		 VisualizaValoresPanelIzd(ValorMaximo,FechaValorMaximo,ValorMinimo,FechaValorMinimo,vconsumoTotal,stringFechaInicio,stringFechaFin);
-	
-
-		pintaGrafico(lineChartData.data);
-		
-	
-		//$('#loading').hide();
-		//$('#load_window').modal('hide');  
-		$("div#divLoading").removeClass('show');
-	}
-	else 
-	{
-		llamarServicioCarriotsNummObjt(0);
-	}
-	
-	
-	
-
-}
-
 function recepcionServicioRESTFecha (datosREST)
 {
-	debugger;
+	
 	var totalDocuments = datosREST.total_documents;
 	var numdatos = datosREST.length;
     var numdatos = datosREST.result.length;
 	
 	debugger;
 	
-	//var salida= barChartData;
-
-
-	var indice = numdatos-1;
-	var nodo=datosREST.result[indice];
-	//var nodoInicio=datosREST.result[0];
-
-	var x = new Date();
-	var currentTimeZoneOffsetInHours = x.getTimezoneOffset()/60;
-	var offsetTime = 3600000*(currentTimeZoneOffsetInHours*-1);
+	// --------------------------------------------------------------------------------------------------
 	
-	// Se limpia las tablas si es la primera iteraccion-------------
-	if(flgPrimeraVez==1)
-	{
-		
-		
 	
-		lineChartData.data.length=0;
-		
-		
-		// Inicializacion de los valores maximo y minimo de consumo
-		ValorMaximo=0;
-		ValorMinimo=99999999999;
-		FechaValorMaximo="";
-		FechaValorMinimo="";
-		
-		consumoTotal=0;
-		if(numdatos)
-		{
-			nodoInicio=datosREST.result[0]; // obtencion del primer nodo que es el mas viejo
-		
-			// Fecha del primer nodo----------------------------------	  
-			var d = new Date ((nodoInicio.at*1000));
-			stringFechaInicio = d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getUTCHours()+':'+d.getMinutes();
-			stringFechaFin="";
-			//SacarConsolaFecha(nodoInicio.at*1000);
-			
-		}
-	}
-	// -------------------------------------------------------------
-    debugger;
-
-    
-	var valor_dato9=null;
-	var valor_anterior=null;
-	var valor_inicio=null;
-	var valor_final=null;
-	
-	//if(valor_dato9!=null)// si hay en el nodo datos validos ( dat9 )
-	//{
-	//	valor_anterior=parseFloat(nodo.data['0_dat9']);
-	//	valor_inicio=parseFloat(nodo.data['0_dat9']);
-	//	valor_final=parseFloat(datosREST.result[0].data['0_dat9']);
-	//	consumoTotal=valor_final-valor_inicio;// se tiene que comparar al final del proceso .....
-	//}
-	
-	var valor_dato;
-	//var lineChartData  = { data: []};
-	var contadoroffset=0;
-	var dato_resta=0;
-	
-	var nodoSiguiente;
-	var Dato;
-	var DatoSiguiente;
-	var valor_dato9siguiente;
-	for( indice = 0;indice<numdatos-2;indice++)
+	var indice=0;
+	var nodo;
+	for(indice=0;indice<numdatos;indice++)
 	{
 		nodo=datosREST.result[indice];
-		nodoSiguiente=datosREST.result[indice+1];
-		SacarConsolaFecha(nodo.at*1000);
+		var objetoBruto = new Object (); 
+		objetoBruto.fecha = new Date ((nodo.at*1000));
+		objetoBruto.data=nodo.data;
+		objetoBruto.diferencia=0;
+		tablaValoresBruto.push(objetoBruto);
 		
-		valor_dato9=nodo.data[idHejmo+'_dat9'];
-		valor_dato9siguiente=nodoSiguiente.data[idHejmo+'_dat9'];
-		if(flgPrimeraVez==1 && valor_dato9!=null) // si es la primera vez el valor marca el primer dato valido 
-		{
-			flgPrimeraVez=0;
-			Gvalor_anterior=parseFloat(nodo.data[idHejmo+'_dat9']);
-			Gvalor_inicio=parseFloat(nodo.data[idHejmo+'_dat9']);
-			Gvalor_final=parseFloat(nodo.data[idHejmo+'_dat9']);
-			flgPrimeraVez=0; // desactivamos el flag de primera vez
-			
-		}		
-		if(valor_dato9!=null && valor_dato9siguiente!=null)
-		{
-			Dato=parseFloat(nodo.data[idHejmo+'_dat9']);
-			DatoSiguiente=parseFloat(nodoSiguiente.data[idHejmo+'_dat9']);
-			Gvalor_final=parseFloat(nodo.data[idHejmo+'_dat9']);
-			dato_resta=Dato-DatoSiguiente;
-			
-			
-			if(dato_resta>0 && dato_resta<6)
-			{
-			
-				
-				lineChartData.data.unshift({x: (nodo.at*1000)+offsetTime , y: dato_resta }); // se inserta el dato en la tabla ¡¡¡¡ al principio !!!!!
-
-
-				
-			}
-		}
 	}
+	debugger;
 	
-	//IterAccionActual++;
+	
 	
 	if( numdatos<1000 ) // estamos al final del barrido y hay datos 
 	{
-		pintaGrafico(lineChartData.data);
-			
+		
+		if(tablaValoresBruto.length)
+		{
+			pintaGraficoTablaBruto(0);
+		}
+		else
+			alert("No hay datos en la seleccion");
 		
 		$("div#divLoading").removeClass('show');
+		
 	}
 	else
 	{
@@ -826,6 +588,58 @@ function recepcionServicioRESTFecha (datosREST)
 	
 
 }
+
+function pintaGraficoTablaBruto(tipografico)
+{
+	
+	var indice=1;
+	var valor;
+	var valor1;
+	var diferencia;
+	debugger;
+	// primero el calculo de consumo ... 
+	for(indice=1;indice<tablaValoresBruto.length;indice++)
+	{
+		
+		valor=parseFloat(tablaValoresBruto[indice-1].data[idHejmo+'_dat9']);
+		valor1=parseFloat(tablaValoresBruto[indice].data[idHejmo+'_dat9']);
+		if(valor1<valor)
+			diferencia=valor-valor1;
+		else	
+			diferencia=valor1-valor;
+		console.log("["+indice+"] Dato "+diferencia);
+		tablaValoresBruto[indice].diferencia=diferencia;
+	}
+	debugger;
+	// -------------------------------------------
+	//var x = new Date();
+	//var currentTimeZoneOffsetInHours = x.getTimezoneOffset()/60;
+	//var offsetTime = 3600000*(currentTimeZoneOffsetInHours);
+	
+	lineChartData.data.length=0; // borramos la tabla del grafico 
+	
+	// carga de informacion en la tabla de grafico ...
+	for(indice=1;indice<tablaValoresBruto.length;indice++)
+	{
+		//lineChartData.data.unshift({x: tablaValoresBruto[indice].fecha+offsetTime , y: tablaValoresBruto[indice].diferencia }); // se inserta el dato en la tabla ¡¡¡¡ al principio !!!!!
+		lineChartData.data.unshift({x: tablaValoresBruto[indice].fecha , y: tablaValoresBruto[indice].diferencia }); // se inserta el dato en la tabla ¡¡¡¡ al principio !!!!!
+	}
+	
+	
+	if(tipografico==0)
+	{
+		pintaGrafico( lineChartData.data );
+		pintaPanelIzquierda();
+	}
+	else if(tipografico==1)
+	{
+		pintaGraficoRango( lineChartData.data );
+		pintaPanelIzquierda();
+	}
+	
+	
+}
+
 
 
 
@@ -862,6 +676,7 @@ function recepcionServicioRESTFechaRango (datosREST)
 		
 	}
 	
+		
 	if(numdatos)
 	{
 		
@@ -878,7 +693,14 @@ function recepcionServicioRESTFechaRango (datosREST)
 				{
 					Valor=tablaFechas[NumeroFechaInteraccionActual].Valor=parseFloat(valor_dato9);
 					console.log("["+NumeroFechaInteraccionActual+"] Dato "+tablaFechas[NumeroFechaInteraccionActual].Valor);
-										
+						
+					var objetoBruto = new Object (); 
+					objetoBruto.fecha = new Date ((nodo.at*1000));
+					objetoBruto.data=nodo.data;
+					objetoBruto.diferencia=0;
+					tablaValoresBruto.push(objetoBruto);
+		
+	
 					break;
 				}
 			}
@@ -894,52 +716,12 @@ function recepcionServicioRESTFechaRango (datosREST)
 	{
 		
 		BarraProgreso_avanza(  NumeroFechaInteraccionActual,  NumeroFechaInteracciones);
-		var indice=0;
-		var DatoResta=0;
-		var valorInicial=0;
-		// Inicializacion de los valores maximo y minimo de consumo
-		ValorMaximo=0;
-		ValorMinimo=99999999999;
-		FechaValorMaximo="";
-		FechaValorMinimo="";
-		
-		consumoTotal=0;
-	
-		var x = new Date();
-		var currentTimeZoneOffsetInHours = x.getTimezoneOffset()/60;
-		var offsetTime = 3600000*(currentTimeZoneOffsetInHours*-1);
-	
-		var valorIni=0;
-		var valorFin=0;
-		
-		for( indice = 0;indice<=tablaFechas.length-2;indice++)
-		{
-			
-			valorIni=tablaFechas[indice].Valor;
-			valorFin=tablaFechas[indice+1].Valor;
-			if(valorInicial==0 && valorIni!=0)
-				valorInicial=valorIni;
-			if(valorIni!=0)
-			{
-				//valorInicial=valorIni;
-				DatoResta = valorFin-valorIni;
-				
-				if(DatoResta<0)
-				{
-					DatoResta=0;
-				}
-				
-				lineChartData.data.push({x: tablaFechas[indice].FechaIni , y: DatoResta }); // se inserta el dato en la tabla ¡¡¡¡ al principio !!!!!
-			
-		
-			}
-		}
-		
-		
+
+		pintaGraficoTablaBruto(1);
 		
 		$("div#divLoading").removeClass('show');
 		
-		pintaGraficoRango( lineChartData.data );
+		
 	}
 	else // en caso de no estar al final se lanza de nuevo la llamada 
 	{
@@ -952,8 +734,50 @@ function recepcionServicioRESTFechaRango (datosREST)
 
  }   
 
- 
+ function pintaPanelIzquierda()
+ {
+	 
+	var indice=0;
 
+   
+  var  VMaximo=0;
+  var  VMinimo=99999999999;
+  var  FValorMaximo="";
+  var  FValorMinimo="";
+  var  VConsumoTotal=0;
+ 
+   for(indice=1;indice<tablaValoresBruto.length;indice++)
+	{
+		if(!isNaN(tablaValoresBruto[indice].diferencia))
+		{
+			VConsumoTotal+= tablaValoresBruto[indice].diferencia;
+			if(VMaximo<tablaValoresBruto[indice].diferencia)
+			{
+				VMaximo=tablaValoresBruto[indice].diferencia;
+				FValorMaximo = DarFechaTexto(tablaValoresBruto[indice].fecha);
+			}
+	
+			if(VMinimo>tablaValoresBruto[indice].diferencia)
+			{
+				VMinimo=tablaValoresBruto[indice].diferencia;
+				FValorMinimo = DarFechaTexto(tablaValoresBruto[indice].fecha);
+			}
+		}
+	}
+  
+
+  VisualizaValoresPanelIzd(VMaximo
+                           ,FValorMaximo 
+						   ,VMinimo
+						   ,FValorMinimo
+						   ,VConsumoTotal
+						   ,DarFechaTexto (tablaValoresBruto[1].fecha)
+						   ,DarFechaTexto(tablaValoresBruto[tablaValoresBruto.length-1].fecha)
+						   );
+  
+  return;
+ }
+ 
 // Realiza todas las funciones de visualizacion del panel de la izquierda en funcion de la tabla de datos 
 function pintaPanelIzd(datos)
 {
@@ -1253,12 +1077,143 @@ function generarTexto(datos) {
   var indice=0;
   var registro=null;
   var texto = [];
-  texto.push('FECHA;DATO\n');
+ 
   
-  
-   debugger;
-  for(indice=0;indice<numeroFilas;indice++)
-  {
+   if(tablaValoresBruto!=null)
+   {
+	   var iNumElementos=parseInt(tablaValoresBruto[0].data['numElem']);
+	   var valor;
+	   // creacion de la cabecera ....
+	   texto.push('FECHA;TEMP');
+	   for(var indice=0;indice<iNumElementos;indice++)
+	   {
+		   valor = tablaValoresBruto[tablaValoresBruto.length-1].data['ID_'+indice];
+		   
+		   if(valor!=null)
+		   {
+				var TipoElemento=tablaValoresBruto[tablaValoresBruto.length-1].data['ID_'+indice];
+				switch(TipoElemento)
+				{
+					case "0" : // termostato sistema
+						//console.log("Crea elm Termostato sistema ["+indice+"]\n");
+						//Tem1= new TermostatoSistena(indice);
+						//Tem1.set("Visible",true);
+						//tabla_objetos.push(Tem1);
+						break;
+					case "1" : // datos genericos
+						 texto.push(';CONSUMO;TENSION;CORRIENTE;CONTADOR');
+						break;
+					case "2" : // Altherma
+						texto.push(';MODO;CLIMA;ACS;BOMBA;COMPRESOR;DEP ACS;RESIST DEP ACS;TEMP CONSIG ACS;TEMP DEP ACS;TEMP CONSIG CLIMA;ESTD CLIMA;TEMP SAL AGUA;TEMP ICP;TEMP ENTRA AGUA;TEMP REFRIG;FLUJO;TEMP EXT;ALARM');
+						break;	
+					default :
+						break;
+				}
+		   }
+		}
+		
+		texto.push('\n');
+		// cuerpo de datos 
+		/*
+		objetoBruto.fecha = new Date ((nodo.at*1000));
+		objetoBruto.data=nodo.data;
+		objetoBruto.diferencia=0;
+		*/
+		for(indice1=tablaValoresBruto.length-1;indice1>=0;indice1--)
+		{
+			var d = new Date (tablaValoresBruto[indice1].fecha);
+			var FechaTexto = d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes();
+			texto.push(FechaTexto);
+			texto.push(";");
+			texto.push(tablaValoresBruto[indice1].temp);
+			texto.push(";");
+			for(var indice=0;indice<iNumElementos;indice++)
+			{
+				 valor = tablaValoresBruto[0].data['ID_'+indice];
+		   
+				if(valor!=null)
+				{
+					var data= tablaValoresBruto[indice1].data;
+					var TipoElemento=data['ID_'+indice];
+					
+					
+					switch(TipoElemento)
+					{
+						case "0" : // termostato sistema
+						break;
+					case "1" : // datos genericos
+						texto.push(tablaValoresBruto[indice1].diferencia.toString().replace(/\./g,',') );
+						texto.push(";");
+						texto.push(data[indice+"_dat1"] );
+						texto.push(";");
+						texto.push(data[indice+"_dat2"] );
+						texto.push(";");
+						texto.push(data[indice+"_dat9"] );
+						
+						 //texto.push(';CONSUMO;TENSION;CORRIENTE;CONTADOR');
+						break;
+					case "2" : // Altherma
+						texto.push(data[indice+"_dat6"] );
+						texto.push(";");
+						texto.push(data[indice+"_dat5"] );
+						texto.push(";");
+						texto.push(data[indice+"_dat4"] );
+						texto.push(";");
+						texto.push(data[indice+"_dat17"] );
+						texto.push(";");
+						texto.push(data[indice+"_dat18"] ); // compresor
+						texto.push(";");
+						texto.push(data[indice+"_dat1"] );
+						texto.push(";");
+						texto.push(data[indice+"_dat2"] );
+						texto.push(";");
+						texto.push(data[indice+"_dat3"] );
+						texto.push(";");
+						texto.push(data[indice+"_dat11"] ); // temp deposito ACS
+						texto.push(";");
+						texto.push(data[indice+"_dat7"] );
+						texto.push(";");
+						texto.push(data[indice+"_dat8"] );
+						texto.push(";");
+						texto.push(data[indice+"_dat13"] );
+						texto.push(";");
+						texto.push(data[indice+"_dat14"] );
+						texto.push(";");
+						texto.push(data[indice+"_dat15"] );
+						texto.push(";");
+						texto.push(data[indice+"_dat16"] );
+						texto.push(";");
+						texto.push(data[indice+"_dat21"] );
+						texto.push(";");
+						texto.push(data[indice+"_dat12"] );
+						texto.push(";");
+						texto.push("0" ); // Alarma 
+						texto.push(";");
+						
+						//texto.push('MODO;ACS;BOMBA;COMPRESOR;DEP ACS;RESIST DEP ACS;TEMP CONSIG ACS;TEMP DEP ACS;TEMP CONSIG CLIMA;ESTD CLIMA;TEMP SAL AGUA;TEMP ICP;TEMP ENTRA AGUA;TEMP REFRIG;FLUJO;TEMP EXT;ALARM;');
+						//texto.push('DTEMP CONSIG CLIMA;ESTD CLIMA;TEMP SAL AGUA;TEMP ICP;TEMP ENTRA AGUA;TEMP REFRIG;FLUJO;TEMP EXT;ALARM;');
+						
+						break;	
+					default :
+						break;
+					}
+				
+				
+				}
+			}
+			texto.push("\n");
+		}
+		
+	debugger;
+	var obj =tablaValoresBruto[0];
+	debugger;
+   }
+   else
+   {
+	    texto.push('FECHA;DATO\n');
+   
+	for(indice=0;indice<numeroFilas;indice++)
+	{
 	  registro=datos[indice];
 	   var d = new Date (registro.x);
 	   var FechaTexto = d.getDate()+' '+mesok[d.getMonth()]+'  '+d.getFullYear()+' '+d.getUTCHours()+':'+d.getMinutes();
@@ -1267,7 +1222,8 @@ function generarTexto(datos) {
 	 
 	   texto.push(registro.y.toString().replace(/\./g,',') );
 	   texto.push("\n");
-  }
+	}
+   }
 
 
     //El contructor de Blob requiere un Array en el primer parámetro
