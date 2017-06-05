@@ -617,7 +617,7 @@
 
 				<div align="center"  >	
 					<div   id="zona_alarma" colspan="1"  >
-					alarmasssssssss
+					
 					</div>
 					<div   align="center" id="zona_iconos"  >
 						
@@ -701,12 +701,40 @@
 						<div id="tranePressCon1" class="allado" >34.5</div>
 					</div>
 				</div>
-				<div class="panel panel-default"   >
+				<div class="panel panel-default"  style="margin-bottom:0;"  >
 					<div class="panel-body icono" align="center" style="padding:5px;background:#E2FBE0;">
 						<div class="allado">Condensador 2 &nbsp;&nbsp;&nbsp;&nbsp <i class="fa fa-thermometer-half " aria-hidden="true"></i> &nbsp; </div>
 						<div id="traneTempCon2" class="allado" >34.5º</div>
 						<div class="allado"> &nbsp;&nbsp;&nbsp;&nbsp <i class="fa fa-tachometer" aria-hidden="true"></i> &nbsp; </div>
 						<div id="tranePressCon2" class="allado" >34.5</div>
+					</div>
+				</div>
+				<div class="panel panel-default"   >
+					<div class="panel-body icono" align="center" style="padding:5px;background:#FCF2DE">
+						<div id="hcompA" class="allado fontpequena" style="padding:5px">
+						Compresor A
+						<div id="horasCompA">2345&nbsp h.</div>
+						</div>
+						<div   id="hcompB"class="allado fontpequena" style="padding:5px">
+						Compresor B
+						<div id="horasCompB">2345&nbsp h.</div>
+						</div>
+						<div  id="hcompC" class="allado fontpequena" style="padding:5px">
+						Compresor C
+						<div id="horasCompC" >2345&nbsp h.</div>
+						</div>
+						<div  id="hcompD" class="allado fontpequena"style="padding:5px">
+						Compresor D
+						<div id="horasCompD" >2345&nbsp h.</div>
+						</div>
+						<div  id="hcompE" class="allado fontpequena" style="padding:5px">
+						Compresor E
+						<div id="horasCompE" >2345&nbsp h.</div>
+						</div>
+						<div  id="hcompF" class="allado fontpequena" style="padding:5px">
+						Compresor F
+						<div id="horasCompF" >2345&nbsp h.</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -870,11 +898,11 @@
 								<label for="usr" id="valor3" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >º</label> 
 							
 								<div>
-									<span class="fa-stack "  aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="valor3"  max="45" >
+									<span class="fa-stack "  aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="valor3"  max="55" >
 										<i class="fa fa-circle fa-stack-2x"></i>
 										<i class="fa fa-chevron-up fa-stack-1x fa-inverse"></i>
 									</span>
-									<span class="fa-stack "  aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="valor3"  max="45" >
+									<span class="fa-stack "  aria-hidden="true" onclick="EvnBajarTemp(this)" visualiza="valor3"  min="22" >
 										<i class="fa fa-circle fa-stack-2x"></i>
 										<i class="fa fa-chevron-down fa-stack-1x fa-inverse"></i>
 									</span>
@@ -918,7 +946,7 @@
 										<i class="fa fa-circle fa-stack-2x"></i>
 										<i class="fa fa-chevron-up fa-stack-1x fa-inverse"></i>
 									</span>
-									<span class="fa-stack "  aria-hidden="true" onclick="EvnSubirTemp(this)" isualiza="valor2" min="22">
+									<span class="fa-stack "  aria-hidden="true" onclick="EvnBajarTemp(this)" visualiza="valor2" min="22">
 										<i class="fa fa-circle fa-stack-2x"></i>
 										<i class="fa fa-chevron-down fa-stack-1x fa-inverse"></i>
 									</span>

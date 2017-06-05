@@ -162,45 +162,68 @@ Trane.prototype.VisualizaElmCompresor=function(VerA, VerB, VerC, VerD, VerE, Ver
 	if(VerA==0)
 	{
 		$('#ttranecompA'+this.Id).hide();
+		$('#hcompA'+this.Id).hide();
 	}
 	else
+	{
 		$('#tranecompA'+this.Id).show();
-	
+		$('#hcompA'+this.Id).show();
+	}
 	
 	if(VerB==0)
 	{
 		$('#tranecompB'+this.Id).hide();
+		$('#hcompB'+this.Id).hide();
 	}
 	else
+	{
 		$('#tranecompB'+this.Id).show();
-
+		$('#hcompB'+this.Id).show();
+	}
+	
 	if(VerC==0)
 	{
 		$('#tranecompC'+this.Id).hide();
+		$('#hcompC'+this.Id).hide();
 	}
 	else
+	{
 		$('#tranecompC'+this.Id).show();
-
+		$('#hcompC'+this.Id).show();
+	}
+	
 	if(VerD==0)
 	{
 		$('#tranecompD'+this.Id).hide();
+		$('#hcompD'+this.Id).hide();
 	}
 	else
+	{
 		$('#tranecompD'+this.Id).show();
-
+		$('#hcompD'+this.Id).show();
+	}
+	
 	if(VerE==0)
 	{
 		$('#tranecompE'+this.Id).hide();
+		$('#hcompE'+this.Id).hide();
 	}
 	else
+	{
 		$('#tranecompE'+this.Id).show();
-
+		$('#hcompE'+this.Id).show();
+	}
+	
 	if(VerF==0)
 	{
 		$('#tranecompF'+this.Id).hide();
+		$('#hcompF'+this.Id).hide();
 	}
 	else
+	{
 		$('#tranecompF'+this.Id).show();
+		$('#hcompF'+this.Id).show();
+	}
 }
 
 Trane.prototype.SetColorVentilador=function(Ventilador,Color)
