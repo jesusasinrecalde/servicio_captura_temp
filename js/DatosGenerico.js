@@ -307,7 +307,7 @@ function DarStringHora(fechaCarriots)
 	mesok[1]="Febrero";
 	mesok[2]="Marzo";
 	mesok[3]="Abril";
-	mesok[4]="Mayo";
+	mesok[4]="Mayo";	
 	mesok[5]="Junio";
 	mesok[6]="Julio";
 	mesok[7]="Agosto";

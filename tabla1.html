@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	
+	
+	<script src="js/jquery-1.11.3.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+	
+  
+		
+   
+	<link rel="stylesheet" type="text/css" href="css/tabla.css">
+	<link rel="stylesheet" type="text/css" href="css/loading.css">
+	<link rel="stylesheet" type="text/css" href="css/register.css">
+	
+
+
+	
+	
+	
+	
+</head>
+<body role="document">
+ <!-- Begin page content -->
+    <div class="container">
+ <!-- Static navbar -->
+ <div class="main-menu">
+      <nav class="navbar navbar-default" id="menuPrincipal">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo "  ><div class="logo">HEJMO</div></a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="#" onclick="About(this)">
+				<div>
+				<span class="fa-stack fa-lg">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-info fa-stack-1x fa-inverse"></i>
+				</span>
+				</div>
+				<div>About</div>
+				
+			 </a></li>
+              <li><a href="#">
+				<div>
+			    <span class="fa-stack fa-lg">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-handshake-o fa-stack-1x fa-inverse"></i>
+				</span>
+				</div>
+				<div>Contact</div>
+			  </a></li>
+              <li><a href="#" id="menu_logout" onclick="EvntLogout(this)" style ="display : none;" >
+				<div>
+				<span class="fa-stack fa-lg">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-user-times fa-stack-1x fa-inverse"></i>
+				</div>
+				<div>Logout</div>
+				</span>
+								
+				</a></li>
+              <li><a href="#" id="menu_login" onclick="EvntLogin(this)">
+				<div>
+				<span class="fa-stack fa-lg">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-user-o fa-stack-1x fa-inverse"></i>
+				</span>
+				</div>
+				<div>Login</div>
+			  </a></li>
+			  <li><a href="#" id="actualizar_dat" onclick="ActualizarDatos(this)" style ="display : none;">
+				<div>
+			   <span class="fa-stack fa-lg">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-refresh fa-stack-1x fa-inverse"></i>
+				</span>
+				</div>
+				<div>Refrescar</div>
+				
+			  </a></li>
+			
+			  
+            </ul>
+            
+			<ul class="nav navbar-nav navbar-right">
+			  <div align="right"> 
+			   <div class="mifooter"  >
+					<div id="city"  ></div>
+					<img  id="icon_temp"  src=""  border="0"  />
+					<div id="temp_city" ></div>
+				</div>
+			    <li class="pie_Pagina"  id="fecha_actualizacion">Pie Pagina </li>
+			  </div>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>       
+                
+	  
+    </div>
+	<div id="contenidoprincipal" class="container theme-showcase " role="main" style="padding-top: 100px;"  >
+	<div class="row" id="contenedor" style="overflow: auto;"></div></div>
+	
+	
+	
+	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
+						<label for="usr" class="unselectable campo div_campo text_tempclima" >Temp. Clima</label>
+						<div class="div_campo div_campo1 div_tempclima" >
+							
+							<div style="clear:left;" class=" pppp">
+								<label for="usr" id="valor3" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >º</label> 
+							
+								<div>
+									<span class="fa-stack ">
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-chevron-up fa-stack-1x fa-inverse"></i>
+									</span>
+									<span class="fa-stack ">
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-chevron-down fa-stack-1x fa-inverse"></i>
+									</span>
+									
+								
+								</div>
+							</div>
+					</div>
+	</div>
+</body>
+
+</html>
+	

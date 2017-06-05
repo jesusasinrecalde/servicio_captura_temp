@@ -237,7 +237,8 @@ margin-right: auto;
 
 
 .div_campo1{
-	margin-left: 50px
+	margin-left: 50px;
+	font-size:18px;
 }
 
 .div_clima{
@@ -331,6 +332,7 @@ margin-right: auto;
 	font-size:15px;
 }
 
+
 .center{
 
 margin-left: 80px;
@@ -386,3 +388,32 @@ border: 2px solid #cccccc;
 background-color:#dddddd
 }
 
+.icono{
+	
+	font-size:15px;
+	 
+}
+
+.padre_allado
+{
+	width:100%
+}
+.allado{
+     margin:5px;
+	 display: table-cell;
+	
+}
+
+
+.paneltrane{
+	
+	font-size:15px;
+	height:30px;
+	
+	
+}
+
+.tranePanel
+{
+	width:250px;
+}

@@ -786,7 +786,7 @@ function CreacionElementos(iNumElementos, nodo )
 {
 	var valor;
 	var Tem1;
-	
+	debugger;
 	for(var indice=0;indice<iNumElementos;indice++)
 	{
 		valor = nodo.data['ID_'+indice];
@@ -810,7 +810,13 @@ function CreacionElementos(iNumElementos, nodo )
 					console.log("Crea elm TAltherma ["+indice+"]\n");
 					Tem1=new Altherma(indice);
 					tabla_objetos.push(Tem1);
-					break;	
+					
+					
+				case "3" : // Trane
+					console.log("Crea elm Trane ["+(indice+4)+"]\n");
+					Tem1=new Trane(indice+4);
+					tabla_objetos.push(Tem1);
+					break;
 				default :
 					break;
 			}
@@ -947,47 +953,33 @@ function EvntBtnAlthermConf(obj)
 	var objeto;
 	var contador=0;
 	$(obj).fadeTo(100, 0.1).fadeTo(200, 1.0);
-	for (x=0;x<tabla_objetos.length;x++)
+	
+	Id=obj.getAttribute('objid');
+	
+	var obj=DarObjeto(Id);
+	if(obj)
 	{
-		objeto=tabla_objetos[x];
+		obj.MostrarVentanaModal();
+	}
 	
-		if(objeto.get("Tipo")==2)
-		{
-			break;
-			objeto.MostrarVentanaModal();
-			
-		}
-		objeto=null;
-		
-	}	
-	if(objeto)
-		objeto.MostrarVentanaModal();	
-	
-	//$('#AlthermaConf').modal('show');
 }
 
-function EvntBtnFINAlthermConf(obj)
+function EvntBtnFINAlthermConf(boton,obj)
 {
-	var objeto;
-	var contador=0;
-	$(obj).fadeTo(100, 0.1).fadeTo(200, 1.0);
-	for (x=0;x<tabla_objetos.length;x++)
-	{
-		objeto=tabla_objetos[x];
 	
-		if(objeto.get("Tipo")==2)
-		{
-			break;
-			objeto.MostrarVentanaModal();
-			
-		}
-		objeto=null;
-		
-	}	
-	if(objeto)
-		objeto.FinalizarVentanaModal();	
 	
+	$(boton).fadeTo(100, 0.1).fadeTo(200, 1.0);
+	
+	var ObjId=obj.getAttribute('elm');
+	var objeto=DarObjeto(ObjId);
 	debugger;
+	
+	if(objeto)
+	{
+		objeto.FinalizarVentanaModal();	
+		$(obj).modal('toggle'); // se cierra la ventana 
+	}
+	
 	
 	EnviarDatos(); // se envia los datos independientemente de si cambian o no sera la raspberri quien sepa si cambian o no 
 	
@@ -1002,26 +994,20 @@ function EvntBtnFINAlthermConf(obj)
 	
 }	
 
-function EvnReload(obj)
+function EvnReload(boton,obj)
 {
 	var objeto;
 	var contador=0;
-	$(obj).fadeTo(100, 0.1).fadeTo(200, 1.0);
-	for (x=0;x<tabla_objetos.length;x++)
-	{
-		objeto=tabla_objetos[x];
+	$(boton).fadeTo(100, 0.1).fadeTo(200, 1.0);
+
+	var ObjId=obj.getAttribute('elm');
+	var objeto=DarObjeto(ObjId);
 	
-		if(objeto.get("Tipo")==2)
-		{
-			break;
-			objeto.MostrarVentanaModal();
-			
-		}
-		objeto=null;
-		
-	}	
 	if(objeto)
+	{
 		objeto.EventoVentanaModal(1);	
+	}
+
 }
 
 

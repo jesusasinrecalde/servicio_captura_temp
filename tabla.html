@@ -24,6 +24,10 @@
 	<script type="text/javascript" src="js/Altherma.js"></script>
 	<script type="text/javascript" src="js/register.js"></script>
 	<script type="text/javascript" src="js/comun.js"></script>
+	<script type="text/javascript" src="js/Trane.js"></script>
+	<script type="text/javascript" src="js/elmgraph.js"></script>
+	
+
 
 
 	
@@ -358,9 +362,9 @@
 								
 							</td>
 							
-						</tr>	
+					</tr>	
 						
-						</table>
+				</table>
 						
 						
 						
@@ -454,7 +458,7 @@
     <td class="tg-228w"  width ="400"> <div class="tg-228w" id="caption">Datos</div></td>
 	<td>
 		
-	</span></td>	
+	</td>	
 	<td class="tg-228w">
 		<img class ="image_cab" id="icono_warning"  src="./graph/warning.png"  border="0" width="20" height="20" />
 		<div  id="TempExterior" >----</div>
@@ -494,76 +498,72 @@
 				
 			</table>
 				
-						<div class="panel-group" id="accordion" align="center">
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Mas Datos</a>
-									</h4>
-								</div>
-							<div id="collapseOne" class="panel-collapse collapse">
-								<div class="tg-wrap col-xs-24 col-md-6 tablaparam" id="elm1" align="center">
-									Deposito ACS :
-									<img class ="image_cab bullet" id="dat8"  src="./graph/bullet_grey.png"  />
-								</div>
-								<div class="tg-wrap col-xs-24 col-md-6 tablaparam" id="elm2" align="center">
-									Resistencia dep. ACS :
-									<img class ="image_cab bullet" id="dat10"  src="./graph/bullet_grey.png"  />
-								</div>
-								
-								<div class="tg-wrap col-xs-24 col-md-6 tablaparam" id="elm3" align="center">
-										Temp consigna ACS : 
-										<a class="tablaparam" id="dat12">----</a>
-								</div>
-								<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm6" align="center">
-										Temp. dep. ACS:
-										<a class="tablaparam" id="dat15">----</a>
-								</div>
-								<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm4" align="center">
-										Temp consigna Clima:
-										<a class="tablaparam" id="dat13">----</a>
-								</div>
-										
-								<div class="tg-wrap col-xs-24 col-md-6 tablaparam" id="elm5" align="center">
-										Estado Clima : 
-										<img class ="image_cab bullet" id="dat14"  src="./graph/bullet_grey.png"  />
-								</div>
-								
-								<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm7" align="center">
-										Temp. salida agua: 
-										<a class="tablaparam" id="dat16">----</a>
-								</div>
-								<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm8" align="center">
-									Temp. agua ICP :
-									<a class="tablaparam" id="dat17">----</a>
-								</div>
-								<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm9" align="center">
-									Temp. entrante agua : 
-									<a class="tablaparam" id="dat19">----</a>
-								</div>
-								<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm10" align="center">
-									Temp. refigerante: 
-									<a class="tablaparam" id="dat20">----</a>
-								</div>
-								<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm11" align="center">
-									Flujo : 
-									<a class="tablaparam" id="dat23">----</a>
-								</div>
-							
-								<table align="center"  >
-									<tr id="marco_principal" class="tg-s6z2" colspan="3" >
-										<tr class="tablaparam" colspan="4" >
-											<td class="tablaparam" id="dat25"></td>
-										</tr>
-									</tr>
-					
-								</table>
-							</div>
-							</div>
+			<div class="panel-group" id="accordion" align="center">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Mas Datos</a>
+						</h4>
+					</div>
+					<div id="collapseOne" class="panel-collapse collapse">
+						<div class="tg-wrap col-xs-24 col-md-6 tablaparam" id="elm1" align="center">
+							Deposito ACS :
+							<img class ="image_cab bullet" id="dat8"  src="./graph/bullet_grey.png"  />
 						</div>
+						<div class="tg-wrap col-xs-24 col-md-6 tablaparam" id="elm2" align="center">
+							Resistencia dep. ACS :
+							<img class ="image_cab bullet" id="dat10"  src="./graph/bullet_grey.png"  />
+						</div>
+						<div class="tg-wrap col-xs-24 col-md-6 tablaparam" id="elm3" align="center">
+							Temp consigna ACS : 
+							<a class="tablaparam" id="dat12">----</a>
+						</div>
+						<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm6" align="center">
+							Temp. dep. ACS:
+							<a class="tablaparam" id="dat15">----</a>
+						</div>
+						<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm4" align="center">
+							Temp consigna Clima:
+							<a class="tablaparam" id="dat13">----</a>
+						</div>
+						<div class="tg-wrap col-xs-24 col-md-6 tablaparam" id="elm5" align="center">
+							Estado Clima : 
+							<img class ="image_cab bullet" id="dat14"  src="./graph/bullet_grey.png"  />
+						</div>
+						<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm7" align="center">
+							Temp. salida agua: 
+							<a class="tablaparam" id="dat16">----</a>
+						</div>
+						<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm8" align="center">
+							Temp. agua ICP :
+							<a class="tablaparam" id="dat17">----</a>
+						</div>
+						<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm9" align="center">
+							Temp. entrante agua : 
+							<a class="tablaparam" id="dat19">----</a>
+						</div>
+						<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm10" align="center">
+							Temp. refigerante: 
+							<a class="tablaparam" id="dat20">----</a>
+						</div>
+						<div class="tg-wrap col-xs-12 col-md-6 tablaparam" id="elm11" align="center">
+							Flujo : 
+							<a class="tablaparam" id="dat23">----</a>
+						</div>
+							
+						<table align="center"  >
+							<tr id="marco_principal" class="tg-s6z2" colspan="3" >
+								<tr class="tablaparam" colspan="4" >
+									<td class="tablaparam" id="dat25"></td>
+								</tr>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
 				
 				
-				<table align="center">
+			<table align="center">
 				<tr>
 					<td>
 						<i id="configuracion" class="fa fa-cogs fa-2x "  onclick="EvntBtnAlthermConf(this)"> </i>
@@ -579,16 +579,157 @@
 				   <td class="tg-228w" id="obj_onoff" align="left" >
 					</td>
 				</tr>
-				</table>
 			</table>
+			
 		</td>
 	</div>
+	<!-- /td marco_inf -->
+  </tr>
+ </table>
+</div>
+</template>
+
+
+<template id="Trane">
+	
+<div class="tg-wrap col-xs-12 col-md-6" id="obj_tipo2" align="center">
+<table class="tg">
+  
+  <tr class="header" id="marco_superior" colspan = "6">
+    <td class="tg-228w" >
+		<img class ="image_cab" id="icono_despliegue"  src=".\graph\arrow_down.png" onclick="EvntBtwDespliegue(this)"  border="0" width="15" height="20" />
+		
+	</td>
+    <td class="tg-228w"  width ="400"> <div class="tg-228w" id="caption">Temporizador1</div></td>
+    <td class="tg-228w" id="tempAmbiente" >25.5º</td>
+	<td></td>
+	<td></td>
+    <td class="tg-228w" id="obj_onoff" >
+		<img class ="image_cab" id="icono_OnOffSup"  src=".\graph\on.png" onclick="EvntBtnOn_off(this)"  border="0" width="20" height="20" />
+	</td>	
+  </tr >
+  <tr  id="marco_inf" style='display:none;'>
+	<!-- td id="marco_inf" -->
+ 	<td  colspan = "6" >
+		 <div class="div_marco_inf" >
+		
+			<div  class="tg-s6z2" id="zona_iconos" colspan="6"  >
+
+				<div align="center"  >	
+					<div   id="zona_alarma" colspan="1"  >
+					alarmasssssssss
+					</div>
+					<div   align="center" id="zona_iconos"  >
+						
+						<div class="allado" align="center">
+							<i class="fa fa-sun-o " id="traneModoCalor" title="Modo Calor" ></i>
+							<i class="fa fa-snowflake-o " id="traneModoFrio" title="Modo Frio"></i>
+						</div>
+						<div class="allado">&nbsp;&nbsp;&nbsp;&nbsp</div>
+						<div class="allado">
+							<div  id="traneCapacidadReal" title="Capacidad Real"  >66%</div>
+							<div  id="traneCapacidadReal_porc" class="progress" style="height:10px;">
+								<div class="progress-bar progress-bar-info" role="progressbar" 	aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 66%">
+									<span class="sr-only">20% completado</span>
+								</div>
+							</div>
+							
+							
+						</div>
+						<div class="allado">&nbsp;&nbsp;&nbsp;&nbsp</div>			
+						<div class="allado" >
+							<div style="margin-bottom:0;">
+								<i class="fa fa-circle icono " id="tranefanA" title="Ventilador A"></i>
+								<i class="fa fa-circle icono  " id="tranefanB" title="Ventilador B"></i>
+								<i class="fa fa-circle icono "  id="tranefanC" title="Ventilador C"></i>
+								<i class="fa fa-circle icono " id="tranefanD" title="Ventilador D"></i>
+								<i class="fa fa-circle icono"  id="tranefanE" title="Ventilador E"></i>
+								<i class="fa fa-circle icono " id="tranefanF" title="Ventilador F"></i>
+							</div>
+							<div >
+								<i class="fa fa-flash icono" id="tranecompA" title="Compresor A"></i>
+								<i class="fa fa-flash icono" id="tranecompB" title="Compresor B"></i>
+								<i class="fa fa-flash icono" id="tranecompC" title="Compresor C"></i>
+								<i class="fa fa-flash icono" id="tranecompD" title="Compresor D"></i>
+								<i class="fa fa-flash icono" id="tranecompE" title="Compresor E"></i>
+								<i class="fa fa-flash icono" id="tranecompF" title="Compresor F"></i>
+							
+							</div>
+						</div>
+						<div class="allado">&nbsp;&nbsp;&nbsp;&nbsp </div>
+						<div class="allado" title="Temperatura salida agua del evaporador">
+							<i class="fa fa-long-arrow-down icono" aria-hidden="true"></i>
+							<i class="fa fa-thermometer-half icono" aria-hidden="true"></i>
+							<div id="traneTempout" class="icono">40º</div>
+						</div>
+						<div class="allado">&nbsp;&nbsp;&nbsp;&nbsp</div>
+						<div class="allado" title="Temperatura entrada agua del evaporador">
+							
+							<i class="fa fa-long-arrow-up icono" aria-hidden="true"></i>
+							<i class="fa fa-thermometer-half icono" aria-hidden="true"></i>
+							<div id="traneTempin" class="icono">34.5º</div>
+							
+						</div>
+					
+				
+				</div>
+				
+			</div>
+			<div id="zona_central" >
+				<div class="panel panel-default" style="margin-bottom:0;">
+					<div class="panel-body icono" align="center" style="padding:5px;">
+						<div class="allado">Circuito 1&nbsp;&nbsp;&nbsp;&nbsp<i class="fa fa-thermometer-half " aria-hidden="true"></i>&nbsp;</div>
+						<div id="traneTempC1" class="allado" >34.5º</div>
+						<div class="allado">&nbsp;&nbsp;&nbsp;&nbsp <i class="fa fa-tachometer" aria-hidden="true"></i> &nbsp;	</div>
+						<div id="tranePressC1" class="allado" >34.5</div>
+					</div>
+				</div>
+				<div class="panel panel-default" style="margin-bottom:0;"  >
+					<div class="panel-body icono" align="center" style="padding:5px;">
+						<div class="allado">Circuito 2&nbsp;&nbsp;&nbsp;&nbsp <i class="fa fa-thermometer-half " aria-hidden="true"></i> &nbsp;	</div>
+						<div id="traneTempC2" class="allado" >34.5º</div>
+						<div class="allado"> &nbsp;&nbsp;&nbsp;&nbsp <i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp; </div>
+						<div id="tranePressC2" class="allado" >34.5</div>
+					</div>
+				</div>
+			
+				<div class="panel panel-default" style="margin-bottom:0;"  >
+					<div class="panel-body icono" align="center" style="padding:5px;background:#E2FBE0;">
+						<div class="allado">Condensador 1 &nbsp;&nbsp;&nbsp;&nbsp <i class="fa fa-thermometer-half " aria-hidden="true"></i> &nbsp; </div>
+						<div id="traneTempCon1" class="allado" >34.5º</div>
+						<div class="allado"> &nbsp;&nbsp;&nbsp;&nbsp <i class="fa fa-tachometer" aria-hidden="true"></i> &nbsp; </div>
+						<div id="tranePressCon1" class="allado" >34.5</div>
+					</div>
+				</div>
+				<div class="panel panel-default"   >
+					<div class="panel-body icono" align="center" style="padding:5px;background:#E2FBE0;">
+						<div class="allado">Condensador 2 &nbsp;&nbsp;&nbsp;&nbsp <i class="fa fa-thermometer-half " aria-hidden="true"></i> &nbsp; </div>
+						<div id="traneTempCon2" class="allado" >34.5º</div>
+						<div class="allado"> &nbsp;&nbsp;&nbsp;&nbsp <i class="fa fa-tachometer" aria-hidden="true"></i> &nbsp; </div>
+						<div id="tranePressCon2" class="allado" >34.5</div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="zona_inferior">
+				<div>
+					<i id="configuracion" class="fa fa-cogs fa-2x "  onclick="EvntBtnAlthermConf(this)"> </i>
+				</div>
+				<div id="on_off" colspan ="6" align="center">
+					<a href="#"  id="btn_onoff" onclick="EvntBtnOn_off(this)">
+						<img class ="image_cab" id="icono_OnOffInf"  src=".\graph\on.png" border="0" width="60" height="60" />
+					</a>
+
+				</div>
+			</div>
+		</div>	
+		
+		</td>
 	<!-- /td marco_inf -->
   </tr>
   </table>
 </div>
 </template>
-
 
 <template id="ejemplo_base">
 	
@@ -703,9 +844,9 @@
 		<div class="modal-content">
 			<div class="modal-header  cabecera ">
 			<h4 class="modal-title  ">
-				<i class="fa fa-arrow-left" style="float: left;"    onclick="EvntBtnFINAlthermConf(this)"></i>
+				<i class="fa fa-arrow-left" style="float: left;"   onclick="EvntBtnFINAlthermConf(this,AlthermaConf)"></i>
 				&nbsp&nbsp&nbsp&nbsp&nbsp&nbspConfiguracion
-				<i class="fa fa-undo"  style=" float: right;" onclick="EvnReload(this)"></i>
+				<i class="fa fa-undo"  style=" float: right;" onclick="EvnReload(this, AlthermaConf)"></i>
 			</h4>
 			</div>
 		<div class="modal-body" >
@@ -713,9 +854,9 @@
 			<div class="text-center center" >
 				<div class="row ">
 					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" >
-						<div class="div_campo" ><label for="usr" class="unselectable campo text_clima" >Clima</label></div>
+						<div  ><label for="usr" class="unselectable campo div_campo text_clima"  >Clima</label></div>
 						<div  class="div_campo div_campo1 div_clima" >
-							<span class="fa-stack fa-lg boton_pwd fa-2x  " id="clima"  onclick="EvnBtnPwd(this)" estado="1" >
+							<span class="fa-stack fa-lg  fa-2x div_campo div_campo1" id="clima"  onclick="EvnBtnPwd(this)" estado="1" >
 								<i class="fa fa-circle fa-stack-2x"></i>
 								<i class="fa fa-power-off fa-stack-1x fa-inverse"></i>
 							</span>	
@@ -724,22 +865,35 @@
 					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
 						<label for="usr" class="unselectable campo div_campo text_tempclima" >Temp. Clima</label>
 						<div class="div_campo div_campo1 div_tempclima" >
-							<i class="fa fa-chevron-up fa-2x" style="clear:left;"  aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="valor3"  max="45" ></i>
+							
 							<div style="clear:left;" class=" pppp">
 								<label for="usr" id="valor3" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >º</label> 
+							
+								<div>
+									<span class="fa-stack "  aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="valor3"  max="45" >
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-chevron-up fa-stack-1x fa-inverse"></i>
+									</span>
+									<span class="fa-stack "  aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="valor3"  max="45" >
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-chevron-down fa-stack-1x fa-inverse"></i>
+									</span>
+									
+								
+								</div>
 							</div>
-							<div style="clear:left;" >
-								<i class="fa fa-chevron-down fa-2x" aria-hidden="true" onclick="EvnBajarTemp(this)" visualiza="valor3" min="7" ></i>
-							</div>
+							
+							
+							
 						</div>
 					</div>
 					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12  " >
 						<div>
 							<label for="usr" class="unselectable campo div_campo text_clima" >Modo Clima</label>
 						</div>
-						<span class="fa-stack fa-lg  fa-2x div_campo div_campo1"   >
+						<span class="fa-stack fa-lg  fa-2x div_campo div_campo1"  id="modo" onclick="EvnBtnModo(this)" estado="1" >
 							<i class="fa fa-circle fa-stack-2x"></i>
-							<i class="fa fa-sun-o fa-stack-1x fa-inverse"  id="modo" onclick="EvnBtnModo(this)" estado="1"></i>
+							<i class="fa fa-sun-o fa-stack-1x fa-inverse" id="modo1" ></i>
 						</span>
 					</div>
 				</div>
@@ -755,15 +909,24 @@
 					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 "  >
 						<label for="usr" class="unselectable campo div_campo text_tempclima" >Temp. ACS</label>
 						<div class="div_campo div_campo1 div_tempacs">
-							<div  >
-								<i class="fa fa-chevron-up fa-2x" aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="valor2"  max="55" ></i>
-							</div>
+							
 							<div style="clear:left;" class=" pppp">
 								<label for="usr" id="valor2" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >º</label> 
+							
+								<div  >
+									<span class="fa-stack "  aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="valor2"  max="55"  >
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-chevron-up fa-stack-1x fa-inverse"></i>
+									</span>
+									<span class="fa-stack "  aria-hidden="true" onclick="EvnSubirTemp(this)" isualiza="valor2" min="22">
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-chevron-down fa-stack-1x fa-inverse"></i>
+									</span>
+									
+								
+								</div>
 							</div>
-							<div style="clear:left;" >
-								<i class="fa fa-chevron-down fa-2x" aria-hidden="true" onclick="EvnBajarTemp(this)" visualiza="valor2" min="22" ></i>
-							</div>	
+							
 						</div>
 					</div>
 			
@@ -775,5 +938,127 @@
 	</div>
  </div> 
  
+ 
+ 
+<div class="modal fade" id="TraneConf"  >
+    <div class="modal-dialog fullscreen">
+		<div class="modal-content">
+			<div class="modal-header  cabecera ">
+			<h4 class="modal-title  ">
+				<i class="fa fa-arrow-left" style="float: left;"    onclick="EvntBtnFINAlthermConf(this,TraneConf)"></i>
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbspConfiguracion Trane
+				<i class="fa fa-undo"  style=" float: right;" onclick="EvnReload(this,TraneConf)"></i>
+			</h4>
+			</div>
+			<div class="modal-body" >
+			
+				<div class="text-center center" >
+				<div class="row ">
+					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" >
+						<div  ><label for="usr" class="unselectable campo div_campo text_clima"  >Arranque</label></div>
+						<div  class="div_campo div_campo1 div_clima" >
+							<span class="fa-stack fa-lg  fa-2x div_campo div_campo1" id="TraneActDesc"  onclick="EvnBtnPwd(this)" estado="1" >
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-power-off fa-stack-1x fa-inverse" id="TraneActDesc1" ></i>
+							</span>	
+						</div>
+					</div>
+					
+					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12  " >
+						<div>
+							<label for="usr" class="unselectable campo div_campo text_clima" >Modo Clima</label>
+						</div>
+						<span class="fa-stack fa-lg  fa-2x div_campo div_campo1"   id="tranemodo" onclick="EvnBtnModo(this)" estado="1" >
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-sun-o fa-stack-1x fa-inverse" id="tranemodo1" ></i>
+						</span>
+					</div>
+					
+					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
+						<label for="usr" class="unselectable campo div_campo text_tempclima" >Temp. Agua</label>
+						<div class="div_campo div_campo1 div_tempclima" >
+							
+							<div style="clear:left;" class=" pppp">
+								<label for="usr" id="traneTempAgua" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >º</label> 
+							
+								<div>
+									<span class="fa-stack "  aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="traneTempAgua"  max="45" >
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-chevron-up fa-stack-1x fa-inverse"></i>
+									</span>
+									<span class="fa-stack "  aria-hidden="true" onclick="EvnBajarTemp(this)" visualiza="traneTempAgua"  min="10" >
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-chevron-down fa-stack-1x fa-inverse"></i>
+									</span>
+									
+								
+								</div>
+							</div>
+							
+							
+							
+						</div>
+					</div>
+					
+					
+					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
+						<label for="usr" class="unselectable campo div_campo text_tempclima" >Limite corriente</label>
+						<div class="div_campo div_campo1 div_tempclima" >
+							
+							<div style="clear:left;" class=" pppp">
+								<label for="usr" id="traneLimiteCorriente" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >&nbsp%</label> 
+							
+								<div>
+									<span class="fa-stack "  aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="traneLimiteCorriente"  max="100" >
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-chevron-up fa-stack-1x fa-inverse"></i>
+									</span>
+									<span class="fa-stack "  aria-hidden="true" onclick="EvnBajarTemp(this)" visualiza="traneLimiteCorriente"  min="0" >
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-chevron-down fa-stack-1x fa-inverse"></i>
+									</span>
+									
+								
+								</div>
+							</div>
+							
+							
+							
+						</div>
+					</div>
+					
+					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
+						<label for="usr" class="unselectable campo div_campo text_tempclima" >Temp calefacción</label>
+						<div class="div_campo div_campo1 div_tempclima" >
+							
+							<div style="clear:left;" class=" pppp">
+								<label for="usr" id="traneTempCalefaccion" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >º</label> 
+							
+								<div>
+									<span class="fa-stack "  aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="traneTempCalefaccion"  max="80" >
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-chevron-up fa-stack-1x fa-inverse"></i>
+									</span>
+									<span class="fa-stack "  aria-hidden="true" onclick="EvnBajarTemp(this)" visualiza="traneTempCalefaccion"  min="30" >
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-chevron-down fa-stack-1x fa-inverse"></i>
+									</span>
+									
+								
+								</div>
+							</div>
+							
+							
+							
+						</div>
+					</div>
+					
+				</div>
+				</div>
+				  
+			</div>
+		</div>
+	</div>
+ </div> 
 </html>
 	

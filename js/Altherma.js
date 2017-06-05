@@ -103,6 +103,8 @@ function Altherma(idTerm)
 	
 	ObjectoGenerico.prototype.ClonaGenerico_2.call(this);// ... una vez definido el objeto grafico al completo lo incluimos en la pagina 
 	
+	document.getElementById("configuracion"+this.Id).setAttribute("ObjID",this.Id);
+	
 	//llamarServicioCarriotsNummObjt(this.Id,6);
 	$('.accordion'+this.Id).collapse();
 	this.Actualizar();// Situamos la visualizacion al mismo nivel que el estado del objeto
@@ -512,7 +514,7 @@ Altherma.prototype.MostrarVentanaModal=function()
 Altherma.prototype.FinalizarVentanaModal=function()
 {
 	debugger;
-	$("#AlthermaConf").modal('toggle');
+
 	this.grabacion.StdClima=GetBotonColor("#clima");
 	this.grabacion.StdACS=GetBotonColor("#ACS");
 	this.grabacion.ModoClima=GetBotonColor("#modo");
@@ -573,24 +575,7 @@ Altherma.prototype.DarDatosAGrabar=function()
 				
 	return salida ;
 }
-function SetBotonColor(obj,estado)
-{
-		if(estado==0)
-		{
-			estado="0";
-			color="#FF0000";
-		}
-		else
-		{
-			estado="1";
-			color="#00FF26";
-			
-		}
-		
-		$(obj).attr("estado",estado);
-		$(obj).css("color",color);
 
-}
 
 function GetBotonColor(obj)
 {
@@ -600,110 +585,7 @@ function GetBotonColor(obj)
 
 }
 
-function EvnBtnModo(obj)
-{
-
-	$(obj).fadeTo(100, 0.1).fadeTo(200, 1.0);
-	var estado=obj.getAttribute('estado');
-	if(estado)
-	{
-		if(estado=="0")
-		{
-			SetModo(obj,"1");
-			
-		}
-		else
-		{
-			SetModo(obj,"0");
-			
-		}
-		//obj.setAttribute("estado",estado);
-	}
-}
-
-function SetModo(obj, estado)
-{
-	if(estado==1)
-	{
-		$(obj).removeClass("fa-sun-o");
-		$(obj).addClass("fa-snowflake-o");
-		estado="1";
-	}
-	else
-	{
-		estado="0";
-		$(obj).removeClass("fa-snowflake-o");
-		$(obj).addClass("fa-sun-o");
-		
-	}
-	$(obj).attr("estado",estado);
-	
-}
 
 
-function EvnBajarTemp(obj)
-{
-	debugger;
-	
-	var visualiza=obj.getAttribute('visualiza');
-	var minimo=obj.getAttribute('min');
-	if(visualiza && minimo)
-	{	
-		var valmin=parseFloat(minimo);
-		var elem1=document.getElementById(visualiza);
-		var numero = parseFloat(elem1.innerHTML)
-		if(numero >minimo)
-		{
-			$(obj).fadeTo(100, 0.1).fadeTo(200, 1.0);
-			numero-=0.5;
-			elem1.innerHTML=numero;
-		};
-	}
-	
-}
-
-function EvnSubirTemp(obj)
-{
-	debugger;
-	var visualiza=obj.getAttribute('visualiza');
-	var maximo=obj.getAttribute('max');
-	
-	if(visualiza && maximo)
-	{	
-		var valmax=parseFloat(maximo);
-		var elem1=document.getElementById(visualiza);
-		var numero = parseFloat(elem1.innerHTML)
-		if(numero <valmax)
-		{
-			$(obj).fadeTo(100, 0.1).fadeTo(200, 1.0);
-			numero+=0.5;
-			elem1.innerHTML=numero;
-		};
-	}
-}
-
-function EvnBtnPwd(obj)
-{
-	$(obj).fadeTo(100, 0.1).fadeTo(200, 1.0);
-	var estado=obj.getAttribute('estado');
-	var color;
-	if(estado)
-	{
-		if(estado=="1")
-		{
-			estado="0";
-			color="#FF0000";
-		}
-		else
-		{
-			estado="1";
-			color="#00FF26";
-			
-		}
-		
-		obj.setAttribute("estado",estado);
-		$(obj).css("color",color);
-	}
-}
 
 
