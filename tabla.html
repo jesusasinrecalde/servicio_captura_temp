@@ -40,7 +40,7 @@
     <div class="container">
  <!-- Static navbar -->
  <div class="main-menu">
-      <nav class="navbar navbar-default" id="menuPrincipal">
+      <nav class="navbar navbar-default" id="menuPrincipal" style ="margin-bottom : 0px;">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -54,57 +54,77 @@
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li><a href="#" onclick="About(this)">
-				<div>
+				
 				<span class="fa-stack fa-lg">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-info fa-stack-1x fa-inverse"></i>
 				</span>
-				</div>
-				<div>About</div>
 				
+				About			
 			 </a></li>
               <li><a href="#">
-				<div>
+				
 			    <span class="fa-stack fa-lg">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-handshake-o fa-stack-1x fa-inverse"></i>
 				</span>
-				</div>
-				<div>Contact</div>
+				
+				Contact
 			  </a></li>
               <li><a href="#" id="menu_logout" onclick="EvntLogout(this)" style ="display : none;" >
-				<div>
+				
 				<span class="fa-stack fa-lg">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-user-times fa-stack-1x fa-inverse"></i>
-				</div>
-				<div>Logout</div>
 				</span>
+				Logout
+				
 								
 				</a></li>
               <li><a href="#" id="menu_login" onclick="EvntLogin(this)">
-				<div>
+				
 				<span class="fa-stack fa-lg">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-user-o fa-stack-1x fa-inverse"></i>
 				</span>
-				</div>
-				<div>Login</div>
+				
+				Login
 			  </a></li>
+			  
 			  <li><a href="#" id="actualizar_dat" onclick="ActualizarDatos(this)" style ="display : none;">
-				<div>
+				
 			   <span class="fa-stack fa-lg">
 				<i class="fa fa-circle fa-stack-2x"></i>
 				<i class="fa fa-refresh fa-stack-1x fa-inverse"></i>
 				</span>
-				</div>
-				<div>Refrescar</div>
+		
+				Refrescar
 				
 			  </a></li>
 			
-			  
+			 
+			<li class="dropdown">
+
+				<a href="#" id="elementos_dat" data-toggle="dropdown" class="dropdown-toggle" >
+					
+						<span class="fa-stack fa-lg">
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-th-large fa-stack-1x fa-inverse"></i>
+						</span>
+					
+					Elementos <b class="caret"></b>
+				</a>
+            <ul class="dropdown-menu" id="menu_elementos">
+                
+            </ul>
+			</li>
+
+
+			 
             </ul>
             
+			
+			
 			<ul class="nav navbar-nav navbar-right">
 			  <div align="right"> 
 			   <div class="mifooter"  >
@@ -117,8 +137,11 @@
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
+		
       </nav>       
-                
+       <div id="errorfaldon">
+		
+		</div>         
 	  
     </div>
 	<div id="contenidoprincipal" class="container theme-showcase " role="main" style="padding-top: 100px;"  >
@@ -139,7 +162,7 @@
 		
 	</td>
     <td class="tg-228w"  width ="400"> <div class="tg-228w" id="caption_temp">Temporizador1</div></td>
-    <td class="tg-228w" id="tempAmbiente" >25.5º</td>
+    <td class="tg-228w" id="tempAmbiente" >25.5ï¿½</td>
      <td class="tg-228w" id="temp1" >
 		<img class ="image_cab" id="icono_OnOffSup"  src=".\graph\on.png" onclick="BtnOn_off(this)"  border="0" width="20" height="20" />
 	 </td>	
@@ -169,7 +192,7 @@
 					<img class ="image_cab" id="icono_func_mas"  src=".\graph\mas.png" border="0" width="40" height="40" />
 				</a>
 			</td>
-			<td   width="300" align="center"><div  id="temp_grande" class="temp_grande">35.5º</div><div  id="temp_peque" >35.5º</div></td>
+			<td   width="300" align="center"><div  id="temp_grande" class="temp_grande">35.5ï¿½</div><div  id="temp_peque" >35.5ï¿½</div></td>
 			<td align="righ">
 				<a href="#"  id="btn_menos" onclick="BtnBajarTemp(this)">
 					<img class ="image_cab" id="icono_func_menos"  src=".\graph\menos.png" border="0" width="40" height="40" />
@@ -222,7 +245,7 @@
 		<img class ="image_cab" id="icono_despliegue"  src=".\graph\arrow_down.png" onclick="EvntBtwDespliegue(this)"  border="0" width="15" height="20" />
 	</td>
     <td class="tg-228w"  width ="400"> <div class="tg-228w" id="caption">Temporizador1</div></td>
-    <td class="tg-228w" id="tempAmbiente" >25.5º</td>
+    <td class="tg-228w" id="tempAmbiente" >25.5ï¿½</td>
 	<td></td>
 	<td></td>
     <td class="tg-228w" id="obj_onoff" >
@@ -255,7 +278,7 @@
 					<img class ="image_cab" id="icono_func_mas"  src=".\graph\mas.png" border="0" width="40" height="40" />
 				</a>
 			</td>
-			<td   width="300" align="center"><div  id="temp_grande" class="temp_grande">35.5º</div><div  id="temp_peque" >35.5º</div></td>
+			<td   width="300" align="center"><div  id="temp_grande" class="temp_grande">35.5ï¿½</div><div  id="temp_peque" >35.5ï¿½</div></td>
 			<td align="righ">
 				<a href="#"  id="btn_menos" onclick="EvnBajarTemp(this)">
 					<img class ="image_cab" id="icono_func_menos"  src=".\graph\menos.png" border="0" width="40" height="40" />
@@ -297,7 +320,7 @@
 		<img class ="image_cab" id="icono_consumo"  src="./graph/igual.png"  border="0" width="20" height="20" />		
 	
 	</td>
-	<td></td>
+	<td><i  id="icono_error" class="fa fa-exclamation-triangle icono_warning " aria-hidden="true" ></i></td>
 	
 	<td class="tg-228w">
 		<div  id="CarbonEmitidos" >----</div>
@@ -315,7 +338,11 @@
     <div class="div_marco_inf" >
 		
 		<td  colspan="6" >
+				
 				<table align ="center">
+				<tr  class="tg-s6z2" id="zona_alarma" colspan="1"  >
+					
+				</tr>
 				<tr>
 				<td>
 				<div class="cuadro"  align="center">
@@ -457,10 +484,10 @@
 	</td>
     <td class="tg-228w"  width ="400"> <div class="tg-228w" id="caption">Datos</div></td>
 	<td>
-		
+		<i  id="icono_error" class="fa fa-exclamation-triangle icono_warning " aria-hidden="true" ></i>
 	</td>	
 	<td class="tg-228w">
-		<img class ="image_cab" id="icono_warning"  src="./graph/warning.png"  border="0" width="20" height="20" />
+		
 		<div  id="TempExterior" >----</div>
     </td>
 	<td class="tg-228w" id="obj_onoff" >
@@ -601,9 +628,10 @@
 		
 	</td>
     <td class="tg-228w"  width ="400"> <div class="tg-228w" id="caption">Temporizador1</div></td>
-    <td class="tg-228w" id="tempAmbiente" >25.5º</td>
+   
 	<td></td>
-	<td></td>
+	<td><i  id="icono_error" class="fa fa-exclamation-triangle icono_warning " aria-hidden="true" ></i></td>
+	 <td class="tg-228w" id="tempAmbiente" >25.5ï¿½</td>
     <td class="tg-228w" id="obj_onoff" >
 		<img class ="image_cab" id="icono_OnOffSup"  src=".\graph\on.png" onclick="EvntBtnOn_off(this)"  border="0" width="20" height="20" />
 	</td>	
@@ -660,14 +688,14 @@
 						<div class="allado" title="Temperatura salida agua del evaporador">
 							<i class="fa fa-long-arrow-down icono" aria-hidden="true"></i>
 							<i class="fa fa-thermometer-half icono" aria-hidden="true"></i>
-							<div id="traneTempout" class="icono">40º</div>
+							<div id="traneTempout" class="icono">40ï¿½</div>
 						</div>
 						<div class="allado">&nbsp;&nbsp;&nbsp;&nbsp</div>
 						<div class="allado" title="Temperatura entrada agua del evaporador">
 							
 							<i class="fa fa-long-arrow-up icono" aria-hidden="true"></i>
 							<i class="fa fa-thermometer-half icono" aria-hidden="true"></i>
-							<div id="traneTempin" class="icono">34.5º</div>
+							<div id="traneTempin" class="icono">34.5ï¿½</div>
 							
 						</div>
 					
@@ -679,7 +707,7 @@
 				<div class="panel panel-default" style="margin-bottom:0;">
 					<div class="panel-body icono" align="center" style="padding:5px;">
 						<div class="allado">Circuito 1&nbsp;&nbsp;&nbsp;&nbsp<i class="fa fa-thermometer-half " aria-hidden="true"></i>&nbsp;</div>
-						<div id="traneTempC1" class="allado" >34.5º</div>
+						<div id="traneTempC1" class="allado" >34.5ï¿½</div>
 						<div class="allado">&nbsp;&nbsp;&nbsp;&nbsp <i class="fa fa-tachometer" aria-hidden="true"></i> &nbsp;	</div>
 						<div id="tranePressC1" class="allado" >34.5</div>
 					</div>
@@ -687,7 +715,7 @@
 				<div class="panel panel-default" style="margin-bottom:0;"  >
 					<div class="panel-body icono" align="center" style="padding:5px;">
 						<div class="allado">Circuito 2&nbsp;&nbsp;&nbsp;&nbsp <i class="fa fa-thermometer-half " aria-hidden="true"></i> &nbsp;	</div>
-						<div id="traneTempC2" class="allado" >34.5º</div>
+						<div id="traneTempC2" class="allado" >34.5ï¿½</div>
 						<div class="allado"> &nbsp;&nbsp;&nbsp;&nbsp <i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp; </div>
 						<div id="tranePressC2" class="allado" >34.5</div>
 					</div>
@@ -696,7 +724,7 @@
 				<div class="panel panel-default" style="margin-bottom:0;"  >
 					<div class="panel-body icono" align="center" style="padding:5px;background:#E2FBE0;">
 						<div class="allado">Condensador 1 &nbsp;&nbsp;&nbsp;&nbsp <i class="fa fa-thermometer-half " aria-hidden="true"></i> &nbsp; </div>
-						<div id="traneTempCon1" class="allado" >34.5º</div>
+						<div id="traneTempCon1" class="allado" >34.5ï¿½</div>
 						<div class="allado"> &nbsp;&nbsp;&nbsp;&nbsp <i class="fa fa-tachometer" aria-hidden="true"></i> &nbsp; </div>
 						<div id="tranePressCon1" class="allado" >34.5</div>
 					</div>
@@ -704,7 +732,7 @@
 				<div class="panel panel-default"  style="margin-bottom:0;"  >
 					<div class="panel-body icono" align="center" style="padding:5px;background:#E2FBE0;">
 						<div class="allado">Condensador 2 &nbsp;&nbsp;&nbsp;&nbsp <i class="fa fa-thermometer-half " aria-hidden="true"></i> &nbsp; </div>
-						<div id="traneTempCon2" class="allado" >34.5º</div>
+						<div id="traneTempCon2" class="allado" >34.5ï¿½</div>
 						<div class="allado"> &nbsp;&nbsp;&nbsp;&nbsp <i class="fa fa-tachometer" aria-hidden="true"></i> &nbsp; </div>
 						<div id="tranePressCon2" class="allado" >34.5</div>
 					</div>
@@ -770,7 +798,7 @@
 		
 	</td>
     <td class="tg-228w"  width ="400"> <div class="tg-228w" id="caption">Temporizador1</div></td>
-    <td class="tg-228w" id="tempAmbiente" >25.5º</td>
+    <td class="tg-228w" id="tempAmbiente" >25.5ï¿½</td>
 	<td></td>
 	<td></td>
     <td class="tg-228w" id="obj_onoff" >
@@ -883,7 +911,7 @@
 				<div class="row ">
 					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" >
 						<div  ><label for="usr" class="unselectable campo div_campo text_clima"  >Clima</label></div>
-						<div  class="div_campo div_campo1 div_clima" >
+						<div  class="div_campo div_campo1 div_clima div_clima1" >
 							<span class="fa-stack fa-lg  fa-2x div_campo div_campo1" id="clima"  onclick="EvnBtnPwd(this)" estado="1" >
 								<i class="fa fa-circle fa-stack-2x"></i>
 								<i class="fa fa-power-off fa-stack-1x fa-inverse"></i>
@@ -895,7 +923,7 @@
 						<div class="div_campo div_campo1 div_tempclima" >
 							
 							<div style="clear:left;" class=" pppp">
-								<label for="usr" id="valor3" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >º</label> 
+								<label for="usr" id="valor3" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >ï¿½</label> 
 							
 								<div>
 									<span class="fa-stack "  aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="valor3"  max="55" >
@@ -919,7 +947,7 @@
 						<div>
 							<label for="usr" class="unselectable campo div_campo text_clima" >Modo Clima</label>
 						</div>
-						<span class="fa-stack fa-lg  fa-2x div_campo div_campo1"  id="modo" onclick="EvnBtnModo(this)" estado="1" >
+						<span class="fa-stack fa-lg  fa-2x div_campo div_campo1 div_modo"  id="modo" onclick="EvnBtnModo(this)" estado="1" >
 							<i class="fa fa-circle fa-stack-2x"></i>
 							<i class="fa fa-sun-o fa-stack-1x fa-inverse" id="modo1" ></i>
 						</span>
@@ -939,7 +967,7 @@
 						<div class="div_campo div_campo1 div_tempacs">
 							
 							<div style="clear:left;" class=" pppp">
-								<label for="usr" id="valor2" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >º</label> 
+								<label for="usr" id="valor2" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >ï¿½</label> 
 							
 								<div  >
 									<span class="fa-stack "  aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="valor2"  max="55"  >
@@ -996,18 +1024,18 @@
 						<div>
 							<label for="usr" class="unselectable campo div_campo text_clima" >Modo Clima</label>
 						</div>
-						<span class="fa-stack fa-lg  fa-2x div_campo div_campo1"   id="tranemodo" onclick="EvnBtnModo(this)" estado="1" >
+						<span class="fa-stack fa-lg  fa-2x div_campo div_campo1 div_modoClima"   id="tranemodo" onclick="EvnBtnModo(this)" estado="1" >
 							<i class="fa fa-circle fa-stack-2x"></i>
 							<i class="fa fa-sun-o fa-stack-1x fa-inverse" id="tranemodo1" ></i>
 						</span>
 					</div>
 					
 					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
-						<label for="usr" class="unselectable campo div_campo text_tempclima" >Temp. Agua</label>
-						<div class="div_campo div_campo1 div_tempclima" >
+						<label for="usr" class="unselectable campo div_campo text_tempclima " >Temp. Agua</label>
+						<div class="div_campo div_campo1 div_tempclima div_tempclima1" >
 							
 							<div style="clear:left;" class=" pppp">
-								<label for="usr" id="traneTempAgua" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >º</label> 
+								<label for="usr" id="traneTempAgua" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >ï¿½</label> 
 							
 								<div>
 									<span class="fa-stack "  aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="traneTempAgua"  max="45" >
@@ -1031,7 +1059,7 @@
 					
 					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
 						<label for="usr" class="unselectable campo div_campo text_tempclima" >Limite corriente</label>
-						<div class="div_campo div_campo1 div_tempclima" >
+						<div class="div_campo div_campo1 div_tempclima2" >
 							
 							<div style="clear:left;" class=" pppp">
 								<label for="usr" id="traneLimiteCorriente" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >&nbsp%</label> 
@@ -1056,11 +1084,11 @@
 					</div>
 					
 					<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ">
-						<label for="usr" class="unselectable campo div_campo text_tempclima" >Temp calefacción</label>
-						<div class="div_campo div_campo1 div_tempclima" >
+						<label for="usr" class="unselectable campo div_campo text_tempclima" >Temp calefacciï¿½n</label>
+						<div class="div_campo div_campo1 div_tempclima div_tempclima3" >
 							
 							<div style="clear:left;" class=" pppp">
-								<label for="usr" id="traneTempCalefaccion" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >º</label> 
+								<label for="usr" id="traneTempCalefaccion" class="unselectable"  >Name:</label><label for="usr" class="unselectable" >ï¿½</label> 
 							
 								<div>
 									<span class="fa-stack "  aria-hidden="true" onclick="EvnSubirTemp(this)" visualiza="traneTempCalefaccion"  max="80" >

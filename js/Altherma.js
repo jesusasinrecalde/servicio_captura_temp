@@ -92,7 +92,7 @@ function Altherma(idTerm)
 	
 	clone.getElementById("dat28").id ="dat28"+this.Id;
 	
-	clone.getElementById("icono_warning").id ="icono_warning"+this.Id;
+	//clone.getElementById("icono_warning").id ="icono_warning"+this.Id;
 	
 	clone.getElementById("configuracion").id ="configuracion"+this.Id;
 	
@@ -108,7 +108,7 @@ function Altherma(idTerm)
 	//llamarServicioCarriotsNummObjt(this.Id,6);
 	$('.accordion'+this.Id).collapse();
 	this.Actualizar();// Situamos la visualizacion al mismo nivel que el estado del objeto
-	
+	this.SetError("ON","texto de error de prueba");
 };
 
 Altherma.prototype = Object.create(ObjectoGenerico.prototype); 

@@ -9,28 +9,42 @@ var tabla_datos_tres_horas;
 var timer_interval_modo;
 var timer_interval_lectura_datos;
 var IdObjetoGlobal; // variable usada para pasar el IdObjeto atraves de funciones callback
-
+var NumeroErroresFaldon;
 var g_key;
 var g_device;
 
 window.onload = function() {
 	
 	
+	InicializaVisError();
 	 $("#loading").addClass('hide');
 	g_key=localStorage["hjm_key"];
 	g_device=localStorage["hjm_device"];
 	if(g_key==null || g_device==null)
 	{
 		
-		$('#login-modal').modal('show');
+		$('#login-modal').modal('show');$('#login-modal').modal('show');
 	}
 	else
 	{
+		// peticion al usuario de permiso para permitir el uso de notificaciones
+		if( Notification.permission === 'default' ) {
+				Notification.requestPermission(function(permission) {
+				// callback
+														if( permission === 'granted' ) {
+															console.log("Permiso para usar notificaciones");
+														}
+												});
+		}
+		
+		
 		
 		LanzamientoHejmo();
 	}
 
 }
+
+
 
 function LanzamientoHejmo()
 {
@@ -171,7 +185,7 @@ function BtnSubirTemp( obj )
 	data.configuracion.temperatura+=0.5;
 	
 	var elem1=document.getElementById('temp_grande'+id_ter);
-    elem1.innerHTML=data.configuracion.temperatura+"º";
+    elem1.innerHTML=data.configuracion.temperatura+"ï¿½";
 
 	if(data.configuracion.temperatura!=data.parametros.temperatura)
 	{
@@ -199,7 +213,7 @@ function BtnBajarTemp(obj)
 	data.configuracion.temperatura-=0.5;
 	
 	var elem1=document.getElementById('temp_grande'+id_ter);
-    elem1.innerHTML=data.configuracion.temperatura+"º";
+    elem1.innerHTML=data.configuracion.temperatura+"ï¿½";
 	if(data.configuracion.temperatura!=data.parametros.temperatura)
 	{
 		temp_peque.style.visibility='visible';
@@ -313,7 +327,7 @@ function Desplegar (id_term,origen)
 		$('#icono_OnOffSup'+id_term).fadeOut(400);
 		
 		var icono = document.getElementById('icono_despliegue'+id_term);
-		icono.src="./graph/arrow_up.png";
+		icono.src="assets/img/arrow_up.png";
 		
 		if(origen==0)
 			$('#marco_inf'+id_term).toggle("fade");
@@ -341,7 +355,7 @@ function Actualizar( cambiaEstado, id_term)
     CaptionElem.innerHTML=data.Caption;
 	
 	var tempAmbiente = document.getElementById('tempAmbiente'+id_term);
-	tempAmbiente.innerHTML=data.parametros.temperaturaAmbiente+"º";
+	tempAmbiente.innerHTML=data.parametros.temperaturaAmbiente+"ï¿½";
 	
 	
 	
@@ -712,7 +726,7 @@ function recepcionServicioRESTPrimeravez (datosREST)
     elem1.innerHTML=stringFecha;
 	
 	
-	// añadimos los elementos a la tabla de 3 horas en orden LIFO ya que hay que mantener que el primer elemento sea el mas reciente
+	// aï¿½adimos los elementos a la tabla de 3 horas en orden LIFO ya que hay que mantener que el primer elemento sea el mas reciente
 	//tabla_datos_tres_horas=datosREST.result.slice();
 
 	
@@ -735,6 +749,7 @@ function recepcionServicioRESTPrimeravez (datosREST)
 
 function llamarServicioCarriots()
 {
+
 //	**** var carriotsURL = 'http://api.carriots.com/devices/defaultDevice@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
 //	var carriotsURL = 'http://api.carriots.com/devices/prueba@jesusasinrecalde.jesusasinrecalde/streams/?order=-1&max=1';
 	var carriotsURL = 'http://api.carriots.com/devices/'+g_device+'/streams/?order=-1&max=30';
@@ -800,22 +815,26 @@ function CreacionElementos(iNumElementos, nodo )
 					Tem1= new TermostatoSistena(indice);
 					Tem1.set("Visible",true);
 					tabla_objetos.push(Tem1);
+					InsertaOpcionMenuElementos(indice);
 					break;
 				case "1" : // datos genericos
 					console.log("Crea elm contador ["+indice+"]\n");
 					Tem1=new DatosGenerico(indice);
 					tabla_objetos.push(Tem1);
+					InsertaOpcionMenuElementos(indice);
 					break;
 				case "2" : // Altherma
 					console.log("Crea elm TAltherma ["+indice+"]\n");
 					Tem1=new Altherma(indice);
 					tabla_objetos.push(Tem1);
-					
+					InsertaOpcionMenuElementos(indice);
 					
 				case "3" : // Trane
+					//cargarRecursos("js/Trane.js");
 					console.log("Crea elm Trane ["+(indice+4)+"]\n");
 					Tem1=new Trane(indice+4);
 					tabla_objetos.push(Tem1);
+					InsertaOpcionMenuElementos(indice+4);
 					break;
 				default :
 					break;
@@ -826,6 +845,70 @@ function CreacionElementos(iNumElementos, nodo )
 	}
 }
 
+// funcion para insertar una opcion en el menu de elementos
+function InsertaOpcionMenuElementos(IdElem )
+{
+	var obj=DarObjeto(IdElem);
+	$("#menu_elementos").append("<li><a href=\"#\" "
+	+"Elemento=\""+IdElem+"\""
+	+"Estado=\"1\""
+	+" Id=\"check"+IdElem +"\">" 
+	+obj.get("Caption")  
+	+"</a></li>");
+	
+	$("#check"+IdElem).click(  MenuElementoCheck);
+	
+	// ï¿½ tiene registro asociado la opcion de menu ?
+	var EstadoElemento=localStorage["hjm_elm"+IdElem];
+	if(EstadoElemento==null)
+	{
+		// no existe se crea el elemento
+		EstadoElemento="1";
+		localStorage["hjm_elm"+IdElem]=EstadoElemento;
+	}
+	debugger;
+	if(EstadoElemento=="0") // El estado es no visible
+	{
+		$("#Elemento"+IdElem).attr("Estado","0");
+		$("#check"+IdElem).css("color","#DFE0DF");
+		obj.set("Visible",false);
+	}
+	else // Estado Visible
+	{
+		$("#Elemento"+IdElem).attr("Estado","1");
+	}
+}
+
+// Funcion que recibe el evento de pulsar el check de visibilidad del elemento
+function MenuElementoCheck(objeto)
+{
+	debugger;
+	var IdObjeto=$(this).attr('Elemento');
+	var Estado=localStorage["hjm_elm"+IdObjeto];
+	var color;
+	var obj=DarObjeto(IdObjeto);
+	if(Estado=="1")
+		{
+			Estado="0";
+			color="#DFE0DF";
+			obj.set("Visible",false);
+			
+		}
+		else
+		{
+			Estado="1";
+			color="#000000";
+			obj.set("Visible",true);
+			
+		}
+		
+		localStorage["hjm_elm"+IdObjeto]=Estado;
+		$(this).attr("Estado",Estado);
+		$("#check"+IdObjeto).css("color",color);
+		
+	
+	
+}
 // funcion que notifica a cada uno de los elementos existentes los datos recibidos para que se actualicen 
 function ActualizarParametrosRecibidor(Parametros,ParametrosTresHoras,flgPrimeraVez)
 {
@@ -865,7 +948,7 @@ function ActualizarFooter(Parametros)
 		if(Parametros.data['temp']!="")
 		{
 			var elem1=document.getElementById("temp_city");
-			elem1.innerHTML=Parametros.data['temp']+"ºC";
+			elem1.innerHTML=Parametros.data['temp']+"ï¿½C";
 		}
 	}
 	
@@ -1073,3 +1156,88 @@ function EnviarDatos(obj)
 	}
 	
 }
+
+function MostrarErrorFaldon(Identificativo,texto)
+{
+	if(document.getElementById( Identificativo )==null)
+	{
+		if(NumeroErroresFaldon==0)
+		{
+			$("#errorfaldon").show();
+		}
+		NumeroErroresFaldon++;
+		$("#errorfaldon").append("<div id=\""+Identificativo+ "\">"
+								+texto
+								+"</div>");
+		
+		var opciones = {
+			iconUrl: "graph/warning_1.png", /* (opcional) aï¿½n no implementado */
+			icon: "graph/warning_1.png", /* (opcional) aï¿½n no implementado */
+			//body: "Contenido del cuerpo de la notificaciï¿½n", /* (opcional) si se omite el tï¿½tulo serï¿½ el cuerpo */
+			tag: Identificativo /* (opcional) Nunca habrï¿½ dos notificaciones con la misma etiqueta, asï¿½ que cuando se muestre se cerrarï¿½n las otras que tengan la misma etiqueta */
+		}
+		// Creamos la notificaciï¿½n
+		var notificacion = new window.Notification(texto, opciones);
+		// La mostramos
+		//notificacion.show();
+	}
+}
+
+function BorrarErrorFaldon(Identificativo)
+{
+	debugger;
+	if(document.getElementById( Identificativo ))
+	{
+		
+		NumeroErroresFaldon--;
+		var element = document.getElementById(Identificativo);
+		element.parentNode.removeChild(element);
+		
+		if(NumeroErroresFaldon==0)
+		{
+			$("#errorfaldon").hide();
+		}
+	}
+}
+
+
+function InicializaVisError()
+{
+	$('#errorfaldon').hide();
+	NumeroErroresFaldon=0;
+}
+
+
+var cargarObjetos="";
+  function cargarRecursos()
+  {
+    if(!document.getElementById)
+	{
+         return;
+    }
+    var i = 0;
+	for(i=0; i<arguments.length; i++)
+	{
+        var archivo=arguments[i];
+		var archivoref="";
+        if(cargarObjetos.indexOf(archivo)==-1)
+		{
+            if(archivo.indexOf(".js")!=-1)
+			{
+                archivoref=document.createElement('script');archivoref.setAttribute("type","text/javascript");
+                archivoref.setAttribute("src", archivo);
+            }else if(archivo.indexOf(".css")!=-1)
+			{
+                archivoref=document.createElement("link");
+                archivoref.setAttribute("rel", "stylesheet");
+                archivoref.setAttribute("type", "text/css");
+                archivoref.setAttribute("href", archivo);
+            }
+        }
+		if(archivoref!="")
+		{
+            document.getElementsByTagName("head").item(0).appendChild(archivoref);
+            cargarObjetos+=archivo+" ";
+        }
+    }
+  }

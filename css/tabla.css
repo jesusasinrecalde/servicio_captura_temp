@@ -242,28 +242,46 @@ margin-right: auto;
 }
 
 .div_clima{
-	margin-left: 92px
-}
-
-.div_tempclima{
 	margin-left: 60px
 }
 
+.div_clima1{
+	margin-left: 66px
+}
+.div_modo{
+	margin-left: 74px
+}
+.div_modoClima{
+	margin-left: 92px
+}
+.div_tempclima{
+	margin-left: 60px
+}
+.div_tempclima1{
+	margin-left: 79px
+}
+.div_tempclima2{
+	margin-left: 54px
+}
+.div_tempclima3{
+	margin-left: 43px
+}
+
 .div_acs{
-	margin-left: 99px
+	margin-left: 121px
 }
 
 .div_tempacs{
-	margin-left: 70px
+	margin-left: 65px
 }
 
 .text_clima
 {
-	margin-top:19px;
+	margin-top:11px;
 }
 
 .text_tempclima{
-	margin-top:30px;
+	margin-top:20px;
 }
 }
 
@@ -420,4 +438,17 @@ background-color:#dddddd
 .tranePanel
 {
 	width:250px;
+}
+
+#errorfaldon
+{
+	background-color:#FF0000;
+	margin-top: 0px;
+	font-size:15px;
+	color:#ffffff 
+}
+
+.icono_warning
+{
+	color:#FF0000;
 }

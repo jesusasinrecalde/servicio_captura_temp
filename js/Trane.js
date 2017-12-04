@@ -4,10 +4,6 @@ function Trane(idTerm)
 {
 	"use strict";
 	
-
-	debugger;
-
-
 	ObjectoGenerico.call(this,idTerm,3,"Trane","Trane"+idTerm,false,"#35A127","#D6FFD1","#8B70EE"/*"#370EC8"*/,"#669");
 	
 	this.Id=idTerm;
@@ -79,7 +75,7 @@ function Trane(idTerm)
 
 	
 	this.Actualizar();// Situamos la visualizacion al mismo nivel que el estado del objeto
-	
+	this.SetError("ON","texto de error de prueba de trane");
 };
 
 Trane.prototype = Object.create(ObjectoGenerico.prototype); 

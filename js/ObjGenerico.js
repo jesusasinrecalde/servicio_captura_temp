@@ -24,6 +24,8 @@ function ObjectoGenerico(idTerm,Tipo,Caption,Nombre,bflgVerBTNONOFF,SUP_ColorFon
 	this.Caption=Caption;
 	this.Nombre=Nombre;
 	this.Estado="APAGADO"; 
+	this.flgError=false;
+	this.textoError="";
 	this.SUP_ColorFondoActivo=SUP_ColorFondoActivo;
 	this.SUP_ColorActivo=SUP_ColorActivo;
 	this.SUP_ColorFondoInactivo=SUP_ColorFondoInactivo;
@@ -51,6 +53,9 @@ ObjectoGenerico.prototype.get=function(atributo)
 			break;
 		case "Estado":
 			return this.Estado;
+			break;
+		case "Nombre" :
+			return this.Nombre;
 			break;
 		default :
 			return null;
@@ -80,6 +85,7 @@ ObjectoGenerico.prototype.set=function(atributo,valor)
 				$('#'+this.Nombre+this.Id).hide();
 
 			}
+			this.VisualizaError();
 			break;
 		case "Minimizado" :
 			this.Minimizado=valor;
@@ -117,8 +123,11 @@ ObjectoGenerico.prototype.ClonaGenerico=function(NombrePlantilla)
 	
 	// ============ ELEMENTOS MARCO INFERIOR =====================================
 	elemento.getElementById("marco_inf").id="marco_inf"+this.Id;
+	elemento.getElementById("zona_alarma").id="zona_alarma"+this.Id;
 	elemento.getElementById("btn_onoff").id="btn_onoff"+this.Id;
 	elemento.getElementById("icono_OnOffInf").id="icono_OnOffInf"+this.Id;
+	elemento.getElementById("icono_error").id="icono_error"+this.Id;
+	
 	
 	
 	this.GraphicName=this.Nombre+this.Id;
@@ -149,7 +158,7 @@ ObjectoGenerico.prototype.Desplegar=function()
 	var icono = document.getElementById('icono_despliegue'+this.Id);
 	if(this.Minimizado)// paso a maximizamo
 	{
-		icono.src="./graph/arrow_up.png";
+		icono.src="assets/img/arrow_up.png";
 		if(this.flgVerBTNONOFF)
 		{
 			$('#icono_OnOffSup'+this.Id).fadeOut(400);// si se pasa de minizado a maximizado el boton de apagado del caption desaparece
@@ -216,7 +225,7 @@ ObjectoGenerico.prototype.Actualizar=function()
 			iconoOnOff.src="./graph/on.png";
 			
 			// ======= ELEMENTOS MARCO INFERIOR
-			iconoOnOffInf.src="./graph/on.png";
+			iconoOnOffInf.src="assets/img/on.png";
 			MarcoInf.style.color="#555BA8";
 			MarcoInf.style.backgroundColor="#A9A8E8"
 			
@@ -226,14 +235,14 @@ ObjectoGenerico.prototype.Actualizar=function()
 			// ======== ELEMENTOS MARCO SUPERIOR =========================
 			MarcoSup.style.backgroundColor=this.SUP_ColorFondoInactivo;
 			MarcoSup.style.color=this.SUP_ColorInactivo;
-			iconoOnOff.src="./graph/off.png";
+			iconoOnOff.src="assets/img/off.png";
 			
 			// ======== ELEMENTOS MARCO INFERIOR ========================
-			iconoOnOffInf.src="./graph/off.png";
+			iconoOnOffInf.src="assets/img/off.png";
 			MarcoInf.style.backgroundColor="#E6E9FF";
 			break;
 	}
-	
+	this.VisualizaError();
 }
 
 /** Funcion generica que indica si hay datos modificado, sin sobrecargar siempre da false
@@ -347,4 +356,49 @@ ObjectoGenerico.prototype.FinalizarVentanaModal=function()
 ObjectoGenerico.prototype.EventoVentanaModal=function(Evento)
 {
 	return ;
+}
+
+// Modo de operacion de error 
+ObjectoGenerico.prototype.SetError=function(Modo,texto)
+{
+	// Se crea un div con el nombre "err"+id
+	if(Modo=="ON")
+	{
+		this.flgError=true;
+		this.textoError=texto;
+		
+	}
+	else
+	{
+		this.flgError=false;
+		this.textoError="";
+	}
+	this.VisualizaError();
+}
+
+ObjectoGenerico.prototype.VisualizaError=function()
+{
+	var dato="#"+"icono_error"+this.Id;
+				
+	if( this.flgError==true )
+	{
+		var elem1=document.getElementById('zona_alarma'+this.Id);
+		elem1.innerHTML=this.textoError;
+		$(dato).show();
+		if(this.visible==true)
+		{
+			BorrarErrorFaldon("err"+this.Id);
+			
+		}
+		else
+		{
+			MostrarErrorFaldon("err"+this.Id,"["+this.Caption+"]  "+this.textoError);
+		}
+	}
+	else
+	{
+		$(dato).hide();
+		BorrarErrorFaldon("err"+this.Id);
+	}
+
 }
